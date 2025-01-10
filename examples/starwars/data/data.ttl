@@ -1,0 +1,608 @@
+prefix stardog: <tag:stardog:api:>
+prefix catalog: <tag:stardog:api:catalog:>
+prefix m: <urn:stardog:modules:>
+prefix kg: <tag:stardog:api:context:>
+prefix sqs: <tag:stardog:api:sqs:>
+prefix rule: <tag:stardog:api:rule:>
+prefix sd: <urn:stardog:>
+prefix sql: <tag:stardog:api:sql:>
+prefix mp: <urn:stardog:marketplace:>
+
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix sh: <http://www.w3.org/ns/shacl#>
+
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix dcat: <http://www.w3.org/ns/dcat#>
+prefix dct: <http://purl.org/dc/terms/>
+prefix qudt: <http://qudt.org/schema/qudt/>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix void: <http://rdfs.org/ns/void#>
+prefix so: <https://schema.org/>
+prefix prov: <http://www.w3.org/ns/prov#>
+
+prefix : <urn:example:starwars:>
+
+    :PhantomMenace a :Episode ;
+      :name "The Phantom Menace" ;
+      :index 1 .
+    :AOTC a :Episode ;
+      :name "Attack of the Clones" ;
+      :index 2 .
+    :ROTS a :Episode ;
+      :name "Revenge of the Sith" ;
+      :index 3 .
+
+    :NewHope a :Episode ;
+      :name "A New Hope" ;
+      :index 4 .
+    :EmpireStrikesBack a :Episode ;
+      :name "The Empire Strikes Back" ;
+      :index 5 .
+    :ROTJ a :Episode ;
+      :name "Return of the Jedi" ;
+      :index 6 .
+    :TFA a :Episode ;
+      :name "The Force Awakens" ;
+      :index 7 .
+    :TLJ a :Episode ;
+      :name "The Last Jedi" ;
+      :index 8 .
+    :ROS a :Episode ;
+      :name "The Rise of Skywalker" ;
+      :index 9 .
+
+    :planets:Alderaan a :Planet ;
+      :region :CoreWorlds ;
+      :sector :AlderaanSector ;
+      :system :AlderaanSystem .
+
+    :planets:Tatooine a :Planet ;
+      :region :OuterRim ;
+      :sector :Arkanis ;
+      :system :Tatoo .
+
+    :GalaticRepublic :capitalWorld :Coruscant .
+    :GalacticEmpire :capitalWorld :Coruscant .
+
+    :JediCouncil a :Organization .
+
+    :NewRepublic :leader :characters:Leia%20Organa .
+    :GalacticEmpire :leader :characters:Palpatine .
+
+    :FirstOrder :leader :Snoke .
+    :FinalOrder :leader :characters:Palpatine .
+    :FinalOrder :capitalWorld :Exagal .
+
+
+    # entities
+
+    :characters:Yoda a :JediMaster, :Character.
+
+    :characters:Obi-Wan%20Kenobi :apprentice :characters:Anakin%20Skywalker .
+    :characters:Obi-Wan%20Kenobi :apprentice :characters:Luke%20Skywalker .
+    :characters:Anakin%20Skywalker a :JediKnight , :Character; :homePlanet :planets:Tatooine.
+
+    :DarthSidious :apprentice :characters:Darth%20Maul .
+    :characters:Qui-Gon%20Jinn :apprentice :characters:Obi-Wan%20Kenobi .
+    :characters:Dooku :apprentice :characters:Qui-Gon%20Jinn .
+
+    :planets:Socorro a :Planet ; rdfs:label "Socorro" ; :system :GoldSystem .
+    :GoldSystem a :System ; rdfs:label "Gold System"; :region :OuterRim .
+
+    :TheFalcon a :PilotEvent ; :craft :craft:Millennium%20Falcon ; :pilot :characters:Han%20Solo, :characters:Chewbacca ; rdfs:label "Millennium Falcon" .
+    :TheFalconAtEndor a :PilotEvent ; :craft :craft:Millennium%20Falcon ; :pilot :characters:Lando%20Calrissian, :Nien%20Nunb ; rdfs:label "Millennium Falcon" .
+
+    :characters:Chewbacca a :Character ; rdfs:label "Chewbacca" ; :homePlanet :planets:Kashyyyk ; :appearsIn :NewHope, :EmpireStrikesBack, :ROTJ .
+
+    :characters:Lando%20Calrissian a :Character ; rdfs:label "Lando Calrissian" ; :homePlanet :planets:Socorro ; :appearsIn :ROTJ .
+    :Nien%20Nunb a :Character ; :homePlanet :Sullust ; :appearsIn :ROTJ .
+
+    :characters:Han%20Solo :homePlanet :planets:Corellia   .
+    :characters:Wedge%20Antilles a :Human, :Character ; rdfs:label "Wedge Antilles" ; :appearsIn :NewHope ; :homePlanet :planets:Corellia.
+    :characters:Luke%20Skywalker a :JediMaster, :Character.
+    :characters:Darth%20Vader a :Sith , :Character.
+    :characters:Darth%20Vader owl:sameAs :characters:Anakin%20Skywalker .
+    :characters:Darth%20Maul a :Sith , :Character; rdfs:label "Darth Maul" .
+    :DarthSidious a :Sith , :Character; rdfs:label "Darth Sidious" .
+    :Snoke a :Sith, :Character ; rdfs:label "Snoke".
+    :KyloRen a :Sith, :Character ; rdfs:label "Kylo Ren".
+    :KyloRen owl:sameAs :BenSolo .
+    :Snoke :apprentice :KyloRen .
+    :characters:Palpatine a :Human, :Character .
+    :characters:Palpatine :homePlanet :planets:Naboo .
+    
+    :characters:Palpatine owl:sameAs :DarthSidious .
+    :BenSolo a :Human, :Character, :Padawan .
+
+    # lineage
+    :characters:Anakin%20Skywalker :fatherOf :characters:Luke%20Skywalker , :characters:Leia%20Organa .
+    :characters:Han%20Solo :fatherOf :BenSolo .
+    :characters:Leia%20Organa :motherOf :BenSolo .
+
+    :characters:Luke%20Skywalker rdfs:label "Luke Skywalker" .
+
+    # movies
+    #:characters:Luke%20Skywalker :playedBy :MarkHamill .
+    #:characters:Leia%20Organa :playedBy :CarrieFisher .
+    #:characters:Han%20Solo :playedBy :HarrisonFord .
+    :NewHope :depictsEvent :BattleOfYavin.
+
+    # places
+    :planets:Naboo a :Planet .
+    :planets:Exagal a :Planet .
+    :planets:Coruscant a :Planet ; :region :CoreWorlds .
+
+    # Rebel Alliance
+
+    :RebelAllianceMilitary :parentOrg :RebelAlliance .
+    :RebelAllianceNavy :parentOrg :RebelAllianceMilitary .
+    :StarfighterCorps :parentOrg :RebelAllianceNavy .
+
+    :BlackSquadron a :Squadron ; rdfs:label "Black Squadron"; :parentOrg :GalacticNavy .
+    :BlackSquadron :member :characters:Darth%20Vader .
+    :BlackSquadron :member :KelaNeerik .
+
+    :RedSquadron a :Squadron ; rdfs:label "Red Squadron"; :parentOrg :StarfighterCorps .
+    :RedSquadron :commander :characters:Luke%20Skywalker .
+    :RedSquadron :member :characters:Wedge%20Antilles .
+    :RogueSquadron a :Squadron ; :parentOrg :RebelAlliance ; rdfs:label "Rogue Squadron" .
+    :RogueSquadron :member :characters:Wedge%20Antilles .
+
+    :GoldSquadron a :Squadron ; rdfs:label "Gold Squadron"; :parentOrg :StarfighterCorps .
+    :RedSquadron2 a :Squadron ; :parentOrg :RebelAlliance ; rdfs:label "Red Squadron".
+    :RedSquadron2 :commander :characters:Wedge%20Antilles .
+
+    :KuatShipyard a :SpaceStation ;
+        :owner :KuatDriveYards ;
+        :system :KuatSystem .
+
+    :CECShipyard a :SpaceStation ;
+        :owner :CEC ;
+        :system :CorelliaSystem .
+
+    :KuatSector a :Sector ; rdfs:label "Kuat Sector" ; :region :CoreWorlds .
+    :KuatSystem a :System ; rdfs:label "Kuat System" ; :sector :KuatSector .
+    :planets:Kuat a :Planet ; :system :KuatSystem ; rdfs:label "Kuat" .
+
+    :CorellianSector a :Sector ; rdfs:label "Corellian Sector" ; :region :CoreWorlds .
+    :CorellianSystem a :System ; rdfs:label "Corellian System" ; :sector :CorellianSector .
+    :planets:Corellia a :Planet ; :system :CorellianSystem .
+
+    # events
+    :GalacticCivilWar a :War ; rdfs:label "Galactic Civil War".
+
+    :BattleOfYavin a :Battle ;
+        rdfs:label "Battle of Yavin" ;
+        :battleName "Battle of Yavin" ;
+        :partOfWar :GalacticCivilWar ;
+        :foughtIn :Yavin%20IV .
+
+    :RebelAlliance a :Organization .
+    :RebelAlliance :foughtInWar :GalacticCivilWar .
+    :GalacticEmpire a :Organization .
+    :GalacticEmpire :foughtInWar :GalacticCivilWar .
+
+    :BaseOne a :Base ; rdfs:label "Base One" ; :locatedOn :Yavin%20IV .
+
+    :planets:Yavin%20IV a :Planet ; rdfs:label "Yavin IV" ; :system :YavinSystem.
+    :YavinSystem a :System ; rdfs:label "Yavin System" .
+
+    :GreenSquadron a :Squadron ;
+        :parentOrg :StarfighterCorps ;
+        rdfs:label "Green Squadron" ;
+        :headquarters :BaseOne .
+
+    :BP1 a :BattleUnit ;
+        rdfs:label "Green Squadron" ;
+        :battleUnit :GreenSquadron ;
+        :participant :green01 ;
+        :participant :green02 ;
+        :participant :green03 ;
+        :participant :green04 ;
+        :participant :green05 ;
+        :participant :green06 ;
+        :participant :green07 ;
+        :participant :green08 ;
+        :participant :green09 ;
+        :participant :green10 ;
+        .
+
+    :AllianceAtYavin a :BattleParticipation ;
+        rdfs:label "Rebel Forces" ;
+        :participant :RebelAlliance ;
+        :battle :BattleOfYavin ;
+        :asset :BP1, :BP2, :BP3.
+
+    :EmpireAtYavin a :BattleParticipation ;
+        rdfs:label "Empire" ;
+        :participant :GalacticEmpire ;
+        :battle :BattleOfYavin ;
+        :asset :EmpireBlackSquadron ;
+        :asset :Fortitude ;
+        :asset :BP4 .
+
+    :Fortitude a :BattleUnit ; :craft :craft:Star%20Destroyer ; rdfs:label "Fortitude".
+
+    :EmpireBlackSquadron a :BattleUnit ;
+        rdfs:label "Black Squadron" ;
+        :battleUnit :BlackSquadron ;
+        :participant :characters:Darth%20VaderShip ;
+        :participant :black2 ;
+        :participant :black3 .
+
+    :characters:Darth%20VaderShip a :PilotEvent ; :craft :craft:TIE%20Advanced%20x1 ; :pilot :characters:Darth%20Vader ; :callSign "Black 1" ; rdfs:label "Black 1" .
+    :black2 a :PilotEvent ; :craft :craft:TIEFighter ; :pilot :KelaNeerik ; :callSign "Black 2" ; rdfs:label "Black 2" .
+    :black3 a :PilotEvent ; :craft :craft:TIEFighter ; :pilot :IdenVersio ; :callSign "Black 3" ; rdfs:label "Black 3" .
+
+    :KelaNeerik a :Character .
+    :IdenVersio a :Character ; :homePlanet :planets:Vardos.
+
+    :green01 a :PilotEvent ; :craft :craft:X-Wing ; :callSign "Green 1" ; rdfs:label "Green 1" .
+    :green02 a :PilotEvent ; :craft :craft:X-Wing ; :callSign "Green 2" ; rdfs:label "Green 2" .
+    :green03 a :PilotEvent ; :craft :craft:X-Wing ; :callSign "Green 3" ; rdfs:label "Green 3" .
+    :green04 a :PilotEvent ; :craft :craft:X-Wing ; :callSign "Green 4" ; rdfs:label "Green 4" .
+    :green05 a :PilotEvent ; :craft :craft:X-Wing ; :callSign "Green 5" ; rdfs:label "Green 5" .
+    :green06 a :PilotEvent ; :craft :craft:X-Wing ; :callSign "Green 6" ; rdfs:label "Green 6" .
+    :green07 a :PilotEvent ; :craft :craft:X-Wing ; :callSign "Green 7" ; rdfs:label "Green 7" .
+    :green08 a :PilotEvent ; :craft :craft:X-Wing ; :callSign "Green 8" ; rdfs:label "Green 8" .
+    :green09 a :PilotEvent ; :craft :craft:X-Wing ; :callSign "Green 9" ; rdfs:label "Green 9" .
+    :green10 a :PilotEvent ; :craft :craft:X-Wing ; :callSign "Green 10" ; rdfs:label "Green 10" .
+
+    :BP2 a :BattleUnit ;
+        rdfs:label "Red Squadron" ;
+        :battleUnit :RedSquadron ;
+        :participant :red01 ;
+        :participant :red02 ;
+        :participant :red03 ;
+        :participant :red04 ;
+        :participant :red05 ;
+        :participant :red06 ;
+        :participant :red07 ;
+        :participant :red08 ;
+        :participant :red09 ;
+        :participant :red10 ;
+        :participant :red11 ;
+        :participant :red12 ;
+        .
+
+    :red01 a :PilotEvent ; :craft :craft:X-Wing ; :pilot :GarvenDreis ; :callSign "Red 1" ; rdfs:label "Red 1" .
+    :red02 a :PilotEvent ; :craft :craft:X-Wing ; :pilot :characters:Wedge%20Antilles ; :callSign "Red 2" ; rdfs:label "Red 2" .
+    :red03 a :PilotEvent ; :craft :craft:X-Wing ; :pilot :characters:Biggs%20Darklighter ; :callSign "Red 3" ; rdfs:label "Red 3" .
+    :red04 a :PilotEvent ; :craft :craft:X-Wing ; :pilot :JohnDBranon ; :callSign "Red 4" ; rdfs:label "Red 4" .
+    :red05 a :PilotEvent ; :craft :craft:X-Wing ; :pilot :characters:Luke%20Skywalker ; :callSign "Red 5" ; rdfs:label "Red 5" .
+    :red06 a :PilotEvent ; :craft :craft:X-Wing ; :pilot :characters:Jek%20Tono%20Porkins ; :callSign "Red 6" ; rdfs:label "Red 6" .
+    :red07 a :PilotEvent ; :craft :craft:X-Wing ; :callSign "Red 7" ; rdfs:label "Red 7" .
+    :red08 a :PilotEvent ; :craft :craft:X-Wing ; :callSign "Red 8" ; rdfs:label "Red 8" .
+    :red09 a :PilotEvent ; :craft :craft:X-Wing ; :callSign "Red 9" ; rdfs:label "Red 9" .
+    :red10 a :PilotEvent ; :craft :craft:X-Wing ; :pilot :TheronNett ; :callSign "Red 10" ; rdfs:label "Red 10" .
+    :red11 a :PilotEvent ; :craft :craft:X-Wing ; :callSign "Red 11" ; rdfs:label "Red 11" .
+    :red12 a :PilotEvent ; :craft :craft:X-Wing ; :pilot :PuckNaeco ; :callSign "Red 12" ; rdfs:label "Red 12" .
+
+    :characters:Jek%20Tono%20Porkins a :Human, :Character ; rdfs:label "Jek Tono Porkins" ; :appearsIn :NewHope ; :homePlanet :planets:Bestine.
+    :PuckNaeco a :Character ; rdfs:label "Puck Naeco" ; :homePlanet :planets:Tatooine.
+    :TheronNett a :Character ; rdfs:label "Theron Nett" ; :appearsIn :NewHope .
+    :JohnDBranon a :Character ; rdfs:label "John D Branon" ; :appearsIn :NewHope .
+    :characters:Biggs%20Darklighter a :Character ; :appearsIn :NewHope ; :homePlanet :planets:Tatooine   .
+    :GarvenDreis a :Character ; rdfs:label "Garven Dreis" ; :homePlanet :planets:Virujansi ; :appearsIn :NewHope .
+
+    :Bestine a :Planet ; rdfs:label "Bestine IV" ; :system :BestineSystem .
+    :BestineSystem a :System ; rdfs:label "Bestine System"; :region :InnerRim .
+    :Zeffo a :Planet ; rdfs:label "Zeffo" .
+    :Virujansi a :Planet ; rdfs:label "Virujansi" .
+    :Onderon a :Planet ; rdfs:label "Onderon" ; :system :JapraelSystem ; :region :InnerRim ; :region :TheSlice .
+    :JapraelSystem a :System ; :sector :JapraelSector .
+    :JapraelSector a :Sector .
+    :InnerRim a :Region ; rdfs:label "Inner Rim" .
+    :NewTerritories a :Region ; rdfs:label "New Territories" .
+    :TheSlice a :Region ; rdfs:label "The Slice" .
+    :Dantooine a :Planet ; rdfs:label "Dantooine" ; :region :OuterRim, :NewTerritories ; :system :DantooineSystem .
+    :DantooineSystem a :System ; :sector :RaioballoSector ; rdfs:label "Dantooine System" .
+    :RaioballoSector a :Sector ; rdfs:label "Raiobello Sector" .
+    :Vardos a :Planet ; rdfs:label "Vardos" ; :system :JinataSystem ; :region :CoreWorlds .
+    :Athulla a :Planet; rdfs:label "Athulla" ; :system :JinataSystem ; :region :CoreWorlds .
+    :JinataSystem a :System ; rdfs:label "Jinata System".
+
+    :BP3 a :BattleUnit ;
+        rdfs:label "Gold Squadron" ;
+        :battleUnit :GoldSquadron ;
+        :participant :gold1 ;
+        :participant :gold2 ;
+        :participant :gold3 ;
+        :participant :gold4 ;
+        :participant :gold5 ;
+        :participant :gold6 ;
+        :participant :gold7 ;
+        :participant :gold8 ;
+    .
+
+    # explorer doesn't love bnodes
+    :gold1 a :PilotEvent ; :craft :craft:Y-wing ; :pilot :JohnVander ; :callSign "Gold 1" ; rdfs:label "Gold 1" .
+    :gold2 a :PilotEvent ; :craft :craft:Y-wing ; :pilot :DexTiree ; :callSign "Gold 2" ; rdfs:label "Gold 2" .
+    :gold3 a :PilotEvent ; :craft :craft:Y-wing ; :pilot :EvaanVerlaine ; :callSign "Gold 3" ; rdfs:label "Gold 3" .
+    :gold4 a :PilotEvent ; :craft :craft:Y-wing ; :callSign "Gold 4" ; rdfs:label "Gold 4" .
+    :gold5 a :PilotEvent ; :craft :craft:Y-wing ; :pilot :DavishKrail ; :callSign "Gold 5" ; rdfs:label "Gold 5" .
+    :gold6 a :PilotEvent ; :craft :craft:Y-wing ; :callSign "Gold 6" ; rdfs:label "Gold 6" .
+    :gold7 a :PilotEvent ; :craft :craft:Y-wing ; :callSign "Gold 7" ; rdfs:label "Gold 7" .
+    :gold8 a :PilotEvent ; :craft :craft:Y-wing ; :callSign "Gold 8" ; rdfs:label "Gold 8" .
+
+    :JohnVander a :Character ; rdfs:label "John Vander"; :homePlanet :Onderon ; :appearsIn :NewHope .
+    :DexTiree a :Character ; rdfs:label "Dex Tiree"; :homePlanet :Onderon ; :appearsIn :NewHope .
+    :DavishKrail a :Character ; rdfs:label "Davish Krail"; :homePlanet :planets:Dantooine ; :appearsIn :NewHope .
+    :EvaanVerlaine a :Character ; rdfs:label "Evaan Verlaine" ; :homePlanet :planets:Alderaan .
+
+    :BP4 a :BattleUnit ;
+        rdfs:label "Death Star 1 at Yavin" ;
+        :battleUnit :Death%20Star .
+
+    :Death%20Star a :SpaceStation ;
+        rdfs:label "Death Star 1" ;
+        :belongsTo :GalacticEmpire ;
+        :crew "265675" ;
+        :passengers "882634" .
+
+    ###
+    
+    :Tatoo a :System .
+    :OuterRim a :Region ; rdfs:label "Outer Rim" .
+    :Arkanis a :Sector ; rdfs:label "Arkanis" .
+    :ModdellSector a :Sector ; rdfs:label "Moddell Sector" .
+    :EndorSystem a :System ; :sector :ModdellSector ; rdfs:label "Endor System".
+    :planets:Endor a :Planet ; :system :EndorSystem ; rdfs:label "Endor" .
+    :planets:Hoth a :Planet ; rdfs:label "Hoth" ; :system :HothSystem ; :region :OuterRim .
+    :HothSystem a :System ; rdfs:label "Hoth System"; :sector :AnoatSector.
+    :AnoatSystem a :System ; rdfs:label "Anoat System"; :sector :AnoatSector.
+    :AnoatSector a :Sector ; rdfs:label "Anoat Sector".
+    :BespinSystem a :System ; rdfs:label "Bespin System"; :sector :AnoatSector.
+    :planets:Duro a :Planet ; rdfs:label "Duro" ; :region :CoreWorlds ; :sector :DuroSector.
+    :DuroSector a :Sector ; rdfs:label "Duro Sector" .
+    :planets:Toprawa a :Planet ; rdfs:label "Toprawa" ; :region :OuterRim .
+    :Jelucan a :Planet ; rdfs:label "Jelucan"; :region :OuterRim .
+    :Iloh a :Planet ; rdfs:label "Iloh"; :region :InnerRim .
+    :Akiva a :Planet ; rdfs:label "Akiva"; :region :OuterRim .
+
+    :BattleOfHoth a :Battle ; rdfs:label "Battle of Hoth" ; :battleName "Battle of Hoth" .
+
+    :BattleOfEndor a :Battle ; rdfs:label "Battle of Endor" ; :battleName "Battle of Endor" ; :foughtIn :Endor .
+
+    :AllianceAtEndor a :BattleParticipation ;
+        rdfs:label "Rebel Forces" ;
+        :participant :RebelAlliance ;
+        :battle :BattleOfEndor ;
+        :asset :AllianceSpaceForcesAtEndor, :AllianceGroundForcesAtEndor.
+
+    :EmpireAtEndor a :BattleParticipation ;
+        rdfs:label "Empire" ;
+        :participant :GalacticEmpire ;
+        :battle :BattleOfEndor ;
+        :asset :EmpireSpaceForcesAtEndor .
+
+    :HomeOne a :BattleUnit ;
+        :craft :craft:Calamari%20Cruiser ;
+        :captain :characters:Ackbar ;
+        rdfs:label "Home One" .
+
+    :Defiance a :BattleUnit ;
+        :craft :craft:Calamari%20Cruiser ;
+        rdfs:label "Defiance" .
+
+    :Independence a :BattleUnit ;
+        :craft :craft:Calamari%20Cruiser ;
+        rdfs:label "Independence" .
+
+    :characters:Ackbar a :Character ; :species :Mon%20Calamari .
+
+    :SapphireSquadron a :Squadron; rdfs:label "Sapphire Squadron";
+        :headquarters :vigilance ;
+        :craft :craft:TIEFighter .
+
+    :EmpireSpaceForcesAtEndor a :BattleUnit ;
+        :parentOrg :GalacticNavy ;
+        :asset :SDFlotilla ;
+        :asset :EndorSapphireSquadron ;
+        :asset :DeathStarEndor ;
+        rdfs:label "Imperial Space Forces" .
+
+    :DeathStarEndor a :BattleUnit ;
+        rdfs:label "Death Star 2 at Endor" ;
+        :battleUnit :Death%20Star .
+
+    :SDFlotilla a :BattleUnit ;
+        :participant :flagship ;
+        :participant :vigilance ;
+        :participant :subjugator ;
+        :participant :PrideofTarlandia ;
+        :participant :Vehement ;
+        :participant :harbinger ;
+        :participant :devastator ;
+        :participant :Eviscerator ;
+        :participant :Annihilator ;
+        :participant :sd10 ;
+        :participant :sd11 ;
+        .
+
+    :flagship a :BattleUnit ; :craft :craft:Executor ; rdfs:label "Imperial Flagship: Executor" .
+    :vigilance a :BattleUnit ; :craft :craft:Star%20Destroyer ; rdfs:label "Vigilance" .
+    :devastator a :BattleUnit ; :craft :craft:Star%20Destroyer ; rdfs:label "Devastator".
+    :subjugator a :BattleUnit ; :craft :craft:Star%20Destroyer ; rdfs:label "Subjugator".
+    :PrideofTarlandia a :BattleUnit ; :craft :craft:Star%20Destroyer ; rdfs:label "Pride of Tarlandia".
+    :Vehement a :BattleUnit ; :craft :craft:Star%20Destroyer ; rdfs:label "Vehement".
+    :harbinger a :BattleUnit ; :craft :craft:Star%20Destroyer ; rdfs:label "Harbinger".
+    :Eviscerator a :BattleUnit ; :craft :craft:Star%20Destroyer ; rdfs:label "Eviscerator".
+    :Annihilator a :BattleUnit ; :craft :craft:Star%20Destroyer ; rdfs:label "Annihilator".
+    :sd10 a :PilotEvent ; :craft :craft:Star%20Destroyer .
+    :sd11 a :PilotEvent ; :craft :craft:Star%20Destroyer .
+
+    :AllianceSpaceForcesAtEndor a :BattleUnit ;
+        :parentOrg :RebelAllianceNavy ;
+        :asset :TheFalconAtEndor ;
+        :asset :HomeOne ;
+        :asset :Independence ;
+        :asset :Defiance ;
+        :asset :EndorGreenSquadron ;
+        :asset :EndorRedSquadron ;
+        :asset :Redemption ;
+        :asset :EndorBladeSquadron ;
+        :asset :EndorBlueSquadron ;
+        :asset :EndorCoronaSquadron ;
+        :asset :EndorGreySquadron ;
+        :asset :EndorGoldSquadron ;
+        rdfs:label "Alliance Space Forces" .
+
+    :EndorSapphireSquadron a :BattleUnit ;
+        rdfs:label "Sapphire Squadron" ;
+        :battleUnit :SapphireSquadron ;
+        :participant :endorSapphire01 ;
+        :participant :endorSapphire02 ;
+      .
+
+    :EndorBlueSquadron a :BattleUnit ;
+        rdfs:label "Blue Squadron" ;
+        :battleUnit :BlueSquadron ;
+        :participant :endorBlue05 ;
+      .
+
+    :EndorGreenSquadron a :BattleUnit ;
+        rdfs:label "Green Squadron" ;
+        :battleUnit :GreenSquadron ;
+        :participant :endorGreen01 ;
+        :participant :endorGreen03 ;
+        :participant :endorGreen04 ;
+        :participant :endorGreen06 ;
+        :participant :endorGreen07 ;
+      .
+
+    :EndorRedSquadron a :BattleUnit ;
+        rdfs:label "Red Squadron" ;
+        :battleUnit :RedSquadron ;
+        :participant :endorRed01 ;
+        :participant :endorRed03 ;
+        :participant :endorRed04 ;
+        :participant :endorRed05 ;
+        .
+
+    :EndorBladeSquadron a :BattleUnit ;
+        rdfs:label "Blade Squadron" ;
+        :battleUnit :BladeSquadron ;
+        :participant :endorBlade01 ;
+        :participant :endorBlade02 ;
+        :participant :endorBlade03 ;
+        :participant :endorBlade04 ;
+        .
+
+    :EndorGreySquadron a :BattleUnit ;
+        rdfs:label "Grey Squadron" ;
+        :battleUnit :GreySquadron ;
+        :participant :endorGrey01 ;
+        :participant :endorGrey02 ;
+        :participant :endorGrey03 ;
+        .
+
+    :EndorGoldSquadron a :BattleUnit ;
+        rdfs:label "Gold Squadron" ;
+        :battleUnit :GoldSquadron ;
+        :participant :endorGold04 ;
+        :participant :endorGold09 ;
+        .
+
+    :EndorCoronaSquadron a :BattleUnit ;
+        rdfs:label "Corona Squadron" ;
+        :battleUnit :CoronaSquadron ;
+        :participant :endorCorona01 ;
+        :participant :endorCorona02 ;
+        :participant :endorCorona04 ;
+        :participant :endorCorona05 ;
+        .
+
+    :BladeSquadron a :Squadron ; :parentOrg :SpacefighterCorps ; rdfs:label "Blade Squadron" .
+    :GreySquadron a :Squadron ; :parentOrg :SpacefighterCorps ; rdfs:label "Grey Squadron" .
+    :CoronaSquadron a :Squadron ; :parentOrg :SpacefighterCorps ; rdfs:label "Corona Squadron" .
+
+    :endorBlue05 a :PilotEvent ; :craft :craft:B-wing ; :pilot :TenNumb ; :callSign "Blue Five" ; rdfs:label "Blue Five" .
+
+    :endorSapphire01 a :PilotEvent ; :craft :craft:TIEFighter ; :pilot :MausMonare ; :callSign "Sapphire Leader" ; rdfs:label "Sapphire Leader" .
+    :endorSapphire02 a :PilotEvent ; :craft :craft:TIEFighter ; :pilot :CienaRee ; :callSign "Sapphire Commander" ; rdfs:label "Sapphire Comander" .
+
+    :endorCorona01 a :PilotEvent ; :craft :craft:X-wing ; :pilot :Contessa ; :callSign "Corona Leader" ; rdfs:label "Corona Leader" .
+    :endorCorona02 a :PilotEvent ; :craft :craft:X-wing ; :pilot :Yendor ; :callSign "Corona 2" ; rdfs:label "Corona 2" .
+    :endorCorona04 a :PilotEvent ; :craft :craft:X-wing ; :pilot :ThaneKyrell ; :callSign "Corona 4" ; rdfs:label "Corona 4" .
+    :endorCorona05 a :PilotEvent ; :craft :craft:X-wing ; :pilot :KendyIdele ; :callSign "Corona 5" ; rdfs:label "Corona 5" .
+
+    :endorGrey01 a :PilotEvent ; :craft :craft:Y-wing ; :pilot :HortonSalm ; :callSign "Grey Leader" ; rdfs:label "Grey Leader" ; :appearsIn :ROTJ.
+    :endorGrey02 a :PilotEvent ; :craft :craft:Y-wing ; :pilot :LuloLampar ; :callSign "Grey 2" ; rdfs:label "Grey 2" .
+    :endorGrey03 a :PilotEvent ; :craft :craft:Y-wing ; :pilot :EkelarcYong ; :callSign "Grey 3" ; rdfs:label "Grey 3" .
+
+    :endorGreen01 a :PilotEvent ; :craft :craft:A-wing ; :pilot :ArvelCrynyd ; :callSign "Green Leader" ; rdfs:label "Green Leader" .
+    :endorGreen03 a :PilotEvent ; :craft :craft:Y-wing ; :callSign "Green 3" ; rdfs:label "Green 3" .
+    :endorGreen04 a :PilotEvent ; :craft :craft:Y-wing ; :pilot :SharaBay ; :callSign "Green 4" ; rdfs:label "Green 4" .
+    :endorGreen06 a :PilotEvent ; :craft :craft:Y-wing ; :pilot :Kokely ; :callSign "Green 6" ; rdfs:label "Green 6" .
+    :endorGreen07 a :PilotEvent ; :craft :craft:Y-wing ; :callSign "Green 7" ; rdfs:label "Green 7" .
+    :endorGold04 a :PilotEvent ; :craft :craft:A-wing ; :pilot :JakeFarrell ; :callSign "Gold 4" ; rdfs:label "Gold 4" .
+
+    :endorGold09 a :PilotEvent ; :craft :craft:Y-wing ; :pilot :NorraWexley ; :callSign "Gold 9" ; rdfs:label "Gold 9" .
+
+    :endorBlade01 a :PilotEvent ; :craft :craft:B-wing ; :pilot :AdonFox ; :callSign "Blade Leader" ; rdfs:label "Blade Leader" .
+    :endorBlade02 a :PilotEvent ; :craft :craft:B-wing ; :pilot :BraylenStramm ; :callSign "Blade 2" ; rdfs:label "Blade 2" .
+    :endorBlade03 a :PilotEvent ; :craft :craft:B-wing ; :pilot :GinaMoonsong ; :callSign "Blade 3" ; rdfs:label "Blade 3" .
+    :endorBlade04 a :PilotEvent ; :craft :craft:B-wing ; :pilot :Fanty ; :callSign "Blade 4" ; rdfs:label "Blade 4" .
+
+    :endorRed03 a :PilotEvent ; :craft :craft:X-wing ; :pilot :characters:Wedge%20Antilles ; :callSign "Red Leader" ; rdfs:label "Red Leader" .
+    :endorRed03 a :PilotEvent ; :craft :craft:A-wing ; :pilot :SilaKott ; :callSign "Red 3" ; rdfs:label "Red 3" .
+    :endorRed04 a :PilotEvent ; :craft :craft:A-wing ; :callSign "Red 4" ; rdfs:label "Red 4" .
+    :endorRed05 a :PilotEvent ; :craft :craft:A-wing ; :pilot :GrizzFrix ; :callSign "Red 5" ; rdfs:label "Red 5" .
+
+    :LuloLampar a :Character ; rdfs:label "L'ulo L'ampar" ; :homePlanet :planets:Duro .
+    :ArvelCrynyd a :Human, :Character ; rdfs:label "Arvel Crynyd" .
+    :HortonSalm a :Human, :Character ; rdfs:label "Horton Salm" .
+    :JakeFarrell a :Human, :Character ; rdfs:label "Jake Farrell" .
+    :NorraWexley a :Human, :Character ; rdfs:label "Norra Wexley" ; :homePlanet :Akiva.
+    :SharaBay a :Human, :Character ; rdfs:label "Shara Bay" .
+    :TenNumb a :Character ; rdfs:label "Ten Numb" ; :homePlanet :planets:Sullust.
+    :Fanty a :Human, :Character ; rdfs:label "Fanty".
+    :GinaMoonsong a :Human, :Character ; rdfs:label "Gina Moonsong" ; :homePlanet :planets:Coruscant.
+    :BraylenStramm a :Human, :Character ; rdfs:label "Braylen Stramm" .
+    :MausMonare a :Human, :Character ; rdfs:label "Maus Monare" .
+    :CienaRee a :Character ; rdfs:label "Ciena Ree" ; :homePlanet :Jelucan.
+    :Contessa a :Human, :Character ; rdfs:label "The Contessa" .
+    :Yendor a :Character ; rdfs:label "Yendor" ; :homePlanet :planets:Ryloth.
+    :ThaneKyrell a :Human, :Character ; rdfs:label "Thane Kyrell" ; :homePlanet :Jelucan.
+    :KendyIdele a :Human, :Character ; rdfs:label "Kendy Idele" .
+    :Kokely a :Character ; rdfs:label "Kokely" .
+    :EkelarcYong a :Human, :Character ; rdfs:label "Ekelarc Yong" .
+    :AdonFox a :Human, :Character ; rdfs:label "Adon Fox" .
+    :GrizzFrix a :Human, :Character ; rdfs:label "Grizz Frix" .
+    :SilaKott a :Human, :Character ; rdfs:label "Sila Kott" ; :appearsIn :ROTJ ; :homePlanet :Toprawa.
+
+    :Redemption a :BattleUnit ; :craft :craft:EF76%20Nebulon-B%20escort%20frigate ; rdfs:label "Redemption" .
+
+    :AllianceGroundForcesAtEndor a :Organization ;
+        :parentOrg :RebelAllianceMilitary ;
+        rdfs:label "Alliance Ground Forces" .
+
+    :HothBase a :Base ;
+        rdfs:label "Hoth Base" ;
+        :belongsTo :RebelAlliance .
+
+    :SecondDeathStar a :SpaceStation ;
+        rdfs:label "Death Star 2" ;
+        :belongsTo :GalacticEmpire ;
+        :crew "485560" ;
+        :passengers "1986087" .
+
+    :Order66 a :Event ;
+        :actor :GalacticEmpire ;
+        :primaryActor :DarthSidious .
+
+    :DestructionOfTheDeathStar a :Event ;
+        :actor :RebelAlliance ;
+        :primaryActor :characters:Luke%20Skywalker ;
+        :destroyed :Death%20Star ;
+        :occurredIn :BattleOfYavin .
+
+    :DestructionOfSecondTheDeathStar a :Event ;
+        :actor :RebelAlliance ;
+        :destroyed :SecondDeathStar ;
+        :occurredIn :BattleOfEndor .

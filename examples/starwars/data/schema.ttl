@@ -1,0 +1,319 @@
+prefix stardog: <tag:stardog:api:>
+prefix catalog: <tag:stardog:api:catalog:>
+prefix m: <urn:stardog:modules:>
+prefix kg: <tag:stardog:api:context:>
+prefix sqs: <tag:stardog:api:sqs:>
+prefix rule: <tag:stardog:api:rule:>
+prefix sd: <urn:stardog:>
+prefix sql: <tag:stardog:api:sql:>
+prefix mp: <urn:stardog:marketplace:>
+
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix sh: <http://www.w3.org/ns/shacl#>
+
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix dcat: <http://www.w3.org/ns/dcat#>
+prefix dct: <http://purl.org/dc/terms/>
+prefix qudt: <http://qudt.org/schema/qudt/>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix void: <http://rdfs.org/ns/void#>
+prefix so: <https://schema.org/>
+prefix prov: <http://www.w3.org/ns/prov#>
+
+prefix : <urn:example:starwars:>
+
+:Organization a owl:Class ;
+    rdfs:label "Organization" .
+
+:parentOrg a owl:ObjectProperty ;
+    rdfs:label "is part of" ;
+    so:domainIncludes :Organization ;
+    so:rangeIncludes :Organization .
+
+:foughtInWar a owl:ObjectProperty ;
+    rdfs:label "fought in war" ;
+    so:domainIncludes :Organization ;
+    so:rangeIncludes :War .    
+
+:capitalWorld a owl:ObjectProperty ;
+    rdfs:label "has capital world" ;
+    so:domainIncludes :Organization ;
+    so:rangeIncludes :Planet . 
+
+:leader a owl:ObjectProperty ;
+    rdfs:label "has leader" ;
+    so:domainIncludes :Organization ;
+    so:rangeIncludes :Character . 
+
+:Squadron a owl:Class ; rdfs:subClassOf :Organization ; rdfs:label "Squadron" .
+
+:memberOf a owl:ObjectProperty ;
+    rdfs:label "is member of" ;
+    so:domainIncludes :Character ;
+    so:rangeIncludes :Organization .
+
+:member a owl:ObjectProperty; 
+    rdfs:label "has member" ;
+    so:domainIncludes :Organization ;
+    so:rangeIncludes :Character .
+
+:orgName a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    so:domainIncludes :Organization ;
+    so:rangeIncludes xsd:string .
+
+:commander a owl:ObjectProperty ;
+    rdfs:label "has commander" ;
+    rdfs:subPropertyOf :leader ;
+    so:domainIncludes :Squadron ;
+    so:rangeIncludes :Character . 
+
+:headquarters a owl:ObjectProperty; 
+    rdfs:label "has headquarters" ;
+    so:domainIncludes :Squadron ;
+    so:rangeIncludes :Base .
+
+:Species a owl:Class ; rdfs:label "Species" .
+:classification a owl:DatatypeProperty ; so:domainIncludes :Species ; so:rangeIncludes xsd:string .
+:designation a owl:DatatypeProperty ; so:domainIncludes :Species ; so:rangeIncludes xsd:string .
+:language a owl:DatatypeProperty ; so:domainIncludes :Species ; so:rangeIncludes xsd:string .
+:averageHeight a owl:DatatypeProperty ; so:domainIncludes :Species ; so:rangeIncludes xsd:integer .
+:averageLifespan a owl:DatatypeProperty ; so:domainIncludes :Species ; so:rangeIncludes xsd:integer .
+:homeworld a owl:ObjectProperty ; so:domainIncludes :Species ; so:rangeIncludes :Planet .
+
+:System a owl:Class ; rdfs:label "System".
+:Sector a owl:Class ; rdfs:label "Sector".
+:Region a owl:Class ; rdfs:label "Region".
+:Planet a owl:Class ; rdfs:label "Planet".
+
+:planetName a owl:DatatypeProperty ; rdfs:label "name of planet" ; so:domainIncludes :Planet ; so:rangeIncludes xsd:string .
+:diameter a owl:DatatypeProperty ; so:domainIncludes :Planet ; so:rangeIncludes xsd:string .
+:population a owl:DatatypeProperty ; so:domainIncludes :Planet ; so:rangeIncludes xsd:string .
+:rotationPeriod a owl:DatatypeProperty ; so:domainIncludes :Planet ; so:rangeIncludes xsd:string .
+:orbitalPeriod a owl:DatatypeProperty ; so:domainIncludes :Planet  ; so:rangeIncludes xsd:string .
+:climate a owl:DatatypeProperty ; so:domainIncludes :Planet  ; so:rangeIncludes xsd:string .
+:gravity a owl:DatatypeProperty ; so:domainIncludes :Planet  ; so:rangeIncludes xsd:string .
+:terrain a owl:DatatypeProperty ; so:domainIncludes :Planet  ; so:rangeIncludes xsd:string .
+:surfaceWater a owl:DatatypeProperty ; so:domainIncludes :Planet ; so:rangeIncludes xsd:string .
+
+:region a owl:FunctionalProperty , owl:ObjectProperty ;
+    rdfs:label "in region" ;
+    so:domainIncludes :System ;
+    so:rangeIncludes :Region .
+:sector a owl:FunctionalProperty , owl:ObjectProperty ;
+    rdfs:label "in sector" ;
+    so:domainIncludes :System ;
+    so:rangeIncludes :Sector .
+:system a owl:ObjectProperty ;
+    rdfs:label "in system" ;
+    so:domainIncludes :Planet ;
+    so:rangeIncludes :System .
+
+:Character a owl:Class ; rdfs:label "Character" .
+:fullName a owl:DatatypeProperty ; rdfs:label "name" ; so:domainIncludes :Character ; so:rangeIncludes xsd:string .
+:height a owl:DatatypeProperty ; so:domainIncludes :Character ; so:rangeIncludes xsd:string .
+:mass  a owl:DatatypeProperty ; so:domainIncludes :Character ; so:rangeIncludes xsd:string .
+:hairColor a owl:DatatypeProperty ; rdfs:label "hair color" ; so:domainIncludes :Character ; so:rangeIncludes xsd:string .
+:eyeColor a owl:DatatypeProperty ; rdfs:label "eye color" ; so:domainIncludes :Character ; so:rangeIncludes xsd:string .
+:birthYear a owl:DatatypeProperty ; rdfs:label "birth year" ; so:domainIncludes :Character ; so:rangeIncludes xsd:string .
+:species a owl:ObjectProperty ; so:domainIncludes :Character ; so:rangeIncludes :Species .
+:homePlanet a owl:ObjectProperty ; rdfs:label "home planet" ; so:domainIncludes :Character ; so:rangeIncludes :Planet .
+
+:apprentice a owl:ObjectProperty ;
+    rdfs:label "has apprentice" ;
+    so:domainIncludes :Character ;
+    so:rangeIncludes :Character . 
+
+:Human a owl:Class ; rdfs:label "Human" ;
+    rdfs:subClassOf :Character .
+
+:motherOf a owl:ObjectProperty ;
+    rdfs:label "is mother of" ;
+    so:domainIncludes :Human ;
+    so:rangeIncludes :Human . 
+
+:fatherOf a owl:ObjectProperty ;
+    rdfs:label "is father of" ;
+    so:domainIncludes :Human ;
+    so:rangeIncludes :Human .    
+
+:Sith a owl:Class ; rdfs:label "Sith" ;
+    rdfs:subClassOf :Character .
+
+:Jedi a owl:Class ; rdfs:label "Jedi" ;
+    rdfs:subClassOf :Character .
+
+:JediMaster a owl:Class ; rdfs:label "Jedi Master" ;
+    rdfs:subClassOf :Jedi .
+
+:JediKnight a owl:Class ; rdfs:label "Jedi Knight" ;
+    rdfs:subClassOf :Jedi .
+
+:Padawan a owl:Class ; rdfs:label "Padawan" ;
+    rdfs:subClassOf :Jedi .
+
+:Event a owl:Class ; rdfs:label "Event" .
+
+:actor a owl:ObjectProperty ;
+    rdfs:label "has actor" ;
+    so:domainIncludes :Event ;
+    so:rangeIncludes :Character .
+
+:primaryActor a owl:ObjectProperty ;
+    rdfs:label "has primary actor" ;
+    so:domainIncludes :Event ;
+    so:rangeIncludes :Character .
+
+:destroyed a owl:ObjectProperty ;
+    rdfs:label "destroyed" ;
+    so:domainIncludes :Event .  
+    
+:occurredIn a owl:ObjectProperty ;
+    rdfs:label "occurred in" ;
+    so:domainIncludes :Event ;
+    so:rangeIncludes :Event .    
+
+:Battle a owl:Class ; rdfs:label "Battle" ;
+    rdfs:subClassOf :Event .
+
+:battleName a owl:DatatypeProperty ;
+    rdfs:label "battle name" ;
+    so:domainIncludes :Battle ;
+    so:rangeIncludes xsd:string .
+
+:partOfWar a owl:ObjectProperty ;
+    rdfs:label "is part of" ;
+    so:domainIncludes :Battle ;
+    so:rangeIncludes :War .
+
+:foughtIn a owl:ObjectProperty ;
+    rdfs:label "fought in" ;
+    so:domainIncludes :Battle ;
+    so:rangeIncludes :Planet , :System .
+
+:War a owl:Class ; rdfs:label "War" ;
+    rdfs:subClassOf :Event .   
+
+:PilotEvent a owl:Class ; rdfs:label "Pilot Event" ;
+    rdfs:subClassOf :Event .
+
+:craft a owl:ObjectProperty ;
+    rdfs:label "has craft" ;
+    so:domainIncludes :PilotEvent , :BattleUnit , :Squadron ;
+    so:rangeIncludes :Spacecraft .
+
+:pilot a owl:ObjectProperty ;
+    rdfs:label "has pilot" ;
+    so:domainIncludes :PilotEvent ;
+    so:rangeIncludes :Character .
+
+:callSign a owl:DatatypeProperty ;
+    rdfs:label "has call sign" ;
+    so:domainIncludes :PilotEvent ;
+    so:rangeIncludes xsd:string .
+
+:Craft a owl:Class .
+:Spacecraft a owl:Class ; rdfs:subClassOf :Craft .
+:Transport a owl:Class ; rdfs:subClassOf :Spacecraft .
+:Freighter a owl:Class ; rdfs:subClassOf :Spacecraft .
+:Shuttle a owl:Class ; rdfs:subClassOf :Spacecraft .
+:Warship a owl:Class ; rdfs:label "Warship" ; rdfs:subClassOf :Spacecraft .
+:Starfighter a owl:Class ; rdfs:subClassOf :Warship ; rdfs:label "Starfighter".
+:CapitalShip a owl:Class ; rdfs:subClassOf :Warship ; rdfs:label "Capital Ship".
+:FastHyperdrive a owl:Class ; rdfs:subClassOf :Spacecraft ; rdfs:label "Fast Hyperdrive".
+:VeryFastHyperdrive a owl:Class ; rdfs:subClassOf :Spacecraft ; rdfs:label "Very Fast Hyperdrive".
+:SpaceStation a owl:Class ; rdfs:subClassOf :Spacecraft ; rdfs:label "Space Station" .
+
+:owner a owl:ObjectProperty ;
+    rdfs:label "owned by" ;
+    so:domainIncludes :Craft ;
+    so:rangeIncludes :Organization .
+
+:Corvette a owl:Class ; rdfs:subClassOf :Warship .
+:Frigate a owl:Class ; rdfs:subClassOf :Warship .
+:Cruiser a owl:Class ; rdfs:subClassOf :Warship .
+:HeavyCruiser a owl:Class ; rdfs:label "Heavy Cruiser" ; rdfs:subClassOf :CapitalShip .
+:Star%20Destroyer a owl:Class ; rdfs:label "Star Destroyer" ; rdfs:subClassOf :CapitalShip .
+:BattleCruiser a owl:Class ; rdfs:label "Battle Cruiser" ; rdfs:subClassOf :CapitalShip .
+:Dreadnaught a owl:Class ; rdfs:label "Dreadnaught" ; rdfs:subClassOf :CapitalShip .
+
+:craftName a owl:DatatypeProperty ; rdfs:label "name of craft" ; so:domainIncludes :Spacecraft ; so:rangeIncludes xsd:string .
+:starship_class a owl:DatatypeProperty ; rdfs:label "starship class" ; so:domainIncludes :Spacecraft ; so:rangeIncludes xsd:string .
+:length a owl:DatatypeProperty ; so:domainIncludes :Spacecraft ; so:rangeIncludes xsd:string .
+:manufacturer a owl:DatatypeProperty ; so:domainIncludes :Spacecraft ; so:rangeIncludes xsd:string .
+:model a owl:DatatypeProperty ; so:domainIncludes :Spacecraft ; so:rangeIncludes xsd:string .
+:crew a owl:DatatypeProperty ; so:domainIncludes :Spacecraft ; so:rangeIncludes xsd:string .
+:passengers a owl:DatatypeProperty ; so:domainIncludes :Spacecraft ; so:rangeIncludes xsd:string .
+:capacity a owl:DatatypeProperty ; so:domainIncludes :Spacecraft ; so:rangeIncludes xsd:string .
+:total_capacity a owl:DatatypeProperty ; rdfs:label "total capacity"; rdfs:comment "Total ship capacity, passengers and crew"; so:domainIncludes :Spacecraft ; so:rangeIncludes xsd:integer .
+:consumables a owl:DatatypeProperty ; so:domainIncludes :Spacecraft ; so:rangeIncludes xsd:string .
+:cost a owl:DatatypeProperty ; rdfs:label "cost (credits)" ; so:domainIncludes :Spacecraft ; so:rangeIncludes xsd:string .
+:hyperdriveRating a owl:DatatypeProperty ; rdfs:label "Hyperdrive Rating" ; so:domainIncludes :Spacecraft ; so:rangeIncludes xsd:string .
+:length_of_ship a owl:DatatypeProperty ; rdfs:label "length of ship" ; so:domainIncludes :Spacecraft ; so:rangeIncludes xsd:decimal.
+
+:cargoCapacity a owl:DatatypeProperty ; rdfs:label "cargo capacity" ; so:domainIncludes :Spacecraft ; so:rangeIncludes xsd:decimal.
+
+:manufacturedBy a owl:ObjectProperty ; rdfs:label "manufactured by"; so:domainIncludes :Spacecraft ; so:rangeIncludes :Organization .
+
+:appearsWith a owl:ObjectProperty ; rdfs:label "appears with" ; so:domainIncludes :Character ; so:rangeIncludes :Character .
+:appearsIn a owl:ObjectProperty ; rdfs:label "appears in" ; so:domainIncludes :Character ; so:rangeIncludes :Episode .
+:depictsEvent a owl:ObjectProperty ; rdfs:label "depicts event" ; so:domainIncludes :Episode ; so:rangeIncludes :Event .
+
+:Episode a owl:Class ; rdfs:label "Episode"; rdfs:subClassOf so:Movie.
+
+:episode a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    so:domainIncludes :Episode ;
+    so:rangeIncludes xsd:string .
+
+:index a owl:DatatypeProperty ;
+    rdfs:label "index" ;
+    so:domainIncludes :Episode ;
+    so:rangeIncludes xsd:integer .
+
+:BattleUnit a owl:Class ; rdfs:label "Battle Unit" .
+
+:battleUnit a owl:ObjectProperty ;
+    so:domainIncludes :BattleUnit ;
+    so:rangeIncludes :Squadron , :Craft ;
+    rdfs:label "has unit" .
+
+:captain a owl:ObjectProperty ;
+    rdfs:label "has captain" ;
+    rdfs:subPropertyOf :leader ;
+    so:domainIncludes :BattleUnit ;
+    so:rangeIncludes :Character .     
+
+:Base a owl:Class  ; rdfs:label "Base" .
+
+:locatedOn a owl:ObjectProperty ;
+    rdfs:label "located on" ;
+    so:domainIncludes :Base ;
+    so:rangeIncludes :Planet .
+
+:belongsTo a owl:ObjectProperty ;
+    rdfs:label "belongs to" ;
+    so:domainIncludes :Base , :Craft ;
+    so:rangeIncludes :Organization .
+
+:BattleParticipation a owl:Class ; rdfs:label "Battle Participation" .
+
+:battle a owl:ObjectProperty ;
+    so:domainIncludes :BattleParticipation ;
+    so:rangeIncludes :Battle ;
+    rdfs:label "has battle" .
+
+:participant a owl:ObjectProperty ;
+    so:domainIncludes :BattleUnit , :BattleParticipation ;
+    so:rangeIncludes :PilotEvent , :BattleUnit ;
+    rdfs:label "has participant" .
+
+:asset a owl:ObjectProperty ;
+    so:domainIncludes :BattleUnit , :BattleParticipation ;
+    so:rangeIncludes :PilotEvent , :BattleUnit ;
+    rdfs:label "has asset" .
+

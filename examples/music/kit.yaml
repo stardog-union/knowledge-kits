@@ -1,0 +1,41 @@
+group: tutorial
+name: music
+version: 1.0
+description: "SPARQL Tutorial: Music"
+options:
+  database.name: kit-music
+  search.enabled: true
+  graph.aliases: true
+
+alias: music_data
+
+data:
+  - file: data.ttl
+    graph: "stardog-tutorial:music:music_data"
+  - file: schema.ttl
+    graph: "stardog-tutorial:music:music_schema"
+
+schemas:
+  - name: "music"
+    graphs: 
+      - "stardog-tutorial:music:music_schema"
+
+metadata:
+  license:
+    name: "Apache 2 License"
+    link: "https://www.apache.org/licenses/LICENSE-2.0"
+  marketplace:
+    publisher: sd:Stardog
+    contributor:
+        - sd:users:mike
+    status: Published
+    icon: "learning"
+    tags:
+        - SPARQL
+        - Studio
+    subject:
+        - General
+    type:
+        - Tutorial
+    primaryConcept: "http://stardog.com/tutorial/Band"
+    initialSearch: "`http://stardog.com/tutorial/ABBA`"

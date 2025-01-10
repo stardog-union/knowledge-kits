@@ -1,0 +1,46 @@
+name: testing
+group: stardog
+version: 1.0
+
+label: Stardog Testing Kit
+description: This is used for testing
+
+options:
+  database.name: kit-testing
+  search.enabled: true
+  graph.aliases: true
+
+alias: starwars_demo
+data:
+ - file: "model.ttl"
+   graph: "tag:stardog:api:context:schema"
+ - file: "data.ttl"
+   graph: "urn:stardog:test:data"
+ - file: data/characters.csv
+   graph: "urn:stardog:test:other_data"
+   mappings: mappings/characters.sms
+
+schemas:
+  - name: default
+    graphs:
+      - "tag:stardog:api:context:schema"
+
+namespaces:
+  catalog: "tag:stardog:api:catalog:"
+  m: "urn:stardog:modules:"
+  kg: "tag:stardog:api:context:"
+  sqs: "tag:stardog:api:sqs:"
+  rule: "tag:stardog:api:rule:"
+  sd: "urn:stardog:"
+  sql: "tag:stardog:api:sql:"
+  spa: "tag:stardog:api:analytics:"
+
+
+metadata:
+  contributor:
+      - sd:users:mike
+
+  license:
+    name: "Apache 2 License"
+    link: "https://www.apache.org/licenses/LICENSE-2.0"
+queries: "test_stored_queries.ttl"

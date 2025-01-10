@@ -1,0 +1,106 @@
+prefix stardog: <tag:stardog:api:>
+prefix catalog: <tag:stardog:api:catalog:>
+prefix score: <tag:stardog:api:core:>
+prefix m: <urn:stardog:modules:>
+prefix kg: <tag:stardog:api:context:>
+prefix sqs: <tag:stardog:api:sqs:>
+prefix rule: <tag:stardog:api:rule:>
+prefix sd: <urn:stardog:>
+prefix sql: <tag:stardog:api:sql:>
+prefix mp: <urn:stardog:marketplace:>
+prefix spa: <tag:stardog:api:analytics:>
+
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix sh: <http://www.w3.org/ns/shacl#>
+
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix dcat: <http://www.w3.org/ns/dcat#>
+prefix dct: <http://purl.org/dc/terms/>
+prefix qudt: <http://qudt.org/schema/qudt/>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix void: <http://rdfs.org/ns/void#>
+prefix so: <https://schema.org/>
+prefix prov: <http://www.w3.org/ns/prov#>
+
+prefix : <http://stardog.com/tutorial/>
+
+<stardog-tutorial-music:music_schema> a m:DataModel ;
+        foaf:primaryTopic :Album ;
+        dcat:theme :Band , :Song ;
+        rdfs:label "Music Data Model" ;
+        dct:description "A small data model based around the concept of Album and its metadata." .
+
+# for Explorer, in lieu of 
+score:Person a rdfs:Class ;
+    rdfs:label "Person" .
+
+:Artist a rdfs:Class ;
+    rdfs:comment "A person or a group of people creating and performing music." ;
+    rdfs:label "Artist" .
+
+:Producer a rdfs:Class ;
+    rdfs:label "Producer" ;
+    rdfs:subClassOf score:Person .
+
+:Album a rdfs:Class ;
+    rdfs:comment "A collection of songs released by an artist on physical or digital medium." ;
+    rdfs:label "Album" .
+
+:Songwriter a rdfs:Class ;
+    rdfs:comment "A person or a group of people who participated in the creation of song as a composer or a lyricist." ;
+    rdfs:label "Songwriter" ;
+    rdfs:subClassOf score:Person .
+
+:SoloArtist a rdfs:Class ;
+    rdfs:comment "A single person who is a musical artist." ;
+    rdfs:label "SoloArtist" ;
+    rdfs:subClassOf :Artist , score:Person .
+
+:Band a rdfs:Class ;
+    rdfs:comment "A music group; that is, is a group of people creating and performing music together." ;
+    rdfs:label "Band" ;
+    rdfs:subClassOf :Artist .
+
+:Song a rdfs:Class ;
+    rdfs:comment "A music recording that is a single work of music." ;
+    rdfs:label "Song" .
+
+:artist a owl:ObjectProperty ;
+    rdfs:comment "The artist that performed this album." ;
+    rdfs:label "artist" ;
+    rdfs:range :Artist ;
+    rdfs:domain :Album .
+
+:date a owl:DatatypeProperty ;
+    rdfs:comment "The release date of an album." ;
+    rdfs:label "date" ;
+    rdfs:range xsd:date ;
+    rdfs:domain :Album .
+
+:track a owl:ObjectProperty ;
+    rdfs:comment "A song included in an album." ;
+    rdfs:label "track" ;
+    rdfs:range :Song ;
+    rdfs:domain :Album .
+
+:length a owl:DatatypeProperty ;
+    rdfs:comment "The length of a song in the album expressed in seconds." ;
+    rdfs:label "length" ;
+    rdfs:range xsd:integer ;
+    rdfs:domain :Song .
+
+:writer a owl:ObjectProperty ;
+    rdfs:comment "A person or a group of people who participated in the creation of song as a composer or a lyricist." ;
+    rdfs:label "writer" ;
+    rdfs:range :Songwriter ;
+    rdfs:domain :Song .
+
+:member a owl:ObjectProperty ;
+    rdfs:comment "A member of a band. Does not distinguish between past vs current members." ;
+    rdfs:label "member" ;
+    rdfs:range :SoloArtist ;
+    rdfs:domain :Band .

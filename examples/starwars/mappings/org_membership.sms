@@ -1,0 +1,39 @@
+prefix stardog: <tag:stardog:api:>
+prefix catalog: <tag:stardog:api:catalog:>
+prefix m: <urn:stardog:modules:>
+prefix kg: <tag:stardog:api:context:>
+prefix sqs: <tag:stardog:api:sqs:>
+prefix rule: <tag:stardog:api:rule:>
+prefix sd: <urn:stardog:>
+prefix sql: <tag:stardog:api:sql:>
+prefix mp: <urn:stardog:marketplace:>
+
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix sh: <http://www.w3.org/ns/shacl#>
+
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix dcat: <http://www.w3.org/ns/dcat#>
+prefix dct: <http://purl.org/dc/terms/>
+prefix qudt: <http://qudt.org/schema/qudt/>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix void: <http://rdfs.org/ns/void#>
+prefix so: <https://schema.org/>
+prefix prov: <http://www.w3.org/ns/prov#>
+
+prefix : <urn:example:starwars:>
+
+MAPPING :OrgMembershipMapping
+FROM CSV {
+# name,org
+}
+TO {
+    ?character :memberOf ?parent_org
+}
+WHERE {
+	BIND(TEMPLATE("urn:example:starwars:characters:{name}") AS ?character)
+    BIND(TEMPLATE("urn:example:starwars:org:{org}") AS ?parent_org)
+}

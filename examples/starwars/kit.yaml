@@ -1,0 +1,60 @@
+name: starwars
+group: starwars
+version: 2.0
+label: "Star Wars"
+description: "A space opera demo based on events that happened long ago in a galaxy far, far away."
+options:
+  database.name: kit-starwars
+  search.enabled: true
+  graph.aliases: true
+  # voicebox.enabled: true
+
+schemas:
+  - name: "star-wars-demo"
+    graphs: 
+      - "urn:example:starwars:model"
+
+alias: starwars_demo
+
+data:
+  - file: schema.ttl
+    graph: "urn:example:starwars:model"
+  - file: rules.ttl
+    graph: "urn:example:starwars:model"
+
+  - file: data.ttl
+    graph: "urn:example:starwars:data"
+
+  - file: metadata.trig
+
+  - file: data/characters.csv
+    graph: "urn:example:starwars:data"
+    mappings: mappings/characters.sms
+  - file: data/planets.csv
+    graph: "urn:example:starwars:data"
+    mappings: mappings/planets.sms
+  - file: data/starships.csv
+    graph: "urn:example:starwars:data"
+    mappings: mappings/starships.sms
+  - file: data/species.csv
+    graph: "urn:example:starwars:data"
+    mappings: mappings/species.sms
+  - file: data/orgs.csv
+    graph: "urn:example:starwars:data"
+    mappings: mappings/orgs.sms
+
+metadata:
+  publisher: sd:Stardog
+  contributor:
+      - sd:users:mike
+  license:
+    name: "Apache 2 License"
+    link: "https://www.apache.org/licenses/LICENSE-2.0"
+  marketplace:
+    icon: "film"
+    subject:
+        - General
+    type:
+        - Demo
+    initialSearch: "`urn:example:starwars:planets:Tatooine`"
+    kitDb: "kit-starwars"
