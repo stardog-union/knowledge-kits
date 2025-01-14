@@ -1,0 +1,8 @@
+id: queries-direct-kit
+name: Queries Direct Kit Test
+version: 1.0.0
+queries:
+  - name: direct_query1
+    query: "SELECT ?s WHERE { ?s a <urn:test:Class> }"
+  - name: direct_query2
+    file: query2.rq 

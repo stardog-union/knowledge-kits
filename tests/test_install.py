@@ -7,7 +7,7 @@ from stardog import content, content_types
 
 from stardog_union import vocabs
 from stardog_union.kits import install
-from stardog_union.kits.base import Kit
+from stardog_union.kits.base import DataLoad, Kit
 from stardog_union.kits.install import (
     get_kit_meta,
     install_data_local,
@@ -97,7 +97,7 @@ def test_install_namespaces(
     )
     get_admin.assert_called_once()
 
-    assert method.call_count == 9
+    assert method.call_count == 8
 
 
 def test_install_provenance(
@@ -193,3 +193,87 @@ def test_install_data_local_without_mappings(
 
     assert isinstance(args[0], content.File)
     assert kwargs["graph_uri"] == "urn:graph"
+
+
+def test_install_data_from_url(
+    mocker: MockerFixture, connection_factory_mock, simple_kit: Kit
+):
+    # Create a kit with URL data based on simple_kit
+    url_kit = Kit(
+        name=simple_kit.name,
+        group=simple_kit.group,
+        version=simple_kit.version,
+        data=[
+            DataLoad(
+                file="https://example.com/data.ttl", graph="http://example.com/graph"
+            )
+        ],
+        schemas=simple_kit.schemas,
+        namespaces=simple_kit.namespaces,
+        queries=simple_kit.queries,
+    )
+
+    # Mock successful URL content
+    mock_response = mocker.Mock()
+    with open("tests/resources/test_data.ttl", "rb") as f:
+        mock_response.content = f.read()
+    mock_response.ok = True
+
+    with mocker.patch("requests.get", return_value=mock_response):
+        install.install_data(
+            connection_factory_mock.connection().__enter__(),
+            connection_factory_mock.admin().__enter__(),
+            "testdb",
+            url_kit,
+        )
+
+        conn = connection_factory_mock.connection().__enter__()
+        conn.add.assert_called_once()
+
+        content_arg = conn.add.call_args[0][0]
+        assert isinstance(content_arg, content.URL)
+        assert content_arg.url == "https://example.com/data.ttl"
+        assert conn.add.call_args[1]["graph_uri"] == "http://example.com/graph"
+
+
+def test_install_data_mixed_sources(mocker: MockerFixture, connection_factory_mock):
+    # Mock URL content
+    mock_response = mocker.Mock()
+    with open("tests/resources/test_data.ttl", "rb") as f:
+        mock_response.content = f.read()
+    mock_response.ok = True
+
+    kit = Kit(
+        name="test-kit",
+        group="test-group",
+        version="1.0.0",
+        data=[
+            DataLoad(
+                file="tests/resources/test_data.ttl", graph="http://example.com/graph1"
+            ),
+            DataLoad(
+                file="https://example.com/data.ttl", graph="http://example.com/graph2"
+            ),
+        ],
+        schemas=[],
+        namespaces={},
+        queries=[],
+    )
+
+    with mocker.patch("requests.get", return_value=mock_response):
+        install.install_data(
+            connection_factory_mock.connection().__enter__(),
+            connection_factory_mock.admin().__enter__(),
+            "testdb",
+            kit,
+        )
+
+        conn = connection_factory_mock.connection().__enter__()
+        assert conn.add.call_count == 2
+
+        calls = conn.add.call_args_list
+        assert isinstance(calls[0][0][0], content.File)
+        assert isinstance(calls[1][0][0], content.URL)
+
+        assert calls[0][1]["graph_uri"] == "http://example.com/graph1"
+        assert calls[1][1]["graph_uri"] == "http://example.com/graph2"

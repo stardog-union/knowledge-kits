@@ -215,7 +215,7 @@ class Kit:
         """Return the IRI for the alias of this kit.
 
         The alias IRI is a named graph alias that contains all of the kit's data"""
-        return f"tag:stardog:kit:alias:{self.alias}"
+        return f"tag:stardog:kit:alias:{(self.alias if self.alias else self.id).replace('.', '_')}"
 
     @property
     def id(self) -> str:
@@ -382,11 +382,13 @@ class StardogKitRepository(KitRepository):
 
             results = stardog_utils.SelectQueryResult(conn.select(queries.LIST_KITS))
             for binding in results:
+                label = binding.get("ml", None)
+                description = binding.get("description", None)
                 t.append(
                     (
-                        binding.id,
-                        binding.get("ml", None),
-                        binding.get("description", None),
+                        str(binding.id),
+                        str(label) if label else None,
+                        str(description) if description else None,
                     )
                 )
         return t

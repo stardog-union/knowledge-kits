@@ -1,0 +1,12 @@
+PREFIX ex: <http://example.org/>
+
+MAPPING
+FROM CSV {
+}
+TO {
+  ?s a ex:Type ;
+     ex:name ?name .
+}
+WHERE {
+  BIND(URI(CONCAT("http://example.org/", ?id)) as ?s)
+} 

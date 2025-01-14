@@ -63,24 +63,31 @@ def test_kit_load():
 
         kit = Kit.from_dict(data)
 
-        assert kit.id == "stardog:freebase:1.0"
-        assert kit.name == "freebase"
+        assert kit.id == "stardog:testing:1.0"
+        assert kit.name == "testing"
         assert kit.group == "stardog"
         assert kit.version == "1.0"
 
-        assert kit.label == "Stardog Freebase Dev kit"
+        assert kit.label == "Stardog Testing Kit"
         assert kit.description == "This is used for testing"
 
         assert kit.data == [
-            DataLoad(file="freebase-model.ttl", graph="tag:stardog:api:context:schema"),
-            DataLoad(file="freebase-dev.ttl", graph="urn:stardog:freebase:data"),
+            DataLoad(file="model.ttl", graph="tag:stardog:api:context:schema"),
+            DataLoad(file="data.ttl", graph="urn:stardog:test:data"),
+            DataLoad(
+                file="data.csv",
+                graph="urn:stardog:test:other_data",
+                mappings="mappings.sms",
+            ),
         ]
 
         assert kit.schemas == [
             Schema(name="default", graphs=["tag:stardog:api:context:schema"])
         ]
 
-        assert len(kit.namespaces) == 9
-        assert kit.namespaces["freebase"] == "http://rdf.freebase.com/ns/"
+        assert len(kit.namespaces) == 8
+        assert kit.namespaces["sd"] == "urn:stardog:"
 
         assert kit.metadata
+
+        assert kit.queries

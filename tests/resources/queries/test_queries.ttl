@@ -1,0 +1,6 @@
+@prefix sd: <tag:stardog:api:> .
+@prefix sys: <tag:stardog:api:system:> .
+
+sys:query1 a sd:StoredQuery ;
+    sys:queryName "Test Query" ;
+    sys:queryString "SELECT * WHERE { ?s ?p ?o }" . 
