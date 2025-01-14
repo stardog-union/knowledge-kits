@@ -94,6 +94,7 @@ def uninstall_kit(
 
         if db_exists:
             LOG.info("Deleting db %s", db)
+
             stored_queries = stardog_utils.get_stored_queries_for_db(admin, db)
 
             pbar = (
@@ -108,8 +109,8 @@ def uninstall_kit(
             update_status("Dropping Stored Queries")
             for sq in stored_queries:
                 LOG.info("Deleting stored query %s" % sq.name)
-
-                sq.delete()
+                print("about to delete", sq)
+                stardog_utils.StoredQuery.delete(admin, sq)
                 update_status(count=1)
 
             with conn_factory.connection() as conn:

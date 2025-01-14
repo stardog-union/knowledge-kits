@@ -71,7 +71,11 @@ def test_kit_load():
         assert kit.data == [
             DataLoad(file="model.ttl", graph="tag:stardog:api:context:schema"),
             DataLoad(file="data.ttl", graph="urn:stardog:test:data"),
-            DataLoad(file="data/characters.csv", graph="urn:stardog:test:other_data", mappings="mappings/characters.sms"),
+            DataLoad(
+                file="data.csv",
+                graph="urn:stardog:test:other_data",
+                mappings="mappings.sms",
+            ),
         ]
 
         assert kit.schemas == [
@@ -79,5 +83,10 @@ def test_kit_load():
         ]
 
         assert len(kit.namespaces) == 8
+        assert kit.namespaces["sd"] == "urn:stardog:"
 
         assert kit.metadata
+
+        assert kit.queries
+
+        assert kit.queries

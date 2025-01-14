@@ -1,0 +1,4 @@
+SELECT ?p ?o 
+WHERE { 
+    <urn:test:subject> ?p ?o 
+} 

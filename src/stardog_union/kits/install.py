@@ -37,9 +37,17 @@ def get_file_prov(dir_name: str, user: str, data_file: DataLoad) -> Graph:
         else dir_name + os.sep + data_file.file
     )
     _csv = URIRef("http://www.iana.org/assignments/media-types/text/csv")
+    _ttl = URIRef("http://www.iana.org/assignments/media-types/text/turtle")
+    _json = URIRef("http://www.iana.org/assignments/media-types/application/json")
+
     import_activity = URIRef("urn:uuid:" + str(uuid.uuid4()))
     now = datetime.datetime.now().replace(microsecond=0).isoformat()
-    input_iri = URIRef("urn:file:" + kit_utils.hash_file(file_to_load))
+    is_url = data_file.file.startswith(("http://", "https://"))
+    input_iri = (
+        URIRef("urn:file:" + kit_utils.hash_file(file_to_load))
+        if not is_url
+        else URIRef(data_file.file)
+    )
 
     user_iri = URIRef(user)
 
@@ -48,16 +56,17 @@ def get_file_prov(dir_name: str, user: str, data_file: DataLoad) -> Graph:
     prov_data = [
         (input_iri, RDF.type, PROV.Entity),
         (input_iri, RDF.type, DCAT.Distribution),
-        (input_iri, DCTERMS.format, _csv),
+        # Guess format based on file extension
         (
             input_iri,
-            DCAT.byteSize,
-            RDFLiteral(os.path.getsize(file_to_load), datatype=XSD.decimal),
-        ),
-        (
-            input_iri,
-            RDFS.label,
-            RDFLiteral(os.path.basename(file_to_load)),
+            DCTERMS.format,
+            _csv
+            if data_file.file.endswith(".csv")
+            else _ttl
+            if data_file.file.endswith(".ttl")
+            else _json
+            if data_file.file.endswith(".json")
+            else _csv,  # Default to csv if unknown
         ),
         (user_iri, RDF.type, PROV.Agent),
         (
@@ -77,6 +86,21 @@ def get_file_prov(dir_name: str, user: str, data_file: DataLoad) -> Graph:
         ),
         (import_activity, PROV.used, input_iri),
     ]
+    if not is_url:
+        prov_data.extend(
+            [
+                (
+                    input_iri,
+                    DCAT.byteSize,
+                    RDFLiteral(os.path.getsize(file_to_load), datatype=XSD.decimal),
+                ),
+                (
+                    input_iri,
+                    RDFS.label,
+                    RDFLiteral(os.path.basename(file_to_load)),
+                ),
+            ]
+        )
     if graph_ref:
         prov_data.extend(
             [
@@ -274,9 +298,13 @@ def install_data_local(
 ):
     """Install a static file from a kit into the database on a Stardog endpoint"""
     dir_name = local_dir if local_dir else os.getcwd()
+    # Check if the source is a URL
+    is_url = load.file.startswith(("http://", "https://"))
 
     file_to_load = (
-        load.file if os.path.isabs(load.file) else dir_name + os.path.sep + load.file
+        (load.file if os.path.isabs(load.file) else dir_name + os.path.sep + load.file)
+        if not is_url
+        else load.file
     )
 
     if load.mappings:
@@ -318,7 +346,10 @@ def install_data_local(
         )
     else:
         LOG.info("Adding file %s" % file_to_load)
-        conn.add(content.File(file_to_load), graph_uri=load.graph)
+        conn.add(
+            content.File(file_to_load) if not is_url else content.URL(file_to_load),
+            graph_uri=load.graph,
+        )
 
 
 def install_data(
@@ -381,22 +412,36 @@ def install_schemas(admin: Admin, database: str, kit: Kit):
     )
 
 
-def load_stored_queries_from_file(admin: Admin, kit: Kit, local_dir: str | None = None):
+def load_stored_queries_from_file(
+    admin: Admin, kit: Kit, database: str, local_dir: str | None = None
+):
+    """Load stored queries from an RDF file containing query definitions"""
     dir_name = local_dir if local_dir else os.getcwd()
-    file_to_load: str = (
-        kit.queries
-        if os.path.isabs(kit.queries)
-        else dir_name + os.path.sep + kit.queries
+    file_to_load = (
+        kit.queries if os.path.isabs(kit.queries) else dir_name + os.sep + kit.queries
     )
 
-    with open(file_to_load, "r") as f:
-        sq_data = f.read()
+    LOG.info("Loading stored queries from %s", file_to_load)
 
-    admin.client.put(
-        "/admin/queries/stored",
-        data=sq_data,
-        headers={"Accept": "application/json", "Content-Type": "text/turtle"},
-    )
+    with open(str(file_to_load), "r") as f:
+        g = Graph(bind_namespaces="none")
+        g.parse(f, format="turtle")
+
+        # The import will fail if the serialized stored queries refer to databases
+        # that do not exist on this endpoint -- typically because the queries
+        # were created on a different endpoint.
+        # So we will remove existing references and add new ones for the database
+        # we are installing to.
+
+        sqs = list(g.subjects(RDF.type, vocabs.StardogSystem.StoredQuery))
+
+        for t in g.triples((None, vocabs.StardogSystem.queryDatabase, None)):
+            g.remove(t)
+
+        for subj in sqs:
+            g.add((subj, vocabs.StardogSystem.queryDatabase, RDFLiteral(database)))
+
+        stardog_utils.store_queries_in_db(admin, g.serialize(format="turtle"))
 
 
 def install_stored_queries(
@@ -409,10 +454,9 @@ def install_stored_queries(
     dir_name = local_dir if local_dir else os.getcwd()
 
     if isinstance(kit.queries, str):
-        load_stored_queries_from_file(admin, kit, local_dir=local_dir)
+        load_stored_queries_from_file(admin, kit, database, local_dir=local_dir)
     else:
         # this is fastest way to get sq's from Stardog
-        # TODO: utils from vbx would be great here.
         sqs = [sq.name for sq in admin.stored_queries()]
         for sq in kit.queries:
             if sq.name not in sqs:
@@ -426,17 +470,17 @@ def install_stored_queries(
                 )
 
                 if not query:
-                    # TODO: error?
                     LOG.warning(
                         "Unable to add stored query %s, no query was specified.",
                         sq.name,
                     )
+                    continue
 
                 opts["database"] = database
                 opts["shared"] = opts["shared"] if "shared" in opts else True
 
-                LOG.info("Adding stored query %s" % sq["name"])
-                admin.new_stored_query(f"{database}_{sq['name']}", query, opts)
+                LOG.info("Adding stored query %s", sq.name)
+                admin.new_stored_query(f"{database}_{sq.name}", query, opts)
 
 
 def install_provenance(

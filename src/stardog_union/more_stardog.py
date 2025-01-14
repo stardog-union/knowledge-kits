@@ -421,6 +421,7 @@ class StoredQuery(object):  # pragma: no cover
 
     @staticmethod
     def delete(admin: stardog.Admin, sq: "StoredQuery"):
+        print("SHOULD NOT SEE")
         admin.client.delete(f"/admin/queries/stored/{sq.name}")
 
 
@@ -566,7 +567,9 @@ def sniff_features(
     return features
 
 
-def store_queries_in_db(cf: ConnectionFactory, generated_queries: str):
+def store_queries_in_db(
+    cf_or_conn: ConnectionFactory | stardog.Admin, generated_queries: str
+):
     """Stores the stored queries in the database. Overwrites the queries if already present
 
     The `generated_queries` should be a Turtle-serialized representation of the stored queries.
@@ -576,12 +579,19 @@ def store_queries_in_db(cf: ConnectionFactory, generated_queries: str):
     StoredQuerySerializer : Utility for creating the RDF graph of stored queries to be used for serialization
     """
 
-    admin = cf.admin()
-    admin.client.put(
-        "/admin/queries/stored",
-        data=generated_queries,
-        headers={"Accept": "application/json", "Content-Type": "text/turtle"},
-    )
+    if isinstance(cf_or_conn, ConnectionFactory):
+        with cf_or_conn.admin() as admin:
+            admin.client.put(
+                "/admin/queries/stored",
+                data=generated_queries,
+                headers={"Accept": "application/json", "Content-Type": "text/turtle"},
+            )
+    else:
+        cf_or_conn.client.put(
+            "/admin/queries/stored",
+            data=generated_queries,
+            headers={"Accept": "application/json", "Content-Type": "text/turtle"},
+        )
 
 
 class StoredQuerySerializer:
