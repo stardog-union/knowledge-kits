@@ -1,0 +1,37 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX so: <https://schema.org/>
+PREFIX scm: <urn:demo:supplychain:model:> 
+
+MAPPING
+FROM CSV {
+}
+TO {
+  ?SensorOutput_iri a scm:SensorOutput;
+                        rdfs:label ?sensorOutputLabel;
+						scm:recordId ?recordId;
+						scm:sensorReadingTimestamp ?sensor_reading_ts_dateTimeStamp_field;
+						scm:sensorManufacturer ?sensorManufacturer;
+						scm:sensorId ?sensorId;
+                        scm:sensorOutputCreateDate ?create_date ;
+                        scm:sensorOutputValue ?sensor_output_integer_field ;
+						scm:sourced_from ?Data_Source_iri.
+  ?Data_Source_iri a scm:Data_Source.
+  ?Selling_Point_iri scm:selling_point_provides_feedback ?Product_Feedback_iri .
+  ?Sensor_iri scm:hasOutput ?SensorOutput_iri.
+}
+WHERE {
+  BIND(TEMPLATE("urn:demo:supplychain:data:SensorOutput:{recordId}") AS ?SensorOutput_iri)
+  BIND(CONCAT(?sensor_id," - ",?sensor_reading_timestamp," - ",?sensor_output) as ?sensorOutputLabel)
+  BIND(StrDt(sourceField("sensor_output"), xsd:integer) AS ?sensor_output_integer_field)
+  BIND(StrDt(sourceField("sensor_reading_timestamp"), xsd:dateTime) AS ?sensor_reading_ts_dateTimeStamp_field)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Data_Source:{sensorManufacturer}") AS ?Data_Source_iri)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Sensor:{sensor_id}") AS ?Sensor_iri)
+
+
+
+
+}
+

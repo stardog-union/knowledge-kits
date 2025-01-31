@@ -1,0 +1,25 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX so:  <https://schema.org/>
+PREFIX scm: <urn:demo:supplychain:model:>
+PREFIX wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+
+MAPPING
+FROM CSV {
+}
+TO {
+  ?Entity_iri a ?Class_Name ;
+	scm:hasAddress ?Address_iri.
+  ?Address_iri a scm:Address;
+			   wgs:lat ?Latitude_field;
+			   wgs:long ?Longitude_field.
+
+}
+WHERE {
+  BIND(TEMPLATE("urn:demo:supplychain:data:{EntityType}:{ID}") AS ?Entity_iri)
+  BIND(TEMPLATE("urn:demo:supplychain:model:{EntityType}") as ?Class_Name)
+  BIND(StrDt(sourceField("Latitude"), xsd:float) AS ?Latitude_field)
+  BIND(StrDt(sourceField("Longitude"), xsd:float) AS ?Longitude_field)
+}

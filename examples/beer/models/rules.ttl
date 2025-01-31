@@ -1,0 +1,93 @@
+PREFIX rule: <tag:stardog:api:rule:>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX scm: <urn:demo:supplychain:model:> 
+	
+					
+RULE scm:truckHasAnomaly
+IF {
+?sensorIri a scm:Sensor;
+           scm:entity_type ?entityType;
+           scm:monitors ?truckIri;
+           scm:hasOutput ?sensorOutputIri.
+?sensorOutputIri scm:sensorOutputValue ?sensorValue.
+FILTER(?entityType="Temperature Sensor")    
+FILTER(?sensorValue >= 50)   
+}
+THEN 
+{
+?sensorOutputIri a scm:Anomaly.
+?truckIri scm:hasAnomaly ?sensorOutputIri.
+?sensorOutputIri scm:anomaly_reason "Truck refrigeration temperature exceeded 55 degrees Fahrenheit during distribution of the finished product to the customer." .
+
+}
+
+RULE scm:deliveredBy
+IF {
+?productIri a scm:Product;
+            scm:packed_onto_skid ?skidIri.
+?skidIri scm:packed_onto_truck ?truckIri.
+}
+THEN 
+{
+?productIri scm:deliveredBy ?truckIri.
+}
+
+RULE scm:suppliesCustomer
+IF {
+    ?supplier scm:supplierOf ?ingredient.
+    ?ingredient scm:used_in ?recipe.
+    ?recipe scm:recipe_used_in ?productionOutput.
+    ?productionOutput scm:has_output ?product.
+    ?product scm:packed_onto_skid ?skid.
+    ?skid scm:part_of_distribution ?distrbition.
+    ?distrbition scm:delivery_target ?customer.
+}
+THEN 
+{
+?supplier scm:supplies ?customer.
+}
+
+
+RULE scm:ingredientsInProductsBoughtByCustomer
+IF {
+    ?supplier scm:supplierOf ?ingredient.
+    ?ingredient scm:used_in ?recipe.
+    ?recipe scm:recipe_used_in ?productionOutput.
+    ?productionOutput scm:has_output ?product.
+    ?product scm:packed_onto_skid ?skid.
+    ?skid scm:part_of_distribution ?distrbition.
+    ?distrbition scm:delivery_target ?customer.
+}
+THEN 
+{
+?ingredient scm:inProductsBoughtBy ?customer.
+}
+
+
+RULE scm:consumesProduct
+IF {
+    ?supplier scm:supplierOf ?ingredient.
+    ?ingredient scm:used_in ?recipe.
+    ?recipe scm:recipe_used_in ?productionOutput.
+    ?productionOutput scm:has_output ?product.
+    ?product scm:packed_onto_skid ?skid.
+    ?skid scm:part_of_distribution ?distrbition.
+    ?distrbition scm:delivery_target ?customer.
+    ?sellingPoint scm:located_at ?customer.     
+    ?consumer scm:buysFrom ?sellingPoint. 
+}
+THEN 
+{
+?consumer scm:purchases ?product.
+}
+
+
+RULE scm:affectsProduct
+IF {
+?truckIri scm:hasAnomaly ?anomalyIri.
+?productIri scm:deliveredBy ?truckIri.
+}
+THEN 
+{
+?anomalyIri scm:affects_quality_of ?productIri.
+}

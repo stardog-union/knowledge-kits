@@ -1,0 +1,40 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX so: <https://schema.org/>
+PREFIX scm: <urn:demo:supplychain:model:> 
+
+#FeedbackID	SubmittedOn	Product	LotNumber	Customer	CustomerName	SellingPoint	Feedback	SourceName	CustomerID
+MAPPING
+FROM CSV {
+}
+TO {
+  ?Product_Feedback_iri a scm:Product_Feedback;
+                        rdfs:label ?feedbackLabel;
+			            scm:description ?Feedback_string_field ;
+                        scm:identified_by ?FeedbackID_string_field ;
+                        scm:create_date ?SubmittedOn_date_field;
+						scm:feedback_for ?Product_iri;
+						scm:sourced_from ?Data_Source_iri.
+  ?Data_Source_iri a scm:Data_Source.
+  ?Selling_Point_iri scm:selling_point_provides_feedback ?Product_Feedback_iri .
+  ?Consumer_iri a scm:Consumer;
+                rdfs:label ?ConsumerName;
+				scm:consumerName ?ConsumerName;
+				scm:buysFrom ?Selling_Point_iri;
+                scm:providesFeedback ?Product_Feedback_iri.
+}
+WHERE {
+  BIND(CONCAT(?CustomerName,"  feedback: ",?Product," (",?SubmittedOn,")") as ?feedbackLabel)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Product_Feedback:{FeedbackID}") AS ?Product_Feedback_iri)
+  BIND(StrDt(sourceField("Feedback"), xsd:string) AS ?Feedback_string_field)
+  BIND(StrDt(sourceField("FeedbackID"), xsd:string) AS ?FeedbackID_string_field)
+  BIND(StrDt(sourceField("SubmittedOn"), xsd:data) AS ?SubmittedOn_date_field)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Selling_Point:{SellingPoint}") AS ?Selling_Point_iri)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Product:{LotNumber}") AS ?Product_iri)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Data_Source:{SourceName}") AS ?Data_Source_iri)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Consumer:{ConsumerID}") AS ?Consumer_iri)
+
+
+}

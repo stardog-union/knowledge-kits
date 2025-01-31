@@ -1,0 +1,37 @@
+
+
+MAPPING
+FROM CSV {
+}
+TO {
+  ?Ingredient_iri a <urn:demo:supplychain:model:Ingredient> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> ?label .
+
+  ?Ingredient_Type_iri a <urn:demo:supplychain:model:Ingredient_Type> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> ?label_2 .
+
+  ?Recipe_iri a <urn:demo:supplychain:model:Recipe> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> ?label_1 ;
+    <urn:demo:supplychain:model:identified_by> ?ID_string_field ;
+    <urn:demo:supplychain:model:quantity> ?Yield_integer_field ;
+    <urn:demo:supplychain:model:UOM> ?Yield_UOM_string_field .
+
+  ?Ingredient_iri <urn:demo:supplychain:model:is_type_of_ingredient> ?Ingredient_Type_iri.
+
+  ?Ingredient_iri <urn:demo:supplychain:model:used_in> ?Recipe_iri.
+
+  ?Recipe_iri <urn:demo:supplychain:model:outputs_product> ?Product_Brand_iri .
+}
+WHERE {
+  BIND(TEMPLATE("urn:demo:supplychain:data:Ingredient:{ID}_{Ingredient}{Ingredient_Amount}{Ingredient_UOM}") AS ?Ingredient_iri)
+  BIND(CONCAT(?Ingredient,?Yield,?Yield_UOM) as ?label)
+  #BIND(<http://www.w3.org/2001/XMLSchema#string>(sourceField("Ingredient")) AS ?label)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Recipe:{ID}") AS ?Recipe_iri)
+  BIND(<http://www.w3.org/2001/XMLSchema#string>(sourceField("Name")) AS ?label_1)
+  BIND(StrDt(sourceField("ID"), <http://www.w3.org/2001/XMLSchema#string>) AS ?ID_string_field)
+  BIND(StrDt(sourceField("Yield"), <http://www.w3.org/2001/XMLSchema#integer>) AS ?Yield_integer_field)
+  BIND(StrDt(sourceField("Yield_UOM"), <http://www.w3.org/2001/XMLSchema#string>) AS ?Yield_UOM_string_field)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Ingredient_Type:{Ingredient}") AS ?Ingredient_Type_iri)
+  BIND(<http://www.w3.org/2001/XMLSchema#string>(sourceField("Ingredient")) AS ?label_2)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Product_Brand:{Product}") AS ?Product_Brand_iri)
+}

@@ -1,0 +1,19 @@
+#mapping for data in sensor_data_sample.csv
+
+@prefix sc: <http://stardog.supplychain.demo#> .
+@prefix data: <urn:graph:data#> .
+@prefix sosa: <http://www.w3.org/ns/sosa/> .
+
+data:{recordId} a sc:SensorOutput, sosa:Observation ;
+  rdfs:label "{sensor_id} - {sensor_reading_ts} - {sensor_output}" ;
+  sc:createDate "{sensor_reading_ts}"^^xsd:dateTimeStamp ;
+  sc:sensorValue "{sensor_output}"^^xsd:integer ;
+  sosa:hasSimpleResult "{sensor_output}"^^xsd:integer ;
+  sosa:resultTime "{sensor_reading_ts}"^^xsd:dateTimeStamp ;             
+  sc:sourcedFrom data:{sensorManufacturer} .
+
+data:{sensorManufacturer} a sc:DataSource ;
+  rdfs:label "{sensorManufacturer}" .
+
+#map all the relationships
+data:{sensor_id} sc:hasOutput data:{recordId} .

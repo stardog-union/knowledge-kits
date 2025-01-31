@@ -1,0 +1,22 @@
+ID,Name,Product,Yield,Yield_UOM,Ingredient,Ingredient_Amount,Ingredient_UOM,SourceName
+RCP001_MD001,Munich Dunkel Recipe,MunichDunkel,20,HL,Water,200,HL,SAP
+RCP001_MD001,Munich Dunkel Recipe,MunichDunkel,20,HL,MunichMalt,20,T,SAP
+RCP001_MD001,Munich Dunkel Recipe,MunichDunkel,20,HL,VictoryMalt,2,T,SAP
+RCP001_MD001,Munich Dunkel Recipe,MunichDunkel,20,HL,CarafaType2Malt,2,T,SAP
+RCP001_MD001,Munich Dunkel Recipe,MunichDunkel,20,HL,TettnangHops,140,KG,SAP
+RCP001_MD001,Munich Dunkel Recipe,MunichDunkel,20,HL,NuggetHops,140,KG,SAP
+RCP001_MD001,Munich Dunkel Recipe,MunichDunkel,20,HL,WYeast,40,KG,SAP
+RCP002_MD002,Pillsner Dunkel Recipe,PillsnerDunkel,5,HL,Water,50,HL,PTC Windchill
+RCP002_MD002,Pillsner Dunkel Recipe,PillsnerDunkel,5,HL,MunichMalt,8,T,PTC Windchill
+RCP002_MD002,Pillsner Dunkel Recipe,PillsnerDunkel,5,HL,PillsnerMalt,1,T,PTC Windchill
+RCP002_MD002,Pillsner Dunkel Recipe,PillsnerDunkel,5,HL,CarafaType2Malt,2,T,PTC Windchill
+RCP002_MD002,Pillsner Dunkel Recipe,PillsnerDunkel,5,HL,TettnangHops,35,KG,PTC Windchill
+RCP002_MD002,Pillsner Dunkel Recipe,PillsnerDunkel,5,HL,NuggetHops,35,KG,PTC Windchill
+RCP002_MD002,Pillsner Dunkel Recipe,PillsnerDunkel,5,HL,WYeast,10,KG,PTC Windchill
+RCP003_MD003,Export Dunkel Recipe,ExportDunkel,5,HL,Water,50,HL,Oracle Agile
+RCP003_MD003,Export Dunkel Recipe,ExportDunkel,5,HL,MunichMalt,8,T,Oracle Agile
+RCP003_MD003,Export Dunkel Recipe,ExportDunkel,5,HL,MunichMalt,1,T,Oracle Agile
+RCP003_MD003,Export Dunkel Recipe,ExportDunkel,5,HL,FarbemalzMalt,2,T,Oracle Agile
+RCP003_MD003,Export Dunkel Recipe,ExportDunkel,5,HL,TettnangHops,35,KG,Oracle Agile
+RCP003_MD003,Export Dunkel Recipe,ExportDunkel,5,HL,NuggetHops,35,KG,Oracle Agile
+RCP003_MD003,Export Dunkel Recipe,ExportDunkel,5,HL,WYeast,10,KG,Oracle Agile
