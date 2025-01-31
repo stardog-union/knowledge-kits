@@ -1,0 +1,55 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX so:  <https://schema.org/>
+PREFIX scm: <urn:demo:supplychain:model:>
+
+#ID	Name	EntityType	RelationshipName	RelatedTo	RelatedTo_EntityType	sendsTo_Relation1	sendsTo_EntityType_Relation1	sendsTo_Relation2	sendsTo_EntityType_Relation2	Supplier	LotNumber	DeliveryDate	Quantity	UOM	StoredIn	SourceName	CreateDate	MeasurementType	Measurement_Description	Measurement_Unit
+
+MAPPING
+FROM CSV {
+}
+TO {
+  ?Entity_iri a ?Class_Name ;
+                   rdfs:label ?label ;
+                   scm:create_date ?CreateDate_date_field ;
+                   scm:delivery_date ?DeliveryDate_date_field ;
+                   scm:identified_by ?ID_string_field ;
+                   scm:quantity ?Quantity_integer_field ;
+				   scm:entity_type ?EntitySubType_string_field;
+                   scm:unit_of_measure ?UOM_string_field;
+                   scm:sourced_from ?Data_Source_iri;
+				   ?Predicate ?Entity_Related_To_iri;
+				   scm:feeds ?sendsTo_Relation1_iri;
+				   scm:feeds ?sendsTo_Relation2_iri.
+  ?Data_Source_iri a scm:Data_Source;
+                   rdfs:label ?SourceName.
+  ?sendsTo_Relation1_iri a ?sendsTo_EntityType_Relation1_Class.
+  ?sendsTo_Relation2_iri a ?sendsTo_EntityType_Relation2_Class.
+  ?supplier_iri scm:supplierOf ?Entity_iri.
+
+}
+WHERE {
+  BIND(TEMPLATE("urn:demo:supplychain:data:{EntityType}:{ID}") AS ?Entity_iri)
+  BIND(TEMPLATE("urn:demo:supplychain:data:{RelatedTo_EntityType}:{RelatedTo}") AS ?Entity_Related_To_iri)
+  BIND(TEMPLATE("urn:demo:supplychain:data:{sendsTo_EntityType_Relation1}:{sendsTo_Relation1}") AS ?sendsTo_Relation1_iri)
+  BIND(TEMPLATE("urn:demo:supplychain:data:{sendsTo_EntityType_Relation2}:{sendsTo_Relation2}") AS ?sendsTo_Relation2_iri)
+  BIND(xsd:string(sourceField("Name")) AS ?label)
+  BIND(StrDt(sourceField("CreateDate"), xsd:date) AS ?CreateDate_date_field)
+  BIND(StrDt(sourceField("DeliveryDate"), xsd:date) AS ?DeliveryDate_date_field)
+  BIND(StrDt(sourceField("ID"), xsd:string) AS ?ID_string_field)
+  BIND(StrDt(sourceField("Quantity"), xsd:integer) AS ?Quantity_integer_field)
+  BIND(StrDt(sourceField("UOM"), xsd:string) AS ?UOM_string_field)
+  BIND(StrDt(sourceField("EntitySubType"), xsd:string) AS ?EntitySubType_string_field)
+
+  BIND(TEMPLATE("urn:demo:supplychain:data:Data_Source:{SourceName}") AS ?Data_Source_iri)
+  BIND(TEMPLATE("urn:demo:supplychain:model:{EntityType}") as ?Class_Name)
+  BIND(TEMPLATE("urn:demo:supplychain:model:{RelationshipName}") as ?Predicate)
+  BIND(TEMPLATE("urn:demo:supplychain:model:{sendsTo_EntityType_Relation1}") as ?sendsTo_EntityType_Relation1_Class)
+  BIND(TEMPLATE("urn:demo:supplychain:model:{sendsTo_EntityType_Relation2}") as ?sendsTo_EntityType_Relation2_Class)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Supplier:{Supplier}") AS ?supplier_iri)
+
+
+
+}

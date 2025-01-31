@@ -1,0 +1,45 @@
+
+
+MAPPING
+FROM CSV {
+}
+TO {
+  ?Production_Line_iri a <urn:demo:supplychain:model:ProductionLine> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> ?label_1 .
+
+  ?Production_Output_iri a <urn:demo:supplychain:model:Production_Output> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> ?label_2 ;
+    <urn:demo:supplychain:model:identified_by> ?ID_string_field ;
+    <urn:demo:supplychain:model:create_date> ?ProductionDate_date_field ;
+    <urn:demo:supplychain:model:end_date> ?ProductionEndDate_date_field ;
+    <urn:demo:supplychain:model:quantity> ?QuantityProduced_integer_field ;
+    <urn:demo:supplychain:model:UOM> ?UOM_string_field .
+
+  ?Ingredient_iri a <urn:demo:supplychain:model:Ingredient> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> ?label .
+
+  ?Raw_Material_Lot_iri a <urn:demo:supplychain:model:Raw_Material_Lot> ;
+    <http://www.w3.org/2000/01/rdf-schema#label> ?label_3 .
+
+  ?Production_Line_iri <urn:demo:supplychain:model:line_has_output> ?Production_Output_iri.
+  ?Ingredient_iri <urn:demo:supplychain:model:ingredient_used_in> ?Production_Output_iri.
+  ?Raw_Material_Lot_iri <urn:demo:supplychain:model:lot_used_in> ?Ingredient_iri.
+  ?Recipe_iri <urn:demo:supplychain:model:recipe_used_in> ?Production_Output_iri .
+}
+WHERE {
+  BIND(TEMPLATE("urn:demo:supplychain:data:Ingredient:{RawMaterialIngredient}") AS ?Ingredient_iri)
+  BIND(CONCAT(?RawMaterialType,?QuantityProduced,?UOM) as ?label)
+  #BIND(<http://www.w3.org/2001/XMLSchema#string>(sourceField("RawMaterialIngredient")) AS ?label)
+  BIND(TEMPLATE("urn:demo:supplychain:data:ProductionLine:{ProductionLine}") AS ?Production_Line_iri)
+  BIND(<http://www.w3.org/2001/XMLSchema#string>(sourceField("ProductionLine")) AS ?label_1)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Production_Output:{ID}") AS ?Production_Output_iri)
+  BIND(<http://www.w3.org/2001/XMLSchema#string>(sourceField("Name")) AS ?label_2)
+  BIND(StrDt(sourceField("ID"), <http://www.w3.org/2001/XMLSchema#string>) AS ?ID_string_field)
+  BIND(StrDt(sourceField("ProductionDate"), <http://www.w3.org/2001/XMLSchema#date>) AS ?ProductionDate_date_field)
+  BIND(StrDt(sourceField("ProductionEndDate"), <http://www.w3.org/2001/XMLSchema#date>) AS ?ProductionEndDate_date_field)
+  BIND(StrDt(sourceField("QuantityProduced"), <http://www.w3.org/2001/XMLSchema#integer>) AS ?QuantityProduced_integer_field)
+  BIND(StrDt(sourceField("UOM"), <http://www.w3.org/2001/XMLSchema#string>) AS ?UOM_string_field)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Raw_Material_Lot:{RawMaterialLot}") AS ?Raw_Material_Lot_iri)
+  BIND(<http://www.w3.org/2001/XMLSchema#string>(sourceField("RawMaterialLot")) AS ?label_3)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Recipe:{Recipe}") AS ?Recipe_iri)
+}

@@ -1,0 +1,121 @@
+name: stardog
+group: supplychain-demo
+version: 1.0
+label: "Supply Chain 360"
+description: "This supply chain dataset contains information about the imaginary Good Beer Company. You can ask questions across manufacturing, suppliers, distributors and customer applications to investigate possible root cause of consumer feedback about flat beer. Customers of the Good Beer Company are stadiums around the USA with multiple selling points each. Trucks deliver beer to these selling points which are sold to consumers."
+options:
+  database.name: kit-beer
+  search.enabled: true
+  graph.aliases: true
+  reasoning.schema.graphs: urn:demo:supplychain:rules urn:demo:supplychain:model
+  spatial.enabled: true
+
+namespaces:
+  scm: "urn:demo:supplychain:model:"
+
+schemas:
+  - name: default
+    graphs:
+      - "urn:demo:supplychain:model"
+      - "urn:demo:supplychain:rules"
+
+alias: beer_demo
+
+data:
+ - file: "models/beer.ttl"
+   graph: "urn:demo:supplychain:model"
+ - file: "models/rules.ttl"
+   graph: "urn:demo:supplychain:rules"
+
+ - mappings: "data/customer/customer.sms"
+   file: "data/customer/customer.csv"
+   graph: "urn:demo:supplychain:data:customer"
+ - mappings: "data/customer_product_usage/customer_product_usage.sms"
+   file: "data/customer_product_usage/customer_product_usage.csv"
+   graph: "urn:demo:supplychain:data:customer_product_usage"
+ - mappings: "data/digital_twin/digital_twin.sms"
+   file: "data/digital_twin/digital_twin.csv"
+   graph: "urn:demo:supplychain:data:digital_twin"
+ - mappings: "data/digital_twin/plant_locations.sms"
+   file: "data/digital_twin/plant_locations.csv"
+   graph: "urn:demo:supplychain:data:digital_twin"
+ - mappings: "data/distribution/distribution.sms"
+   file: "data/distribution/distribution.csv"
+   graph: "urn:demo:supplychain:data:distribution"  
+ - mappings: "data/feedback/feedback.sms"
+   file: "data/feedback/feedback.csv"
+   graph: "urn:demo:supplychain:data:feedback"
+ - mappings: "data/production/production.sms"
+   file: "data/production/production.csv"
+   graph: "urn:demo:supplychain:data:production"
+ - mappings: "data/production_output/production_output.sms"
+   file: "data/production_output/production_output.csv"
+   graph: "urn:demo:supplychain:data:production_output"
+ - mappings: "data/production_quality/production_quality.sms"
+   file: "data/production_quality/production_quality.csv"
+   graph: "urn:demo:supplychain:data:production_quality"
+ - mappings: "data/recipe/recipe.sms"
+   file: "data/recipe/recipe.csv"
+   graph: "urn:demo:supplychain:data:recipe"
+ - mappings: "data/sensor_data/sensor_data.sms"
+   file: "data/sensor_data/sensor_data.csv"
+   graph: "urn:demo:supplychain:data:sensor_data"
+
+queries: "vbox_queries.ttl"
+
+metadata:
+  publisher: sd:Stardog
+  contributor:
+      - sd:users:tim.sedlak
+      - sd:users:evren
+  license:
+    name: "Apache 2 License"
+    link: "https://www.apache.org/licenses/LICENSE-2.0"
+  marketplace:
+    icon: "globe-network"
+    subject:
+        - Manufacturing
+    type:
+        - Demo
+    primaryConcept: "scm:Product"
+    initialSearch: "`urn:demo:supplychain:data:Product:MD001PL01K50L07012020MD001Keg50Liter`"
+    kitDb: "kit-beer"
+    tags:
+      - "Explorer"
+      - "Studio"
+      - "SPARQL"
+      - "Manufacturing"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

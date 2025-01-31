@@ -1,0 +1,56 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX so:  <https://schema.org/>
+PREFIX scm: <urn:demo:supplychain:model:>
+prefix wgs: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+#SOURCE,SOURCEID,OBJECTID,VENUEID,NAME,ADDRESS,CITY,STATE,ZIP,ZIP4,TELEPHONE,
+#TYPE,STATUS,CAPACITY,COUNTY,COUNTYFIPS,COUNTRY,LATITUDE,LONGITUDE
+MAPPING
+FROM CSV {
+}
+TO {
+  ?Customer_iri a scm:Customer ;
+    rdfs:label ?label ;
+	scm:customer_name ?label;
+    scm:stadium_capacity ?CAPACITY_integer_field ;
+    scm:complaints ?COMPLAINTS_integer_field ;
+    scm:orders ?ORDERS_integer_field ;
+    scm:create_date ?STARTDATE_date_field;
+	scm:phone ?TELEPHONE_string_field;
+	scm:hasAddress ?Address_iri;
+	scm:sourced_from ?Data_Source_iri.
+  ?Data_Source_iri a scm:Data_Source.
+  ?Address_iri a scm:Address;
+               rdfs:label ?ADDRESS_string_field;
+               scm:streetAddress ?ADDRESS_string_field;
+			   scm:city ?CITY_string_field;
+			   scm:state ?STATE_string_field;
+			   scm:postalCode ?ZIP_string_field;
+			   scm:postalCodeExt ?ZIP4_string_field;
+			   scm:country ?COUNTRY_string_field;
+			   wgs:lat ?LATITUDE_string_field;
+			   wgs:long ?LONGITUDE_string_field.
+}
+WHERE {
+  BIND(TEMPLATE("urn:demo:supplychain:data:Customer:{SOURCEID}") AS ?Customer_iri)
+  BIND(xsd:string(sourceField("NAME")) AS ?label)
+  BIND(StrDt(sourceField("CAPACITY"), xsd:integer) AS ?CAPACITY_integer_field)
+  BIND(StrDt(sourceField("COMPLAINTS"), xsd:integer) AS ?COMPLAINTS_integer_field)
+  BIND(StrDt(sourceField("ORDERS"), xsd:integer) AS ?ORDERS_integer_field)
+  BIND(StrDt(sourceField("STARTDATE"), xsd:date) AS ?STARTDATE_date_field)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Address:{ADDRESS}_{CITY}_{STATE}_{ZIP}_{ZIP4}_{COUNTRY}") AS ?Address_iri)
+  BIND(StrDt(sourceField("ADDRESS"), xsd:string) AS ?ADDRESS_string_field)
+  BIND(StrDt(sourceField("CITY"), xsd:string) AS ?CITY_string_field)
+  BIND(StrDt(sourceField("STATE"), xsd:string) AS ?STATE_string_field)
+  BIND(StrDt(sourceField("ZIP"), xsd:string) AS ?ZIP_string_field)
+  BIND(StrDt(sourceField("ZIP4"), xsd:string) AS ?ZIP4_string_field)
+  BIND(StrDt(sourceField("COUNTRY"), xsd:string) AS ?COUNTRY_string_field)
+  BIND(StrDt(sourceField("TELEPHONE"), xsd:string) AS ?TELEPHONE_string_field)
+  BIND(StrDt(sourceField("LATITUDE"), xsd:float) AS ?LATITUDE_string_field)
+  BIND(StrDt(sourceField("LONGITUDE"), xsd:float) AS ?LONGITUDE_string_field)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Data_Source:{SOURCE_SYSTEM}") AS ?Data_Source_iri)
+
+
+}

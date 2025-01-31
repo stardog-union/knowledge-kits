@@ -1,0 +1,34 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX so:  <https://schema.org/>
+PREFIX scm: <urn:demo:supplychain:model:>
+
+MAPPING
+FROM CSV {
+}
+TO {
+  ?Quality_Document_iri a scm:Quality_Document ;
+                        rdfs:label ?label .
+	
+  ?Quality_Release_iri a scm:Quality_Release ;
+                       rdfs:label ?label_1 ;
+                       scm:create_date ?CreateDate_date_field ;
+                       scm:identified_by ?QualityID_string_field ;
+                       scm:has_status ?Status_string_field .
+
+  ?Product_iri scm:has_quality_release ?Quality_Release_iri.
+
+  ?Quality_Release_iri scm:has_quality_document ?Quality_Document_iri .
+}
+WHERE {
+  BIND(TEMPLATE("urn:demo:supplychain:data:Quality_Document:{QualityDocument}") AS ?Quality_Document_iri)
+  BIND(xsd:string(sourceField("QualityDocument")) AS ?label)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Quality_Release:{QualityID}") AS ?Quality_Release_iri)
+  BIND(xsd:string(sourceField("Name")) AS ?label_1)
+  BIND(StrDt(sourceField("CreateDate"), xsd:date) AS ?CreateDate_date_field)
+  BIND(StrDt(sourceField("QualityID"), xsd:string) AS ?QualityID_string_field)
+  BIND(StrDt(sourceField("Status"), xsd:string) AS ?Status_string_field)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Product:{ProductID}") AS ?Product_iri)
+}

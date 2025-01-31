@@ -1,0 +1,53 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX so: <https://schema.org/>
+PREFIX scm: <urn:demo:supplychain:model:>
+
+MAPPING
+FROM CSV {
+}
+TO {
+  ?Product_Brand_iri a scm:Product_Brand ;
+    rdfs:label ?label_1 .
+
+  ?Product_iri a scm:Product ;
+               rdfs:label ?label_3 ;
+               scm:identified_by ?ProductID_string_field ;
+               scm:create_date ?ProductionDate_date_field ;
+               scm:quantity ?QuantityProduced_integer_field ;
+               scm:unit_of_measure ?UOM_string_field;
+               scm:sourced_from ?Data_Source_iri.
+  ?Data_Source_iri a scm:Data_Source;
+                   rdfs:label ?SourceName.
+
+  ?Product_Type_iri a scm:Product_Type ;
+    rdfs:label ?label_2 .
+
+  ?Warehouse_iri a scm:Warehouse .
+
+  ?Product_iri scm:has_brand ?Product_Brand_iri.
+
+  ?Product_iri scm:is_type_of_product ?Product_Type_iri.
+
+  ?Product_iri scm:stored_in_1 ?Warehouse_iri.
+
+  ?Production_Output_iri scm:has_output ?Product_iri .
+}
+WHERE {
+  BIND(TEMPLATE("urn:demo:supplychain:data:Warehouse:{DeliveredTo}") AS ?Warehouse_iri)
+  BIND(xsd:string(sourceField("DeliveredTo")) AS ?label)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Product_Brand:{Product}") AS ?Product_Brand_iri)
+  BIND(xsd:string(sourceField("ProductName")) AS ?label_1)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Product_Type:{ProductType}") AS ?Product_Type_iri)
+  BIND(xsd:string(sourceField("ProductType")) AS ?label_2)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Product:{ProductID}") AS ?Product_iri)
+  BIND(xsd:string(sourceField("Name")) AS ?label_3)
+  BIND(StrDt(sourceField("ProductID"), xsd:string) AS ?ProductID_string_field)
+  BIND(StrDt(sourceField("ProductionDate"), xsd:date) AS ?ProductionDate_date_field)
+  BIND(StrDt(sourceField("QuantityProduced"), xsd:integer) AS ?QuantityProduced_integer_field)
+  BIND(StrDt(sourceField("UOM"), xsd:string) AS ?UOM_string_field)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Production_Output:{ProductionID}") AS ?Production_Output_iri)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Data_Source:{SourceName}") AS ?Data_Source_iri)
+}

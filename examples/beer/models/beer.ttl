@@ -1,0 +1,440 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX so: <https://schema.org/>
+PREFIX scm: <urn:demo:supplychain:model:> 
+PREFIX stardog: <tag:stardog:api:>
+
+scm:Consumer rdf:type owl:Class ;
+                rdfs:label "Consumer" .
+scm:Company rdf:type owl:Class ;
+                rdfs:label "Company" .
+scm:SensorOutput rdf:type owl:Class ;
+                rdfs:label "Sensor Output" .
+scm:Customer a owl:Class ;
+  rdfs:label "Customer" .
+scm:Distribution a owl:Class ;
+  rdfs:label "Distribution" .
+scm:Ingredient a owl:Class ;
+  rdfs:label "Ingredient" .
+scm:Ingredient_Type a owl:Class ;
+  rdfs:label "Ingredient Type" .
+scm:Pallet a owl:Class ;
+  rdfs:label "Pallet" .
+scm:Product a owl:Class ;
+  rdfs:label "Finished Product" .
+scm:Product_Brand a owl:Class ;
+  rdfs:label "Product Brand" .
+scm:Product_Feedback a owl:Class ;
+  rdfs:label "Product Feedback" .
+scm:Product_Type a owl:Class ;
+  rdfs:label "Product Type" .
+scm:Production_Output a owl:Class ;
+  rdfs:label "Production Output" .
+scm:Quality_Document a owl:Class ;
+  rdfs:label "Quality Document" .
+scm:Quality_Release a owl:Class ;
+  rdfs:label "Quality Release" .
+scm:Raw_Material_Ingredient a owl:Class ;
+  rdfs:label "Raw Material Ingredient" .
+scm:Raw_Material_Lot a owl:Class ;
+  rdfs:label "Raw Material Lot" .
+scm:Recipe a owl:Class ;
+  rdfs:label "Recipe" .
+scm:Selling_Point a owl:Class ;
+  rdfs:label "Selling Point" .
+scm:Skid a owl:Class ;
+  rdfs:label "Skid" .
+scm:Unit_of_Measure a owl:Class ;
+  rdfs:label "Unit of Measure" .
+scm:Warehouse a owl:Class ;
+  rdfs:label "Warehouse" .
+scm:Data_Source a owl:Class ;
+  rdfs:label "Data Source" .
+scm:Sensor a owl:Class ;
+  rdfs:label "Sensor" .
+scm:Equipment a owl:Class ;
+  rdfs:label "Equipment" .
+scm:Organization a owl:Class ;
+  rdfs:label "Organization" .
+scm:Vehicle a owl:Class ;
+  rdfs:label "Vehicle" .
+scm:Location a owl:Class ;
+  rdfs:label "Location" .
+scm:Fermenter a owl:Class ;
+                rdfs:subClassOf scm:Equipment ;
+                rdfs:label "Fermenter" .
+scm:Whirlpool a owl:Class ;
+                rdfs:subClassOf scm:Equipment ;
+                rdfs:label "Whirlpool" .
+scm:MaturingVat a owl:Class ;
+                rdfs:subClassOf scm:Equipment ;
+                rdfs:label "MaturingVat" .		
+scm:KegFiller a owl:Class ;
+                rdfs:subClassOf scm:Equipment ;
+                rdfs:label "KegFiller" .
+scm:Silo a owl:Class ;
+                rdfs:subClassOf scm:Equipment ;
+                rdfs:label "Silo" .
+scm:FiltrationSystem a owl:Class ;
+                rdfs:subClassOf scm:Equipment ;
+                rdfs:label "FiltrationSystem" .				
+scm:WaterTank a owl:Class ;
+                rdfs:subClassOf scm:Equipment ;
+                rdfs:label "WaterTank" .
+scm:Cooler a owl:Class ;
+                rdfs:subClassOf scm:Equipment ;
+                rdfs:label "Cooler" .
+scm:Boiler a owl:Class ;
+                rdfs:subClassOf scm:Equipment ;
+                rdfs:label "Boiler" .		
+scm:Masher a owl:Class ;
+                rdfs:subClassOf scm:Equipment ;
+                rdfs:label "Masher" .
+scm:Mill a owl:Class ;
+                rdfs:subClassOf scm:Equipment ;
+                rdfs:label "Mill" .
+scm:ProductionLine a owl:Class ;
+                rdfs:subClassOf scm:Equipment ;
+                rdfs:label "Production Line" .
+scm:Plant a owl:Class ;
+         rdfs:subClassOf scm:Location ;
+         rdfs:label "Manufacturing Plant" .
+scm:Truck a owl:Class ;
+         rdfs:subClassOf scm:Vehicle ;
+         rdfs:label "Truck" .
+scm:Distributor a owl:Class ;
+               rdfs:subClassOf scm:Organization ;
+               rdfs:label "Distributor" .
+scm:Supplier a owl:Class ;
+            rdfs:subClassOf scm:Organization ;
+            rdfs:label "Supplier".
+scm:Address a owl:Class;
+            rdfs:label "Address".
+scm:Anomaly a owl:Class;
+rdfs:comment "Anomalies can impact the quality of the finished beer product" ;
+rdfs:subClassOf scm:SensorOutput ;
+            rdfs:label "Anomaly".
+ 
+scm:delivery_means a owl:ObjectProperty ;
+  rdfs:label "delivery means" ;
+  so:domainIncludes scm:Truck ;
+  so:rangeIncludes scm:Distribution .
+scm:affects_quality_of a owl:ObjectProperty ;
+  rdfs:label "affects quality of" ;
+  so:domainIncludes scm:Anomaly;
+  so:rangeIncludes scm:Product .
+scm:delivery_target a owl:ObjectProperty ;
+  rdfs:label "delivery target" ;
+  so:domainIncludes scm:Distribution ;
+  so:rangeIncludes scm:Customer .
+scm:has_brand a owl:ObjectProperty ;
+  rdfs:label "has brand" ;
+  so:domainIncludes scm:Product ;
+  so:rangeIncludes scm:Product_Brand .
+scm:has_output a owl:ObjectProperty ;
+  rdfs:label "has output" ;
+  so:domainIncludes scm:Production_Output ;
+  so:rangeIncludes scm:Product .
+scm:has_pallet a owl:ObjectProperty ;
+  rdfs:label "has pallet" ;
+  so:domainIncludes scm:Skid ;
+  so:rangeIncludes scm:Pallet .
+scm:has_quality_document a owl:ObjectProperty ;
+  rdfs:label "has quality document" ;
+  so:domainIncludes scm:Quality_Release ;
+  so:rangeIncludes scm:Quality_Document .
+scm:has_quality_release a owl:ObjectProperty ;
+  rdfs:label "has quality release" ;
+  so:domainIncludes scm:Product ;
+  so:rangeIncludes scm:Quality_Release .
+scm:ingredient_used_in a owl:ObjectProperty ;
+  rdfs:label "ingredient used in" ;
+  so:domainIncludes scm:Raw_Material_Ingredient ;
+  so:rangeIncludes scm:Production_Output .
+scm:is_type_of_ingredient a owl:ObjectProperty ;
+  rdfs:label "is type of ingredient" ;
+  so:domainIncludes scm:Ingredient ;
+  so:rangeIncludes scm:Ingredient_Type .
+scm:is_type_of_product a owl:ObjectProperty ;
+  rdfs:label "is type of product" ;
+  so:domainIncludes scm:Product ;
+  so:rangeIncludes scm:Product_Type .
+scm:line_has_output a owl:ObjectProperty ;
+  rdfs:label "line has output" ;
+  so:domainIncludes scm:ProductionLine ;
+  so:rangeIncludes scm:Production_Output .
+scm:lot_used_in a owl:ObjectProperty ;
+  rdfs:label "lot used in" ;
+  so:domainIncludes scm:Raw_Material_Lot ;
+  so:rangeIncludes scm:Raw_Material_Ingredient .
+scm:outputs_product a owl:ObjectProperty ;
+  rdfs:label "outputs product" ;
+  so:domainIncludes scm:Recipe ;
+  so:rangeIncludes scm:Product_Brand .
+scm:packed_onto_skid a owl:ObjectProperty ;
+  rdfs:label "packed onto skid" ;
+  so:domainIncludes scm:Product ;
+  so:rangeIncludes scm:Skid .
+scm:packed_onto_truck a owl:ObjectProperty ;
+  rdfs:label "packed onto truck" ;
+  so:domainIncludes scm:Skid ;
+  so:rangeIncludes scm:Truck .
+scm:part_of a owl:ObjectProperty ;
+  rdfs:label "part of".
+scm:part_of_distribution a owl:ObjectProperty ;
+  rdfs:label "part of distribution" ;
+  so:domainIncludes scm:Skid ;
+  so:rangeIncludes scm:Distribution .
+scm:recipe_used_in a owl:ObjectProperty ;
+  rdfs:label "recipe used in" ;
+  so:domainIncludes scm:Recipe ;
+  so:rangeIncludes scm:Production_Output .
+scm:providesFeedback a owl:ObjectProperty ;
+  rdfs:label "provides feedback" ;
+  so:domainIncludes scm:Consumer ;
+  so:rangeIncludes scm:Product_Feedback . 
+scm:buysFrom a owl:ObjectProperty ;
+  rdfs:label "buys from" ;
+  so:domainIncludes scm:Consumer ;
+  so:rangeIncludes scm:Selling_Point . 
+scm:purchases a owl:ObjectProperty ;
+  rdfs:label "purchases" ;
+  so:domainIncludes scm:Consumer ;
+  so:rangeIncludes scm:Product .  
+scm:supplies a owl:ObjectProperty ;
+  rdfs:label "supplies" ;
+  so:domainIncludes scm:Supplier ;
+  so:rangeIncludes scm:Customer .  
+scm:inProductsBoughtBy a owl:ObjectProperty ;
+  rdfs:label "in products bought by" ;
+  so:domainIncludes scm:Ingredient ;
+  so:rangeIncludes scm:Customer .     
+scm:selling_point_provides_feedback a owl:ObjectProperty ;
+  rdfs:label "selling point provides feedback" ;
+  so:domainIncludes scm:Selling_Point ;
+  so:rangeIncludes scm:Product_Feedback .
+scm:delivered_to a owl:ObjectProperty ;
+  rdfs:label "delivered to" ;
+  so:domainIncludes scm:Skid ;
+  so:rangeIncludes scm:Selling_Point .
+scm:stored_in a owl:ObjectProperty ;
+  rdfs:label "stored in" ;
+  so:domainIncludes scm:Skid ;
+  so:rangeIncludes scm:Warehouse .
+  
+
+scm:anomaly_reason a owl:DatatypeProperty ;
+  rdfs:label "anomaly reason" ;
+  so:domainIncludes scm:SensorOutput ;
+  so:rangeIncludes xsd:string .
+scm:SkidDeliveryDateTime a owl:DatatypeProperty ;
+  rdfs:label "skid delivery timestamp" ;
+  so:domainIncludes scm:Skid ;
+  so:rangeIncludes xsd:dateTime .
+scm:stored_in_1 a owl:ObjectProperty ;
+  rdfs:label "stored in" ;
+  so:domainIncludes scm:Product ;
+  so:rangeIncludes scm:Warehouse .
+scm:used_in a owl:ObjectProperty ;
+  rdfs:label "used in" ;
+  so:domainIncludes scm:Ingredient ;
+  so:rangeIncludes scm:Recipe .
+scm:sourced_from a owl:ObjectProperty ;
+  rdfs:label "sourced from" .
+scm:feedback_for a owl:ObjectProperty ;
+  rdfs:label "feedback for"	;
+  so:domainIncludes scm:Product_Feedback ;
+  so:rangeIncludes scm:Product .
+scm:monitors a owl:ObjectProperty ;
+            so:domainIncludes scm:Sensor ;
+            so:rangeIncludes scm:Warehouse, scm:Equipment, scm:Truck,scm:Plant;
+            rdfs:comment "link the sensor to the equipment being monitored" ;
+            rdfs:label "monitors" .
+scm:feeds a owl:ObjectProperty ;
+            rdfs:label "feeds";
+            so:domainIncludes scm:Equipment;
+            so:rangeIncludes scm:Equipment;
+            rdfs:label "feeds" .			
+scm:output a owl:ObjectProperty ;
+            rdfs:label "output";
+            so:domainIncludes scm:Equipment;
+            so:rangeIncludes scm:Production_Output.
+			
+scm:hasOutput a owl:ObjectProperty ;
+            rdfs:label "has output";
+            so:domainIncludes scm:Sensor;
+            so:rangeIncludes scm:SensorOutput,scm:Anomaly.
+scm:located_at a owl:ObjectProperty ;
+            rdfs:label "located at";
+            so:domainIncludes scm:Selling_Point;
+            so:rangeIncludes scm:Customer.
+scm:supplierOf rdf:type owl:ObjectProperty ;
+              so:domainIncludes scm:Supplier ;
+              so:rangeIncludes scm:Ingredient ;
+              rdfs:comment "link a supplier to the ingredient they supply" ;
+              rdfs:label "supplier of" .
+scm:hasAddress rdf:type owl:ObjectProperty ;
+              so:domainIncludes scm:Customer ;
+              so:rangeIncludes scm:Address ;
+              rdfs:label "has address" .
+scm:hasAnomaly rdf:type owl:ObjectProperty ;
+              so:domainIncludes scm:Truck ;
+              so:rangeIncludes scm:Anomaly ;
+              rdfs:label "has anomaly" .
+scm:deliveredBy rdf:type owl:ObjectProperty ;
+              so:domainIncludes scm:Product ;
+              so:rangeIncludes scm:Truck ;
+              rdfs:label "delivered by" .
+
+scm:recordId a owl:DatatypeProperty ;
+  rdfs:label "record id" ;
+  so:domainIncludes scm:SensorOutput ;
+  so:rangeIncludes xsd:string .		
+scm:sensorReadingTimestamp a owl:DatatypeProperty ;
+  rdfs:label "sensor reading timestamp" ;
+  so:domainIncludes scm:SensorOutput ;
+  so:rangeIncludes xsd:dateTime .	
+scm:sensorManufacturer a owl:DatatypeProperty ;
+  rdfs:label "sensor manufacturer" ;
+  so:domainIncludes scm:SensorOutput ;
+  so:rangeIncludes xsd:string .	   
+scm:sensorId a owl:DatatypeProperty ;
+  rdfs:label "sensor id" ;
+  so:domainIncludes scm:SensorOutput ;
+  so:rangeIncludes xsd:string .	  
+scm:sensorOutputCreateDate a owl:DatatypeProperty ;
+  rdfs:label "sensor output create date" ;
+  so:domainIncludes scm:SensorOutput ;
+  so:rangeIncludes xsd:date .
+scm:sensorOutputValue a owl:DatatypeProperty ;
+  rdfs:label "sensor output value" ;
+  so:domainIncludes scm:SensorOutput ;
+  so:rangeIncludes xsd:integer .
+scm:identifiedBy a owl:DatatypeProperty ;
+  rdfs:label "identified by" ;
+  so:domainIncludes scm:SensorOutput ;
+  so:rangeIncludes xsd:string .
+scm:complaints a owl:DatatypeProperty ;
+  rdfs:label "complaints" ;
+  so:domainIncludes scm:Customer ;
+  so:rangeIncludes xsd:integer .
+scm:create_date a owl:DatatypeProperty ;
+  rdfs:label "create date" ;
+  so:domainIncludes scm:Customer, scm:Distribution, scm:Product, scm:Product_Feedback, scm:Production_Output, scm:Quality_Release, scm:Skid ;
+  so:rangeIncludes xsd:date .
+scm:customer_name a owl:DatatypeProperty ;
+  rdfs:label "customer name" ;
+  so:domainIncludes scm:Customer ;
+  so:rangeIncludes xsd:string .
+scm:delivery_date a owl:DatatypeProperty ;
+  rdfs:label "delivery date" ;
+  so:domainIncludes scm:Distribution;
+  so:rangeIncludes xsd:date .
+scm:description a owl:DatatypeProperty ;
+  rdfs:label "description" ;
+  so:domainIncludes scm:Product_Feedback ;
+  so:rangeIncludes xsd:string .
+scm:end_date a owl:DatatypeProperty ;
+  rdfs:label "end date" ;
+  so:domainIncludes scm:Production_Output ;
+  so:rangeIncludes xsd:date .
+scm:has_status a owl:DatatypeProperty ;
+  rdfs:label "has status" ;
+  so:domainIncludes scm:Quality_Release ;
+  so:rangeIncludes xsd:string .
+scm:identified_by a owl:DatatypeProperty ;
+  rdfs:label "identified by" ;
+  so:domainIncludes  scm:Product, scm:Product_Feedback, scm:Production_Output, scm:Quality_Release, scm:Recipe ;
+  so:rangeIncludes xsd:string .
+scm:ingredient_amount a owl:DatatypeProperty ;
+  rdfs:label "ingredient amount" ;
+  so:domainIncludes scm:Ingredient ;
+  so:rangeIncludes xsd:integer .
+scm:orders a owl:DatatypeProperty ;
+  rdfs:label "orders" ;
+  so:domainIncludes scm:Customer ;
+  so:rangeIncludes xsd:integer .
+scm:quantity a owl:DatatypeProperty ;
+  rdfs:label "quantity" ;
+  so:domainIncludes  scm:Product, scm:Production_Output, scm:Recipe ;
+  so:rangeIncludes xsd:integer .
+scm:raw_material_ingredient_quantity a owl:DatatypeProperty ;
+  rdfs:label "raw material ingredient quantity" ;
+  so:domainIncludes scm:Raw_Material_Ingredient ;
+  so:rangeIncludes xsd:integer .
+scm:raw_material_ingredient_uom a owl:DatatypeProperty ;
+  rdfs:label "raw material ingredient uom" ;
+  so:domainIncludes scm:Raw_Material_Ingredient ;
+  so:rangeIncludes xsd:string .
+scm:selling_point_name a owl:DatatypeProperty ;
+  rdfs:label "selling point name" ;
+  so:domainIncludes scm:Selling_Point ;
+  so:rangeIncludes xsd:string .
+scm:stadium_capacity a owl:DatatypeProperty ;
+  rdfs:label "stadium capacity" ;
+  so:domainIncludes scm:Customer ;
+  so:rangeIncludes xsd:integer .
+scm:unit_of_measure a owl:DatatypeProperty ;
+  rdfs:label "unit of measure" ;
+  so:domainIncludes scm:Product ;
+  so:rangeIncludes xsd:string .
+scm:UOM a owl:DatatypeProperty ;
+  rdfs:label "UOM" ;
+  so:domainIncludes scm:Ingredient, scm:Production_Output, scm:Recipe, scm:Unit_of_Measure ;
+  so:rangeIncludes xsd:string .
+scm:consumerName a owl:DatatypeProperty ;
+  rdfs:label "consumer name" ;
+  so:domainIncludes scm:Consumer;
+  so:rangeIncludes xsd:string .
+scm:streetAddress a owl:DatatypeProperty ;
+  rdfs:label "street address" ;
+  so:domainIncludes scm:Address;
+  so:rangeIncludes xsd:string .
+scm:city a owl:DatatypeProperty ;
+  rdfs:label "city" ;
+  so:domainIncludes scm:Address;
+  so:rangeIncludes xsd:string .
+scm:state a owl:DatatypeProperty ;
+  rdfs:label "state" ;
+  so:domainIncludes scm:Address;
+  so:rangeIncludes xsd:string .
+scm:postalCode a owl:DatatypeProperty ;
+  rdfs:label "postal code" ;
+  so:domainIncludes scm:Address;
+  so:rangeIncludes xsd:string .
+scm:postalCodeExt a owl:DatatypeProperty ;
+  rdfs:label "postal code extension" ;
+  so:domainIncludes scm:Address;
+  so:rangeIncludes xsd:string .
+scm:country a owl:DatatypeProperty ;
+  rdfs:label "country" ;
+  so:domainIncludes scm:Address;
+  so:rangeIncludes xsd:string .
+scm:latitude a owl:DatatypeProperty ;
+  rdfs:label "latitude" ;
+  so:domainIncludes scm:Address;
+  so:rangeIncludes xsd:string .
+scm:longitude a owl:DatatypeProperty ;
+  rdfs:label "longitude" ;
+  so:domainIncludes scm:Address;
+  so:rangeIncludes xsd:string .
+scm:phone a owl:DatatypeProperty ;
+  rdfs:label "phone" ;
+  so:domainIncludes scm:Customer;
+  so:rangeIncludes xsd:string .
+scm:entity_type a owl:DatatypeProperty ;
+  rdfs:label "entity type" ;
+  so:domainIncludes scm:Sensor,scm:Pallet,scm:Truck;
+  so:rangeIncludes xsd:string .
+
+
+stardog:EntityMatch a owl:Class ;
+  rdfs:label "Entity Match" .
+
+stardog:entityMatch  a owl:ObjectProperty ;
+  rdfs:label "entity match" .
+ 
+stardog:Score a owl:DatatypeProperty ;
+  rdfs:label "score" .
