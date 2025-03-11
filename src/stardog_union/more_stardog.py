@@ -2,6 +2,7 @@ import dataclasses
 import datetime
 import os
 import re
+import uuid
 from collections import defaultdict
 from enum import Enum
 from typing import Any
@@ -744,6 +745,7 @@ def import_file(
         payload["named_graph"] = named_graph
 
     payload["input_file_type"] = input_file.input_type
+    payload["input_file_iri"] = f"uuid://{uuid.uuid4()}"
 
     with input_file.data() as data:
         r = admin.client.post(
@@ -778,7 +780,9 @@ class PasswordEntry:
         self.user = args[3]
         self.passwd = args[4]
 
-    def get_credentials(self, host, port, db, user) -> tuple[str, str] | None:
+    def get_credentials(
+        self, host, port, db: str | None = None, user: str | None = None
+    ) -> tuple[str, str] | None:
         matches = (
             (self.host == "*" or self.host == host)
             and (self.port == -1 or self.port == port)
@@ -788,7 +792,9 @@ class PasswordEntry:
         return (user if user else self.user, self.passwd) if matches else None
 
 
-def get_password_file_credentials(endpoint, db, username) -> tuple[str, str]:
+def get_password_file_credentials(
+    endpoint, db: str | None = None, username: str | None = None
+) -> tuple[str, str]:
     parsed_url = urlparse(endpoint)
     entries = get_all_credentials()
     try:
