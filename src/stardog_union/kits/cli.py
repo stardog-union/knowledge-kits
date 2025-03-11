@@ -57,15 +57,15 @@ def init_kit(
         yaml.dump(k.to_dict(), f)
 
     with open(os.path.join(kit_loc, "readme.md"), "w") as f:
-        f.write(f"# {k.group}:{k.name}:{k.version}")
+        f.write(f"# Knowledge Kit: {k.group}:{k.name}:{k.version}")
 
     with open(os.path.join(kit_loc, "data.ttl"), "w") as f:
         f.write("# Data goes here")
 
     with open(os.path.join(kit_loc, "schema.ttl"), "w") as f:
-        f.write("# Data goes here")
+        f.write("# Schema goes here")
 
-    print(f"Kit initialized at {location}")
+    print(f"Kit initialized at {kit_loc}")
 
 
 @kits.command(name="ls")

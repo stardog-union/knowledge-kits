@@ -7,17 +7,66 @@ Knowledge Kits define the structure, data, and metadata for treating knowledge g
 ## Installation
 
 ```bash
+# set up your venv
+$ python -m venv venv
+# activate it
+$ source venv/bin/activate
+# install the package
 $ pip install -e .
 ```
 
 ## Creating your first Kit
 
 ```bash
+$ mkdir mykit
+$ cd mykit
 $ kits init --name my-first-kit --group tutorial --version 1.0
 ```
 
-TODO: instructions for creating a kit
+This creates a skeleton for your new Kit. Go into the `kit.yaml` file and update the metadata to describe your Kit. Copy in your own data and model, create a complete readme. Then you're ready to install.
 
+## Installing your Kit
+
+### Setting up your Environment
+
+Create a new environment file from the example.
+
+```bash
+$ cp .env.example .env
+```
+
+NEVER COMMIT YOUR `.env` FILE TO VERSION CONTROL.
+
+The `default_target` defines which target to use on the CLI when none is specified.
+
+You must then define your targets, a target is a Stardog Endpoint. Targets have a name, which is used on the CLI to lieu of a server & credentials. They also have the server URL in addition to the credentials. The format for definining a target is `[target name]_[property]=[value]`. 
+
+The only required property is `server`, which is the location of the Stardog endpoint:
+
+```bash
+my_endpoint_server="https://abc123.stardog.cloud:5820"
+```
+
+You must also specify your credentials for the endpoint. If you have a [Stardog Password File](https://docs.stardog.com/operating-stardog/security/managing-users-and-roles#using-a-password-file), you can omit credentials in your environment, the Kits CLI will use the password file. 
+
+To specify credentials in your environment, you use the properties `username` and `password`:
+
+```bash
+my_endpoint_username="the_username"
+my_endpoint_password="the_password"
+```
+
+### Installation
+
+```bash
+$ kits install -t my_endpoint
+```
+
+## Uninstalling your Kit
+
+```bash
+$ kits uninstall -t my_endpoint
+```
 
 # Kit Specification
 
@@ -167,12 +216,39 @@ A collection of namespace definitions that can be used throughout the knowledge 
     sqs: "tag:stardog:api:sqs:"
   ```
 
-## Sources
+## Data Sources
 
-Defines a which Stardog [Data Sources](https://docs.stardog.com/virtual-graphs/data-sources/) are used by the Virtual Graphs of the kit.
+For any of the [data](#data) which uses [mappings](#mappings), a Stardog [Data Source](https://docs.stardog.com/virtual-graphs/data-sources/) is required to create the virtual graph.
 
+#### Describing a data source
 
-Details Coming Soon.
+The value of the `sources` key is an array of data source descriptors. The name of the data source should match the exact name of
+the source as [defined in the data](#source).
+
+Here is an example data source definition:
+
+```yaml
+  - name: CentralDatabricks
+    options:
+      jdbc.driver: "com.simba.spark.jdbc.Driver"
+      jdbc.url : "jdbc:spark://example.cloud.databricks.com:443/default;transportMode=http;ssl=1;AuthMech=3;httpPath=/sql/1.0/endpoints/abcc123def456ghj789;UseNativeQuery=1"
+      jdbc.username: "token"
+      sql.schemas: "default"
+      testOnBorrow: true
+      validationQuery: "select 1"
+```
+
+The valid options here correspond to the set of valid [Data Source Configuration](https://docs.stardog.com/virtual-graphs/data-sources/data-source-configuration) options.
+
+#### Passwords for data sources
+
+Do NOT put these in your Kit. Kits belong in version control, but passwords do not.
+
+To specify passwords for your data sources, you will need to update your `.env` file. The convention to follow when specifiying these credentials in your environment, is `[source name]_password=mypassword`. For the above data source descriptor example, we would specify the password as such:
+
+```yaml
+CentralDatabricks_password="abc123"
+```
 
 
 ## Queries
