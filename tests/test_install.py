@@ -97,7 +97,7 @@ def test_install_namespaces(
     )
     get_admin.assert_called_once()
 
-    assert method.call_count == 9
+    assert method.call_count == 8
 
 
 def test_install_provenance(

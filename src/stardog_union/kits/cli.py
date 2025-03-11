@@ -49,10 +49,12 @@ def init_kit(
             DataLoad(file="schema.ttl", graph="urn:schema"),
         ],
         schemas=[Schema(name="schema_name", graphs=["urn:schema"])],
+        namespaces=[],
+        queries=[],
     )
 
     with open(os.path.join(kit_loc, "kit.yaml"), "w") as f:
-        yaml.dump(f, k.to_dict())
+        yaml.dump(k.to_dict(), f)
 
     with open(os.path.join(kit_loc, "readme.md"), "w") as f:
         f.write(f"# {k.group}:{k.name}:{k.version}")
@@ -70,7 +72,7 @@ def init_kit(
 def list_kits(
     database: Annotated[str, typer.Option("--database", "-d", help=HELP_DATABASE)],
     target: Annotated[
-        str | None, typer.Option("--target", "-t", help=HELP_TARGET)
+        Optional[str], typer.Option("--target", "-t", help=HELP_TARGET)
     ] = None,
 ):
     cf = get_connction_factory(
@@ -137,7 +139,7 @@ def install_kit(
 def uninstall_kit(
     kit_id: str,
     target: Annotated[
-        str | None, typer.Option("--target", "-t", help=HELP_TARGET)
+        Optional[str], typer.Option("--target", "-t", help=HELP_TARGET)
     ] = None,
     database: Annotated[
         Optional[str], typer.Option("--database", "-d", help=HELP_DATABASE)

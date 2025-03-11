@@ -2,6 +2,23 @@
 
 Knowledge Kits define the structure, data, and metadata for treating knowledge graphs in a "KG as Code" manner. Coupled with some simple tooling, they offer a standardized way to automate, version, and share graph deployments, making it easier to manage complex graph systems. 
 
+# Getting Started
+
+## Installation
+
+```bash
+$ pip install -e .
+```
+
+## Creating your first Kit
+
+```bash
+$ kits init --name my-first-kit --group tutorial --version 1.0
+```
+
+TODO: instructions for creating a kit
+
+
 # Kit Specification
 
 This specification defines the structure and elements used for describing the configuration of a Stardog Knowledge Graph using YAML. It supports configurations in a "knowledge graph as code" manner, enabling automation and versioning.

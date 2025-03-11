@@ -289,24 +289,36 @@ class Kit:
         )
 
     def to_dict(self) -> dict:
-        return {
+        d = {
             "name": self.name,
             "group": self.group,
             "version": self.version,
-            "label": self.label,
-            "description": self.description,
             "data": [
-                {"file": x.file, "graph": x.graph, "mappings": x.mappings}
+                {
+                    "file": x.file,
+                    "graph": x.graph,
+                    "mappings": x.mappings if x.mappings else [],
+                }
                 for x in self.data
             ],
             "schemas": [{"name": x.name, "graphs": x.graphs} for x in self.schemas],
             "namespaces": self.namespaces,
-            "metadata": self.metadata,
+            "metadata": self.metadata if self.metadata else {},
             "queries": self.queries,
-            "alias": self.alias,
-            "options": self.options,
-            "sources": self.sources,
+            "options": self.options if self.options else {},
+            "sources": self.sources if self.sources else [],
         }
+
+        if self.alias:
+            d["alias"] = self.alias
+
+        if self.label:
+            d["label"] = self.label
+
+        if self.description:
+            d["description"] = self.description
+
+        return d
 
     def __init__(
         self,
