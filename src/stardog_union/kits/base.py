@@ -227,7 +227,7 @@ class Kit:
 
         This name is used when a kit is installed in a database and
         a database name is not explicitly provided."""
-        return f"{kit.group}_{kit.name}_{kit.version.replace('.', '_')}"
+        return kit.options.get("database.name", f"{kit.group}_{kit.name}_{kit.version.replace('.', '_')}")
 
     @staticmethod
     def from_file(location: str) -> "Kit":

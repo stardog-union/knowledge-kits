@@ -794,7 +794,7 @@ def get_password_file_credentials(endpoint, db=None, username=None) -> tuple[str
             )
         )
     except StopIteration:
-        raise Exception(f"No credentials found in the .sdpass file for {endpoint}")
+        return None
 
 
 def get_all_credentials() -> list[PasswordEntry]:
