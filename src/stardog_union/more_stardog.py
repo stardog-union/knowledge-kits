@@ -778,7 +778,7 @@ class PasswordEntry:
         return (user if user else self.user, self.passwd) if matches else None
 
 
-def get_password_file_credentials(endpoint, db, username) -> tuple[str, str]:
+def get_password_file_credentials(endpoint, db=None, username=None) -> tuple[str, str]:
     parsed_url = urlparse(endpoint)
     entries = get_all_credentials()
     try:
