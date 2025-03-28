@@ -381,15 +381,21 @@ def install_schemas(admin: Admin, database: str, kit: Kit):
 
 
 def load_stored_queries_from_file(admin: Admin, kit: Kit, local_dir: str | None = None):
-    # TODO: add this not sure if pystardog has support?
-    # dir_name = local_dir if local_dir else os.getcwd()
-    # file_to_load = (
-    #     kit.queries
-    #     if os.path.isabs(kit.queries)
-    #     else dir_name + os.path.sep + kit.queries
-    # )
+    dir_name = local_dir if local_dir else os.getcwd()
+    file_to_load:str = (
+        kit.queries
+        if os.path.isabs(kit.queries)
+        else dir_name + os.path.sep + kit.queries
+    )
 
-    LOG.warning("Loading stored queries for a Kit from a file is not yet supported.")
+    with open(file_to_load, "r") as f:
+        sq_data = f.read()
+
+    admin.client.put(
+        "/admin/queries/stored",
+        data=sq_data,
+        headers={"Accept": "application/json", "Content-Type": "text/turtle"},
+    )
 
 
 def install_stored_queries(

@@ -11,6 +11,7 @@ import rdflib.namespace as NS
 import requests
 import stardog
 import typing_extensions
+import uuid
 from rdflib import RDF, BNode, Graph
 from rdflib import Literal
 from rdflib import Literal as RDFLiteral
@@ -734,6 +735,7 @@ def import_file(
         payload["named_graph"] = named_graph
 
     payload["input_file_type"] = input_file.input_type
+    payload["input_file_iri"] = f"uuid:{uuid.uuid4()}"
 
     with input_file.data() as data:
         r = admin.client.post(
