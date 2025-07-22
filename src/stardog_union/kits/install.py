@@ -199,10 +199,11 @@ def get_kit_meta(kit: Kit, base_iri: str = "tag:stardog:marketplace:") -> Graph:
         )
     ]
 
-    for source in kit.sources:
-        source_node = URIRef("urn:uuid:" + str(uuid.uuid4()))
-        g.add((kit_iri, vocabs.Kits.hasSource, source_node))
-        g.add((source_node, RDFS.label, RDFLiteral(source.name)))
+    if kit.sources:
+        for source in kit.sources:
+            source_node = URIRef("urn:uuid:" + str(uuid.uuid4()))
+            g.add((kit_iri, vocabs.Kits.hasSource, source_node))
+            g.add((source_node, RDFS.label, RDFLiteral(source.name)))
 
     for schema in kit.schemas:
         schema_node = URIRef("urn:uuid:" + str(uuid.uuid4()))
@@ -382,7 +383,7 @@ def install_schemas(admin: Admin, database: str, kit: Kit):
 
 def load_stored_queries_from_file(admin: Admin, kit: Kit, local_dir: str | None = None):
     dir_name = local_dir if local_dir else os.getcwd()
-    file_to_load:str = (
+    file_to_load: str = (
         kit.queries
         if os.path.isabs(kit.queries)
         else dir_name + os.path.sep + kit.queries
@@ -477,6 +478,10 @@ def create_kit_database(admin: Admin, db_name: str, kit: Kit):
 
     opts = kit.options if kit.options else {}
 
+    opts["database.namespaces"] = ",".join(
+        [f"{k}={v}" for k, v in kit.namespaces.items()]
+    )
+
     admin.new_database(db_name, options=xform_options(opts))
 
 
@@ -548,12 +553,13 @@ def install_kit(
 
                 graphs = set(filter(lambda x: x, [data.graph for data in kit.data]))
 
-                conn.update(
-                    queries.INSERT_ALIAS.format(
-                        alias_iri=f"<{kit.alias_iri}>",
-                        aliases=",".join(["<%s>" % a for a in graphs]),
+                if graphs:
+                    conn.update(
+                        queries.INSERT_ALIAS.format(
+                            alias_iri=f"<{kit.alias_iri}>",
+                            aliases=",".join(["<%s>" % a for a in graphs]),
+                        )
                     )
-                )
 
                 update_status("Finalizing installation")
 

@@ -186,22 +186,44 @@ class DataSource:
 
 
 class Kit:
+    """A Knowledge Kit
+
+    Kits are declarative definitions of Knowledge Graphs - KG as Code."""
+
     name: str
+    """The friendly name of the kit"""
     group: str
+    """The group this kit belongs to"""
     version: str
+    """The version of the kit"""
 
     options: dict[str, bool | str | list[str]] | None = None
+    """Required database options"""
+
     sources: list[DataSource] | None = None
 
     alias: str | None = None
+    """An short name for the kit"""
 
     label: str | None = None
+    """The label of the kit"""
+
     description: str | None = None
+    """The description of the kit"""
 
     data: list[DataLoad]
+    """The data that makes up the KG"""
+
     schemas: list[Schema]
+    """The KG schemas"""
+
     namespaces: dict[str, str]
+    """Namespaces to use for the database. 
+    
+    This encodes the namespaces as prefix, iri pairs."""
+
     queries: str | list[StoredQuery]
+    """Stored queries associated with the kit"""
 
     metadata: dict | None = None
     """User-defined metadata"""
@@ -227,7 +249,9 @@ class Kit:
 
         This name is used when a kit is installed in a database and
         a database name is not explicitly provided."""
-        return kit.options.get("database.name", f"{kit.group}_{kit.name}_{kit.version.replace('.', '_')}")
+        return kit.options.get(
+            "database.name", f"{kit.group}_{kit.name}_{kit.version.replace('.', '_')}"
+        )
 
     @staticmethod
     def from_file(location: str) -> "Kit":
