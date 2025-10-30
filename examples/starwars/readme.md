@@ -5,7 +5,7 @@ This is a knowledge graph focused on the universe of Star Wars. The files used t
 
 We will browse this demo in [Explorer](https://docs.stardog.com/stardog-applications/explorer/), Stardog's no-code search and visualization tool that allows anyone to explore complex data fabrics easily.
 
-To get started, **click on "Open in Explorer"**, the blue CTA in the header of this demo. Alternatively, you can install this kit into your own database to use it in [Designer](https://docs.stardog.com/stardog-applications/designer/) or [Studio](https://docs.stardog.com/stardog-applications/studio/).
+To get started, **click on "Open in Explorer"** under **Try It Out**.
 
 Once in Explorer, we'll first browse the relationships of Tatooine, an instance of the class Planet. You can expand grouped instances with a single click and see the details of each instance with a right click.
 
