@@ -4,9 +4,12 @@ Before you dive in, the introduction to the Getting Started series, [Getting Sta
 
 # Getting Started
 
-To view the data model for this Kit in Explorer, select a connection and install it in the section "Install this Knowledge Kit?", on the top of this page. Then, click the `Visualize` button. You should see something like this:
+To view the data for this Kit, click **Open in Explorer** under **Try It Out**. This opens a read-only view so you can inspect the schema and browse sample instance data—no install required. In Explorer, click Search with an empty Search bar to see the data model. You should see something like this:
 
 ![Music Schema](https://stardog-knowledge-kits.s3.amazonaws.com/music-schema.png)
+
+When you’re ready to run your own SPARQL queries, click **Open in Studio** under **Try It Out**.
+
 
 ## Understanding the Schema
 
@@ -967,6 +970,7 @@ The triples returned for this query do not exist in our graph:
 
 `CONSTRUCT` queries are read-only just like the other query forms we have seen so far and do not modify the input RDF graph. If we want to modify the RDF graph, we need to use SPARQL update queries that we discuss next.
 
+<!-- Remove options which require write permissions
 ## Update Queries
 
 If we want to insert triples into the database based on the results of a query, we can use an `INSERT` query. The following query is similar to the above `CONSTRUCT` query but simply inserts the resulting triples into the database:
@@ -1018,3 +1022,4 @@ SELECT * {
 ```
 
 ![21b results](https://docs.stardog.com/assets/images/tutorials/getting-started-series/getting-started-4/getting-started-4-21b-results.png)
+-->
