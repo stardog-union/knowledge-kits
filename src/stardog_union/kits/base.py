@@ -289,7 +289,23 @@ class Kit:
         )
         namespaces = kit_data.get("namespaces", default_namespaces())
         meta = kit_data.get("metadata", {})
-        queries = kit_data.get("queries", [])
+
+        # Parse queries - can be either a string (file path) or list of StoredQuery dicts
+        queries_raw = kit_data.get("queries", [])
+        if isinstance(queries_raw, list):
+            queries = [
+                StoredQuery(
+                    name=q["name"],
+                    query=q.get("query", None),
+                    file=q.get("file", None),
+                    options=q.get("options", None),
+                )
+                for q in queries_raw
+            ]
+        else:
+            # String (file path) or other type - pass through as-is
+            queries = queries_raw
+
         alias = kit_data.get("alias", None)
 
         options = kit_data.get("options", {})

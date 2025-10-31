@@ -421,7 +421,6 @@ class StoredQuery(object):  # pragma: no cover
 
     @staticmethod
     def delete(admin: stardog.Admin, sq: "StoredQuery"):
-        print("SHOULD NOT SEE")
         admin.client.delete(f"/admin/queries/stored/{sq.name}")
 
 

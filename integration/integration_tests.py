@@ -1,14 +1,36 @@
 import os
 
 import pytest
+from dotenv import find_dotenv, load_dotenv
 
 from stardog_union import more_stardog as stardog_utils
 from stardog_union.kits import install, uninstall
 from stardog_union.kits.base import DataLoad, Kit, StardogKitRepository, StoredQuery
 
+# Load environment variables from .env file
+load_dotenv(find_dotenv(usecwd=True))
+
 
 @pytest.fixture
 def connection_factory() -> stardog_utils.ConnectionFactory:
+    from stardog_union.kits.base import load_targets_from_env
+
+    # Load targets from .env file (handles password file fallback automatically)
+    targets = load_targets_from_env()
+
+    # Get default target or use environment variables directly
+    if targets and os.getenv("default_target") in targets:
+        target_config = targets[os.getenv("default_target")]
+        return stardog_utils.ConnectionFactory(
+            stardog_utils.ConnectionDetails(
+                endpoint=target_config["endpoint"],
+                database=os.getenv("STARDOG_INTERNAL_DATABASE", "testDb"),
+                username=target_config["username"],
+                password=target_config["password"],
+            )
+        )
+
+    # Fallback to localhost defaults if no targets configured
     return stardog_utils.ConnectionFactory(
         stardog_utils.ConnectionDetails(
             endpoint=os.getenv("STARDOG_INTERNAL_ENDPOINT", "http://localhost:5820"),

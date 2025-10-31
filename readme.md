@@ -141,10 +141,17 @@ Defines the data that makes up the contents of the kit
 
 ### `file`
 - **Type**: `string`
-- **Description**: The path to the data file. This is relative to the "root" of the kit; where `kit.yaml` is stored. Mutually exclusive with `source`.
-- **Example**:
+- **Description**: The path to the data file or a URL to remote data. File paths are relative to the "root" of the kit (where `kit.yaml` is stored). URLs must start with `http://` or `https://`. Mutually exclusive with `source`.
+- **Supported formats**:
+  - RDF: Turtle (`.ttl`), RDF/XML (`.rdf`), N-Triples (`.nt`), N-Quads (`.nq`), TriG (`.trig`), JSON-LD (`.jsonld`)
+  - With mappings: CSV (`.csv`), JSON (`.json`)
+- **Examples**:
   ```yaml
+  # Local file
   file: data.ttl
+
+  # Remote URL
+  file: https://example.com/data/mydata.ttl
   ```
 
 ### `source`
@@ -253,12 +260,48 @@ CentralDatabricks_password="abc123"
 
 ## Queries
 
+Defines stored queries to be installed with the kit. Queries can be specified either as a single RDF file or as a list of individual query definitions.
+
+### Format 1: RDF File (String)
+
 - **Type**: `string`
-- **Description**: Path to a file containing stored queries for the knowledge graph.
+- **Description**: Path to an RDF file (Turtle format) containing stored query definitions. The file should contain Stardog stored query metadata in RDF format.
 - **Example**:
   ```yaml
-  queries: "test_stored_queries.ttl"
+  queries: "stored_queries.ttl"
   ```
+
+### Format 2: List of Query Definitions
+
+- **Type**: `list`
+- **Description**: A list of individual stored query objects. Each query can be defined inline or reference an external query file.
+- **Query Fields**:
+  - `name` (**required**, `string`): The name of the stored query
+  - `query` (`string`): Inline SPARQL query string. Mutually exclusive with `file`.
+  - `file` (`string`): Path to a file containing the SPARQL query. Mutually exclusive with `query`.
+  - `options` (`map`): Query options (e.g., `reasoning`, `shared`)
+- **Examples**:
+  ```yaml
+  queries:
+    # Inline query
+    - name: all_subjects
+      query: "SELECT ?s WHERE { ?s ?p ?o }"
+      options:
+        reasoning: true
+        shared: true
+
+    # Query from file
+    - name: complex_query
+      file: "queries/my_query.sparql"
+      options:
+        reasoning: false
+
+    # Simple inline query without options
+    - name: count_triples
+      query: "SELECT (COUNT(*) AS ?count) WHERE { ?s ?p ?o }"
+  ```
+
+**Note**: When installed, queries from the list format will be prefixed with the database name (e.g., `mydb_all_subjects`) to ensure uniqueness across databases.
 
 ## User Defined Metadata
 

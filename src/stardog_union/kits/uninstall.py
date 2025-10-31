@@ -109,7 +109,6 @@ def uninstall_kit(
             update_status("Dropping Stored Queries")
             for sq in stored_queries:
                 LOG.info("Deleting stored query %s" % sq.name)
-                print("about to delete", sq)
                 stardog_utils.StoredQuery.delete(admin, sq)
                 update_status(count=1)
 
