@@ -62,7 +62,9 @@ class DatabaseOptions(str, Enum):
     SECURITY_MASKING_FUNCTION = "security.masking.function"
 
     VOICEBOX_ENABLED = "voicebox.enabled"
+    VOICEBOX_PREPROCESSORS = "voicebox.preprocessors"
 
+    DATABASE_NAME = "database.name"
     DATABASE_TIME_MODIFICATION = "database.time.modification"
 
 

@@ -51,9 +51,6 @@ def connection_factory_mock(mocker: MockerFixture, databases=[fake_database]):
 
 
 def assert_contains(g: Graph, triple: tuple):
-    for t in g.triples(triple):
-        print(t)
-    print(list(g.triples(triple)))
     assert list(g.triples(triple))
 
 
