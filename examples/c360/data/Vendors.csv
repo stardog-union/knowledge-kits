@@ -1,0 +1,447 @@
+id,vendor_name,industry,homepage
+1,Neewer,Multi-Industry,http://neewer.com
+2,Anker,Multi-Industry,http://anker.com
+3,Acer,Multi-Industry,http://acer.com
+4,Kurt Adler,Multi-Industry,http://kurtadler.com
+5,IKEA,Furniture,http://ikea.com
+6,Duralock,Multi-Industry,http://duralock.com
+7,Energizer,Energy,http://energizer.com
+8,Kleenex,Home Goods,http://kleenex.com
+9,Charmin Ultra Soft,Home Goods,http://charminultrasoft.com
+10,Bounty,Multi-Industry,http://bounty.com
+11,Dish Towels,Multi-Industry,http://dishtowels.com
+12,Xbox,Multi-Industry,http://xbox.com
+13,Assassin's Creed III,Multi-Industry,http://assassin'screediii.com
+14,Sock Monkey,Multi-Industry,http://sockmonkey.com
+15,Ceaco,Multi-Industry,http://ceaco.com
+16,Bulk buys,Multi-Industry,http://bulkbuys.com
+17,Greenworks,Multi-Industry,http://greenworks.com
+18,Sun Joe,Multi-Industry,http://sunjoe.com
+19,Honda,Multi-Industry,http://honda.com
+20,Stihl,Multi-Industry,http://stihl.com
+21,Expert Gardener,Multi-Industry,http://expertgardener.com
+22,Garden shovel,Multi-Industry,http://gardenshovel.com
+23,Forester,Multi-Industry,http://forester.com
+24,Fiskars,Multi-Industry,http://fiskars.com
+25,Bayer,Major Pharmaceuticals,http://bayer.com
+26,Advil,Multi-Industry,http://advil.com
+27,Band-Aid,Major Pharmaceuticals,http://band-aid.com
+28,Kendall,Multi-Industry,http://kendall.com
+29,Duracell,Energy,http://duracell.com
+30,Sephora,Multi-Industry,http://sephora.com
+31,REI,Multi-Industry,http://rei.com
+32,Coleman,Multi-Industry,http://coleman.com
+33,Maglite,Multi-Industry,http://maglite.com
+34,Pampers,Home Goods,http://pampers.com
+35,Nuk,Multi-Industry,http://nuk.com
+36,Graco,Multi-Industry,http://graco.com
+37,Apple,Electronics,http://apple.com
+38,Stanley,Multi-Industry,http://stanley.com
+39,Drill,Multi-Industry,http://drill.com
+40,Kobalt,Multi-Industry,http://kobalt.com
+41,Craftsman,Multi-Industry,http://craftsman.com
+42,Dewalt,Multi-Industry,http://dewalt.com
+43,3M,Electronics,http://3m.com
+44,Bolt Depot,Multi-Industry,http://boltdepot.com
+45,China Glaze,Multi-Industry,http://chinaglaze.com
+46,Fender,Multi-Industry,http://fender.com
+47,Ibanez,Multi-Industry,http://ibanez.com
+48,A4Tech,Multi-Industry,http://a4tech.com
+49,Casio,Multi-Industry,http://casio.com
+50,D'Addario,Multi-Industry,http://d'addario.com
+51,Tuner,Multi-Industry,http://tuner.com
+52,Sony,Electronics,http://sony.com
+53,Nixplay,Multi-Industry,http://nixplay.com
+54,Titleist,Sporting Goods,http://titleist.com
+55,Rawlings,Multi-Industry,http://rawlings.com
+56,Nike,Sporting Goods,http://nike.com
+57,Softee T-Ball,Sporting Goods,http://softeet-ball.com
+58,STX,Sporting Goods,http://stx.com
+59,Riddell,Multi-Industry,http://riddell.com
+60,Shoulder Pads,Sporting Goods,http://shoulderpads.com
+61,Gaiam,Multi-Industry,http://gaiam.com
+62,Cleveland Golf,Sporting Goods,http://clevelandgolf.com
+63,STX Lacrosse Goal,Sporting Goods,http://stxlacrossegoal.com
+64,Adidas,Sporting Goods,http://adidas.com
+65,Lifetime,Multi-Industry,http://lifetime.com
+66,Bravo,Multi-Industry,http://bravo.com
+67,BD,Multi-Industry,http://bd.com
+68,Amazon Basics,Multi-Industry,http://amazonbasics.com
+69,Monoprice,Multi-Industry,http://monoprice.com
+70,Beats by Dr. Dre,Electronics,http://beatsbydr.dre.com
+71,JBL,Multi-Industry,http://jbl.com
+72,Razer,Multi-Industry,http://razer.com
+73,Oculus Rift,Electronics,http://oculusrift.com
+74,Xbox One Controller,Electronics,http://xboxonecontroller.com
+75,Astro Gaming,Multi-Industry,http://astrogaming.com
+76,Mackie,Multi-Industry,http://mackie.com
+77,Stagg,Multi-Industry,http://stagg.com
+78,On-Stage,Multi-Industry,http://on-stage.com
+79,Bic Pens,Multi-Industry,http://bicpens.com
+80,Polaroid Film,Multi-Industry,http://polaroidfilm.com
+81,Sharpie,Multi-Industry,http://sharpie.com
+82,Pentel Mechanical Pencils,Multi-Industry,http://pentelmechanicalpencils.com
+83,Boudreaux's Butt Paste,Multi-Industry,http://boudreaux'sbuttpaste.com
+84,Coca-Cola,Multi-Industry,http://coca-cola.com
+85,Evenflo,Multi-Industry,http://evenflo.com
+86,Burt's Bees Baby,Multi-Industry,http://burt'sbeesbaby.com
+87,WESTERN DIGITAL,Multi-Industry,http://westerndigital.com
+88,Nvidia,Multi-Industry,http://nvidia.com
+89,ASUS,Multi-Industry,http://asus.com
+90,Creative,Multi-Industry,http://creative.com
+91,Mother's,Multi-Industry,http://mother's.com
+92,L'Oreal,Multi-Industry,http://l'oreal.com
+93,BIC,Multi-Industry,http://bic.com
+94,sevin,Multi-Industry,http://sevin.com
+95,Drano,Multi-Industry,http://drano.com
+96,Coffee Filters,Multi-Industry,http://coffeefilters.com
+97,Omega Pacific,Multi-Industry,http://omegapacific.com
+98,SkyTrak,Multi-Industry,http://skytrak.com
+99,Moldable Magic Clay,Multi-Industry,http://moldablemagicclay.com
+100,Libbey,Multi-Industry,http://libbey.com
+101,Riedel,Multi-Industry,http://riedel.com
+102,Oneida,Multi-Industry,http://oneida.com
+103,Pioneer Woman,Multi-Industry,http://pioneerwoman.com
+104,Copper Chef,Multi-Industry,http://copperchef.com
+105,Huggies,Multi-Industry,http://huggies.com
+106,Kickee Pants,Multi-Industry,http://kickeepants.com
+107,Teapigs,Multi-Industry,http://teapigs.com
+108,Behringer,Multi-Industry,http://behringer.com
+109,Betty Crocker,Multi-Industry,http://bettycrocker.com
+110,"
+
+Meat Thermometer",Multi-Industry,"http://
+
+meatthermometer.com"
+111,LG,Multi-Industry,http://lg.com
+112,Samsung,Multi-Industry,http://samsung.com
+113,Bose,Multi-Industry,http://bose.com
+114,SentrySafe,Multi-Industry,http://sentrysafe.com
+115,Belkin,Multi-Industry,http://belkin.com
+116,Logitech,Multi-Industry,http://logitech.com
+117,Tender Hearts,Multi-Industry,http://tenderhearts.com
+118,HON,Multi-Industry,http://hon.com
+119,Sauder,Multi-Industry,http://sauder.com
+120,Bizarro Executive Desk Chair,Multi-Industry,http://bizarroexecutivedeskchair.com
+121,Cedar Desk Organizer Set,Multi-Industry,http://cedardeskorganizerset.com
+122,Cable Organizers,Multi-Industry,http://cableorganizers.com
+123,Advil Cold & Sinus,Multi-Industry,http://advilcold&sinus.com
+124,Tums,Multi-Industry,http://tums.com
+125,Zyrtec,Multi-Industry,http://zyrtec.com
+126,Pressure Cooker,Multi-Industry,http://pressurecooker.com
+127,Crock-Pot,Multi-Industry,http://crock-pot.com
+128,WÃ¼sthof,Multi-Industry,http://wã¼sthof.com
+129,Cheese Grater,Multi-Industry,http://cheesegrater.com
+130,Dixie,Multi-Industry,http://dixie.com
+131,Corelle,Multi-Industry,http://corelle.com
+132,Aqua,Multi-Industry,http://aqua.com
+133,Crayola,Multi-Industry,http://crayola.com
+134,Stickerland,Multi-Industry,http://stickerland.com
+135,Graphique,Multi-Industry,http://graphique.com
+136,Office Depot,Multi-Industry,http://officedepot.com
+137,USPS,Multi-Industry,http://usps.com
+138,Old World Christmas,Multi-Industry,http://oldworldchristmas.com
+139,Coca Cola,Multi-Industry,http://cocacola.com
+140,Kellogg's,Multi-Industry,http://kellogg's.com
+141,Bob's Red Mill,Multi-Industry,http://bob'sredmill.com
+142,Toshiba,Multi-Industry,http://toshiba.com
+143,Hasbro,Multi-Industry,http://hasbro.com
+144,Mr. Coffee,Multi-Industry,http://mr.coffee.com
+145,Hamilton Beach,Multi-Industry,http://hamiltonbeach.com
+146,Cholula,Multi-Industry,http://cholula.com
+147,Euphoria Baby,Multi-Industry,http://euphoriababy.com
+148,Diaper Genie,Multi-Industry,http://diapergenie.com
+149,Case-Mate,Multi-Industry,http://case-mate.com
+150,Baldwin,Multi-Industry,http://baldwin.com
+151,Pella,Multi-Industry,http://pella.com
+152,Ives,Multi-Industry,http://ives.com
+153,SanDisk,Multi-Industry,http://sandisk.com
+154,August,Multi-Industry,http://august.com
+155,Royalty Collection,Multi-Industry,http://royaltycollection.com
+156,Mainstays,Multi-Industry,http://mainstays.com
+157,GE,Multi-Industry,http://ge.com
+158,Lutron,Multi-Industry,http://lutron.com
+159,TP-Link,Multi-Industry,http://tp-link.com
+160,Aqua-Pure,Multi-Industry,http://aqua-pure.com
+161,Oral-B,Multi-Industry,http://oral-b.com
+162,Aquafresh,Multi-Industry,http://aquafresh.com
+163,Dove,Multi-Industry,http://dove.com
+164,"
+
+Chanel No. 5",Multi-Industry,"http://
+
+chanelno.5.com"
+165,Crest,Multi-Industry,http://crest.com
+166,Burt's Bees,Multi-Industry,http://burt'sbees.com
+167,O'Keefe's,Multi-Industry,http://o'keefe's.com
+168,Lasko,Multi-Industry,http://lasko.com
+169,Bionaire,Multi-Industry,http://bionaire.com
+170,HP,Multi-Industry,http://hp.com
+171,Red Bull,Multi-Industry,http://redbull.com
+172,Amerock,Multi-Industry,http://amerock.com
+173,Minwax,Multi-Industry,http://minwax.com
+174,Klean-Strip,Multi-Industry,http://klean-strip.com
+175,Mortar and Pestle,Multi-Industry,http://mortarandpestle.com
+176,eero,Multi-Industry,http://eero.com
+177,Linksys,Multi-Industry,http://linksys.com
+178,"
+
+Clean-Flo",Multi-Industry,"http://
+
+clean-flo.com"
+179,Clorox,Multi-Industry,http://clorox.com
+180,Cilantro,Multi-Industry,http://cilantro.com
+181,Spinach,Multi-Industry,http://spinach.com
+182,Goya,Multi-Industry,http://goya.com
+183,Bonduelle,Multi-Industry,http://bonduelle.com
+184,"
+
+Soil Tester",Multi-Industry,"http://
+
+soiltester.com"
+185,Chef's Best,Multi-Industry,http://chef'sbest.com
+186,Ozeri Pronto,Multi-Industry,http://ozeripronto.com
+187,Delonghi,Multi-Industry,http://delonghi.com
+188,Dole,Multi-Industry,http://dole.com
+189,Watermelon,Multi-Industry,http://watermelon.com
+190,Epson,Multi-Industry,http://epson.com
+191,Dap,Multi-Industry,http://dap.com
+192,Whiskas,Multi-Industry,http://whiskas.com
+193,Tidy Cats,Multi-Industry,http://tidycats.com
+194,Iams,Multi-Industry,http://iams.com
+195,Beggin' Strips,Multi-Industry,http://beggin'strips.com
+196,Sheba,Multi-Industry,http://sheba.com
+197,Paw Lifestyles Dog Leash,Multi-Industry,http://pawlifestylesdogleash.com
+198,Paws & Pals,Multi-Industry,http://paws&pals.com
+199,Aurora Home,Multi-Industry,http://aurorahome.com
+200,Neutrogena,Multi-Industry,http://neutrogena.com
+201,Sunscreen,Multi-Industry,http://sunscreen.com
+202,SunnyLife,Multi-Industry,http://sunnylife.com
+203,Athletic Socks,Multi-Industry,http://athleticsocks.com
+204,Frye,Multi-Industry,http://frye.com
+205,Naturalizer,Multi-Industry,http://naturalizer.com
+206,Havaianas,Multi-Industry,http://havaianas.com
+207,Sega Genesis,Multi-Industry,http://segagenesis.com
+208,Game Stop,Multi-Industry,http://gamestop.com
+209,Outdoor GreatRoom Company,Multi-Industry,http://outdoorgreatroomcompany.com
+210,Tiki Brand,Multi-Industry,http://tikibrand.com
+211,DYMO,Multi-Industry,http://dymo.com
+212,Saran Wrap,Multi-Industry,http://saranwrap.com
+213,Reynolds Wrap,Multi-Industry,http://reynoldswrap.com
+214,Wax Paper,Multi-Industry,http://waxpaper.com
+215,Reynolds,Multi-Industry,http://reynolds.com
+216,Kettle Chips,Multi-Industry,http://kettlechips.com
+217,Le Veneziane,Multi-Industry,http://leveneziane.com
+218,Rana,Multi-Industry,http://rana.com
+219,Kraft,Multi-Industry,http://kraft.com
+220,Organic Valley,Multi-Industry,http://organicvalley.com
+221,Land O Lakes,Multi-Industry,http://landolakes.com
+222,Dannon,Multi-Industry,http://dannon.com
+223,Kashi,Multi-Industry,http://kashi.com
+224,Ampco,Multi-Industry,http://ampco.com
+225,Forney,Multi-Industry,http://forney.com
+226,Carpet Knife,Multi-Industry,http://carpetknife.com
+227,Sterilite,Multi-Industry,http://sterilite.com
+228,Rubbermaid,Multi-Industry,http://rubbermaid.com
+229,Best Choice Products,Multi-Industry,http://bestchoiceproducts.com
+230,Dr. Teal's,Multi-Industry,http://dr.teal's.com
+231,Gold Medal All-Purpose Flour,Multi-Industry,http://goldmedalall-purposeflour.com
+232,C&H,Multi-Industry,http://c&h.com
+233,Kuner's,Multi-Industry,http://kuner's.com
+234,Kroger,Multi-Industry,http://kroger.com
+235,Domino,Multi-Industry,http://domino.com
+236,Drain-FX,Multi-Industry,http://drain-fx.com
+237,Whirlpool,Multi-Industry,http://whirlpool.com
+238,Everbilt,Multi-Industry,http://everbilt.com
+239,Tape Measure,Multi-Industry,http://tapemeasure.com
+240,GoodCook,Multi-Industry,http://goodcook.com
+241,Ladle,Multi-Industry,http://ladle.com
+242,Nordic Ware,Multi-Industry,http://nordicware.com
+243,"""Fox Run",Multi-Industry,"http://""foxrun.com"
+244,Cake Pan,Multi-Industry,http://cakepan.com
+245,Wilton,Multi-Industry,http://wilton.com
+246,Anchor Hocking,Multi-Industry,http://anchorhocking.com
+247,Dishwashing liquid,Multi-Industry,http://dishwashingliquid.com
+248,Finish,Multi-Industry,http://finish.com
+249,Windex,Multi-Industry,http://windex.com
+250,Stainless Steel Cleaner,Multi-Industry,http://stainlesssteelcleaner.com
+251,Lysol Wipes,Multi-Industry,http://lysolwipes.com
+252,Kernel's Gourmet Popcorn,Multi-Industry,http://kernel'sgourmetpopcorn.com
+253,Coasterstone,Multi-Industry,http://coasterstone.com
+254,Nest Thermostat,Multi-Industry,http://nestthermostat.com
+255,Yankee Candle,Multi-Industry,http://yankeecandle.com
+256,"
+
+Air Wick",Multi-Industry,"http://
+
+airwick.com"
+257,Bissell,Multi-Industry,http://bissell.com
+258,O-Cedar,Multi-Industry,http://o-cedar.com
+259,Fitbit,Multi-Industry,http://fitbit.com
+260,Garmin,Multi-Industry,http://garmin.com
+261,Canon,Multi-Industry,http://canon.com
+262,Ding Dong,Multi-Industry,http://dingdong.com
+263,Ring,Multi-Industry,http://ring.com
+264,Google Glasses,Multi-Industry,http://googleglasses.com
+265,Bazooka,Multi-Industry,http://bazooka.com
+266,Audio-Technica,Multi-Industry,http://audio-technica.com
+267,Yamaha,Multi-Industry,http://yamaha.com
+268,Pioneer,Multi-Industry,http://pioneer.com
+269,baby jogger,Multi-Industry,http://babyjogger.com
+270,Conair,Multi-Industry,http://conair.com
+271,Gillette,Multi-Industry,http://gillette.com
+272,Elmer's,Multi-Industry,http://elmer's.com
+273,Drywall Anchors,Multi-Industry,http://drywallanchors.com
+274,Nails Inc,Multi-Industry,http://nailsinc.com
+275,N.Y.C. Nail Polish Remover,Multi-Industry,http://n.y.c.nailpolishremover.com
+276,Cotton Balls,Multi-Industry,http://cottonballs.com
+277,Garnier Fructis,Multi-Industry,http://garnierfructis.com
+278,Spongi,Multi-Industry,http://spongi.com
+279,Nivea,Multi-Industry,http://nivea.com
+280,Lush,Multi-Industry,http://lush.com
+281,Beautylish,Multi-Industry,http://beautylish.com
+282,Shower Cap,Multi-Industry,http://showercap.com
+283,Shaving Cream,Multi-Industry,http://shavingcream.com
+284,Singer,Multi-Industry,http://singer.com
+285,Dritz,Multi-Industry,http://dritz.com
+286,Clover,Multi-Industry,http://clover.com
+287,One skein of yarn,Multi-Industry,http://oneskeinofyarn.com
+288,Kum pencil sharpener,Multi-Industry,http://kumpencilsharpener.com
+289,Tru-Ray,Multi-Industry,http://tru-ray.com
+290,Logan Fruits,Multi-Industry,http://loganfruits.com
+291,Paint Roller,Multi-Industry,http://paintroller.com
+292,Bostitch,Multi-Industry,http://bostitch.com
+293,Zebra,Multi-Industry,http://zebra.com
+294,Ad-tech,Multi-Industry,http://ad-tech.com
+295,Shop Vac,Multi-Industry,http://shopvac.com
+296,Dyson,Multi-Industry,http://dyson.com
+297,The Rag Company,Multi-Industry,http://theragcompany.com
+298,Glad,Multi-Industry,http://glad.com
+299,iTouchless,Multi-Industry,http://itouchless.com
+300,Oggi,Multi-Industry,http://oggi.com
+301,Goodyear,Multi-Industry,http://goodyear.com
+302,Kidde,Multi-Industry,http://kidde.com
+303,Blueberry Pet,Multi-Industry,http://blueberrypet.com
+304,Lupine Pet,Multi-Industry,http://lupinepet.com
+305,Bruno Magli,Multi-Industry,http://brunomagli.com
+306,Sperry,Multi-Industry,http://sperry.com
+307,Dockers,Multi-Industry,http://dockers.com
+308,Nine West,Multi-Industry,http://ninewest.com
+309,Feta Cheese,Multi-Industry,http://fetacheese.com
+310,Example Brand,Multi-Industry,http://examplebrand.com
+311,I Can't Believe It's Not Butter,Multi-Industry,http://ican'tbelieveit'snotbutter.com
+312,Jif,Multi-Industry,http://jif.com
+313,Nutella,Multi-Industry,http://nutella.com
+314,Sunbeam,Multi-Industry,http://sunbeam.com
+315,Rolls,Multi-Industry,http://rolls.com
+316,Cages By Us,Multi-Industry,http://cagesbyus.com
+317,True Temper,Multi-Industry,http://truetemper.com
+318,Scott's,Multi-Industry,http://scott's.com
+319,Roundup,Multi-Industry,http://roundup.com
+320,Scotts,Multi-Industry,http://scotts.com
+321,Bosch,Multi-Industry,http://bosch.com
+322,NuWave,Multi-Industry,http://nuwave.com
+323,Rheem,Multi-Industry,http://rheem.com
+324,Lawn Bags,Multi-Industry,http://lawnbags.com
+325,Husqvarna,Multi-Industry,http://husqvarna.com
+326,Jonsered,Multi-Industry,http://jonsered.com
+327,Nike Baseball Cleats,Multi-Industry,http://nikebaseballcleats.com
+328,Kernmantle rope,Multi-Industry,http://kernmantlerope.com
+329,Country Time,Multi-Industry,http://countrytime.com
+330,Teavana,Multi-Industry,http://teavana.com
+331,Levi's,Multi-Industry,http://levi's.com
+332,Gap,Multi-Industry,http://gap.com
+333,Hanes,Multi-Industry,http://hanes.com
+334,Darth Vader Tee Shirt,Multi-Industry,http://darthvaderteeshirt.com
+335,Marmot,Multi-Industry,http://marmot.com
+336,Old Navy,Multi-Industry,http://oldnavy.com
+337,Patagonia,Multi-Industry,http://patagonia.com
+338,Generic,Multi-Industry,http://generic.com
+339,Golf Umbrella,Multi-Industry,http://golfumbrella.com
+340,CaddyTowel,Multi-Industry,http://caddytowel.com
+341,Duro,Multi-Industry,http://duro.com
+342,Strathmore,Multi-Industry,http://strathmore.com
+343,Artilous,Multi-Industry,http://artilous.com
+344,ARTIST'S CHOICE,Multi-Industry,http://artist'schoice.com
+345,Marvel,Multi-Industry,http://marvel.com
+346,Mega Bloks,Multi-Industry,http://megabloks.com
+347,Disney,Multi-Industry,http://disney.com
+348,Barbie,Multi-Industry,http://barbie.com
+349,Badger Basket,Multi-Industry,http://badgerbasket.com
+350,Magnet,Multi-Industry,http://magnet.com
+351,letters,Multi-Industry,http://letters.com
+352,Cello,Multi-Industry,http://cello.com
+353,Giro,Multi-Industry,http://giro.com
+354,Skateboard,Multi-Industry,http://skateboard.com
+355,Razor,Multi-Industry,http://razor.com
+356,Bike Pump,Multi-Industry,http://bikepump.com
+357,Kendra,Multi-Industry,http://kendra.com
+358,Prince,Multi-Industry,http://prince.com
+359,Sofa,Multi-Industry,http://sofa.com
+360,Ashley Furniture,Multi-Industry,http://ashleyfurniture.com
+361,AmeriHome,Multi-Industry,http://amerihome.com
+362,Good Cook,Multi-Industry,http://goodcook.com
+363,Igloo,Multi-Industry,http://igloo.com
+364,Benjamin Moore,Multi-Industry,http://benjaminmoore.com
+365,Tiffany & Co,Multi-Industry,http://tiffany&co.com
+366,Fossil,Multi-Industry,http://fossil.com
+367,De Beers,Multi-Industry,http://debeers.com
+368,Swarovski,Multi-Industry,http://swarovski.com
+369,JCREW,Multi-Industry,http://jcrew.com
+370,Pretty Toes,Multi-Industry,http://prettytoes.com
+371,Fashionista,Multi-Industry,http://fashionista.com
+372,Dana Buchman,Multi-Industry,http://danabuchman.com
+373,Lele Sadoughi,Multi-Industry,http://lelesadoughi.com
+374,Body Candy,Multi-Industry,http://bodycandy.com
+375,Macy's,Multi-Industry,http://macy's.com
+376,20th Century Fox,Multi-Industry,http://20thcenturyfox.com
+377,Warner Bros.,Multi-Industry,http://warnerbros..com
+378,"A Drama Movie
+
+Sony",Multi-Industry,"http://adramamovie
+
+sony.com"
+379,"""The Cove"" DVD",Multi-Industry,"http://""thecove""dvd.com"
+380,Oscar De La Renta,Multi-Industry,http://oscardelarenta.com
+381,Random House,Multi-Industry,http://randomhouse.com
+382,Futuristic Book,Multi-Industry,http://futuristicbook.com
+383,Dr. Bronner's,Multi-Industry,http://dr.bronner's.com
+384,Self-Help,Multi-Industry,http://self-help.com
+385,Dr Teal's,Multi-Industry,http://drteal's.com
+386,Maybelline,Multi-Industry,http://maybelline.com
+387,Amazon Music,Multi-Industry,http://amazonmusic.com
+388,Jack in the Box,Multi-Industry,http://jackinthebox.com
+389,Sorrelli,Multi-Industry,http://sorrelli.com
+390,Oster,Multi-Industry,http://oster.com
+391,Cuisinart,Multi-Industry,http://cuisinart.com
+392,Swiffer Wet Mop,Multi-Industry,http://swifferwetmop.com
+393,Duster,Multi-Industry,http://duster.com
+394,Balsam Hill,Multi-Industry,http://balsamhill.com
+395,Lacourte,Multi-Industry,http://lacourte.com
+396,"
+
+Sleepy's",Multi-Industry,"http://
+
+sleepy's.com"
+397,Sealy,Multi-Industry,http://sealy.com
+398,DHP,Multi-Industry,http://dhp.com
+399,Chefman,Multi-Industry,http://chefman.com
+400,Nalgene,Multi-Industry,http://nalgene.com
+401,3M Headlight Lens Restoration System,Multi-Industry,http://3mheadlightlensrestorationsystem.com
+402,Superior Car Wash Mitt,Multi-Industry,http://superiorcarwashmitt.com
+403,Goody,Multi-Industry,http://goody.com
+404,Dell,Multi-Industry,http://dell.com
+405,Ray Ban,Multi-Industry,http://rayban.com
+406,Safe House,Multi-Industry,http://safehouse.com
+407,Ansell,Multi-Industry,http://ansell.com
+408,Loctite PL Heavy Duty Construction Adhesive,Multi-Industry,http://loctiteplheavydutyconstructionadhesive.com
+409,35 lb,Multi-Industry,http://35lb.com
+410,Luxardo Maraschino Cherries,Multi-Industry,http://luxardomaraschinocherries.com
+411,Fujifilm,Multi-Industry,http://fujifilm.com
+412,Blue Mountain,Multi-Industry,http://bluemountain.com
+413,Swimline,Multi-Industry,http://swimline.com
+414,Brand- Generic,Multi-Industry,http://brand-generic.com
+415,Icicle Lights,Multi-Industry,http://iciclelights.com
+416,Intex,Multi-Industry,http://intex.com
+417,Joe Boxer,Multi-Industry,http://joeboxer.com
+418,Beats by Dre,Multi-Industry,http://beatsbydre.com

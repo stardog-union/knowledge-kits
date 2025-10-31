@@ -1,0 +1,174 @@
+prefix stardog: <tag:stardog:api:>
+prefix catalog: <tag:stardog:api:catalog:>
+prefix m: <urn:stardog:modules:>
+prefix kg: <tag:stardog:api:context:>
+prefix sqs: <tag:stardog:api:sqs:>
+prefix rule: <tag:stardog:api:rule:>
+prefix sd: <urn:stardog:>
+prefix sql: <tag:stardog:api:sql:>
+
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix sh: <http://www.w3.org/ns/shacl#>
+
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix dcat: <http://www.w3.org/ns/dcat#>
+prefix dct: <http://purl.org/dc/terms/>
+prefix qudt: <http://qudt.org/schema/qudt/>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix void: <http://rdfs.org/ns/void#>
+prefix so: <https://schema.org/>
+prefix prov: <http://www.w3.org/ns/prov#>
+
+prefix : <urn:stardog:demos:movies:>
+
+# Imported from schema.org
+
+so:Movie a owl:Class ; rdfs:label "Movie" ; rdfs:comment "A movie.".
+so:Person a owl:Class .
+so:Organization a owl:Class .
+
+so:isSimilarTo a owl:ObjectProperty ;
+    rdfs:domain so:Movie ; 
+    rdfs:range so:Movie ; 
+
+    so:domainIncludes so:Movie ; 
+    so:rangeIncludes so:Movie ;
+
+    rdfs:comment "A movie is similar to another Movie" ;
+    rdfs:label "similar to" .
+
+:metaCritic a owl:DatatypeProperty ; 
+    rdfs:domain so:Movie ; 
+    rdfs:range xsd:integer ; 
+
+    so:domainIncludes so:Movie ; 
+    so:rangeIncludes xsd:integer ; 
+
+    rdfs:comment "The score of the movie as assigned by critics" ;
+    rdfs:label "metacritic score" .
+
+:rating a owl:DatatypeProperty ; 
+    rdfs:domain so:Movie ; 
+    rdfs:range xsd:float ; 
+
+    so:domainIncludes so:Movie ; 
+    so:rangeIncludes xsd:float ;
+
+    rdfs:label "rating" ;
+    rdfs:comment "content rating from the mpaa".
+
+:storyline a owl:DatatypeProperty ; 
+    rdfs:domain so:Movie ; 
+    rdfs:range xsd:string ; 
+
+    so:domainIncludes so:Movie ; 
+    so:rangeIncludes xsd:string ; 
+
+    rdfs:label "storyline" .
+
+so:productionCompany a owl:ObjectProperty ;
+    rdfs:domain so:Movie ; 
+    rdfs:range so:Organization ; 
+
+    so:domainIncludes so:Movie ; 
+    so:rangeIncludes so:Organization ; 
+
+    rdfs:label "production company" ;
+    rdfs:comment "The production company or studio responsible for the item, e.g. series, video game, episode etc." ;
+.
+
+so:actor a owl:ObjectProperty ;
+    rdfs:domain so:Movie ; 
+    rdfs:range so:Person ; 
+
+    so:domainIncludes so:Movie ; 
+    so:rangeIncludes so:Person ; 
+
+    rdfs:label "actor" ;
+    rdfs:comment "An actor, e.g. in TV, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip" ;
+.
+
+so:author a owl:ObjectProperty ;
+    rdfs:domain so:Movie ; 
+    rdfs:range so:Person ; 
+
+    so:domainIncludes so:Movie ; 
+    so:rangeIncludes so:Person ; 
+
+    rdfs:label "author" ;
+    rdfs:comment "The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably." ;
+    .
+
+so:director a owl:ObjectProperty ;
+    rdfs:domain so:Movie ; 
+    rdfs:range so:Person ; 
+
+    so:domainIncludes so:Movie ; 
+    so:rangeIncludes so:Person ; 
+
+    rdfs:label "director" ;
+    rdfs:comment "A director of e.g. TV, radio, movie, video gaming etc. content, or of an event. Directors can be associated with individual items or with a series, episode, clip." ;
+    .
+
+so:description a owl:DatatypeProperty ;
+    rdfs:domain so:Movie ; 
+    rdfs:range xsd:string ; 
+
+    so:domainIncludes so:Movie ; 
+    so:rangeIncludes xsd:string ; 
+
+    rdfs:label "description".
+
+so:genre a owl:DatatypeProperty ;
+    rdfs:domain so:Movie ; 
+    rdfs:range xsd:string ; 
+
+    so:domainIncludes so:Movie ; 
+    so:rangeIncludes xsd:string ; 
+
+    rdfs:label "genre" ;
+    rdfs:comment "Genre of the creative work, broadcast channel or group." .
+
+
+so:keyword a owl:DatatypeProperty ;
+    rdfs:domain so:Movie ; 
+    rdfs:range xsd:string ; 
+
+    so:domainIncludes so:Movie ; 
+    so:rangeIncludes xsd:string ; 
+
+    rdfs:label "keyword".
+
+so:inLanguage a owl:DatatypeProperty ;
+    rdfs:domain so:Movie ; 
+    rdfs:range xsd:string ; 
+
+    so:domainIncludes so:Movie ; 
+    so:rangeIncludes xsd:string ; 
+
+    rdfs:label "language" ;
+    rdfs:comment "The language of the content or performance or used in an action. Please use one of the language codes from the IETF BCP 47 standard." .
+
+so:copyrightYear a owl:DatatypeProperty ;
+    rdfs:domain so:Movie ; 
+    rdfs:range xsd:integer ; 
+
+    so:domainIncludes so:Movie ; 
+    so:rangeIncludes xsd:integer ; 
+
+    rdfs:label "copyright year" ;
+    skos:altLabel "release year" ;
+    rdfs:comment "The year during which the claimed copyright for the CreativeWork was first asserted.".
+
+so:contentRating a owl:DatatypeProperty ;
+    rdfs:domain so:Movie ; 
+    rdfs:range xsd:string ; 
+
+    so:domainIncludes so:Movie ; 
+    so:rangeIncludes xsd:string ; 
+
+    rdfs:label "content rating".

@@ -1,0 +1,124 @@
+@prefix : <http://api.stardog.com/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix so: <https://schema.org/> .
+@prefix stardog: <tag:stardog:api:> .
+@prefix spa: <tag:stardog:api:analytics:> .
+@prefix catalog: <tag:stardog:api:catalog:> .
+@prefix kg: <tag:stardog:api:context:> .
+@prefix rule: <tag:stardog:api:rule:> .
+@prefix sql: <tag:stardog:api:sql:> .
+@prefix sqs: <tag:stardog:api:sqs:> .
+@prefix sd: <urn:stardog:> .
+@prefix mp: <urn:stardog:marketplace:> .
+@prefix m: <urn:stardog:modules:> .
+
+_:f179bbd7-96a2-48c8-9543-6e0ff8e354e4 a rule:SPARQLRule ;
+  rdfs:label "big spenders" ;
+  rule:content """IF {
+  ?sub a stardog:ecomm:Customer .
+  ?obj_0 stardog:ecomm:purchasedBy ?sub . ?obj_0 a stardog:ecomm:Large_Order .
+}
+THEN {
+  ?sub rdf:type stardog:ecomm:Big_Spender .
+}""" ;
+  <tag:stardog:designer:rule:content> """IF {
+  ?sub a stardog:ecomm:Customer .
+  ?obj_0 stardog:ecomm:purchasedBy ?sub . ?obj_0 a stardog:ecomm:Large_Order .
+}
+THEN {
+  ?sub rdf:type stardog:ecomm:Big_Spender .
+}""" ;
+  <tag:stardog:designer:rule:data> "eJzlkUtLxDAUhf9L3DY2k7TTNDvngSAyA-pORNLkthOZaWoejoP0v9uOiA8EV64km-Tm3HM4fLcv6AmcN7ZFgiVIyyCReEF13G7Pnew2SAQXIUGPEdxh_FG2fYitCscNtL5CCYLnzoEfPTwSt98lZ6vFD5rabMOQe7z7WD2ACqO7cWZYCbIRPkinbSNkZwQou9uJefTB7sANbkYPqpoQzemU46rMOc4ILXFFFcXA-JRTVrAsJ6hPkO3AyWDdb_5ddGojPejZYYjQxsF7BdNWNrYafXjdHDoY688ulvObYR7e3vP1ajUMlosx90luI_wWeildA_drpz96UVJIwssMSzVhOJuQAlegNC5JRSjTimcsR31_dzx9n_xHgpsQOpGm-_3-dM9OrWvSSVmWKaEppdjpGvtDG-Qzbv3JEc1XnjaGPwM6M839dQftJ6A1g7LWjONaqgGoVFPM8zrHkBXAJiorCq0_Ab17BepbK4k=" .
+
+
+_:b8ba434e-ad00-4ecc-aad3-272397ff6d96 a rule:SPARQLRule ;
+  rdfs:label "large purchases" ;
+  rule:content """IF {
+  ?sub a stardog:ecomm:Order .
+  ?sub stardog:ecomm:purchasePrice ?dat_0 . FILTER(?dat_0 > \"250\"^^xsd:decimal) .
+}
+THEN {
+  ?sub rdf:type stardog:ecomm:Large_Order .
+}""" ;
+  <tag:stardog:designer:rule:content> """IF {
+  ?sub a stardog:ecomm:Order .
+  ?sub stardog:ecomm:purchasePrice ?dat_0 . FILTER(?dat_0 > \"250\"^^xsd:decimal) .
+}
+THEN {
+  ?sub rdf:type stardog:ecomm:Large_Order .
+}""" ;
+  <tag:stardog:designer:rule:data> "eJzlUdFO2zAU_RfzGhPbpbT1W0Yjpom1qMvDEELIsW9SozTObmxKhfLvOJ0G25i2D5j8Yt17zrHPObfP5BGwt64lcpIQo7wi8plUoWkuUXVbIj0GSMi3AHgYN9q1D6HV_sgg6w1JCDx1CP2o0RN5-zskWy3_gKls4-O7x3sfygfQflS3aCPFq1r2XqFxtVSdlaDdbifXaACjlDURMuFQMQOMGhCcnjEmqDJnczqbnfOS63NesSkZEuI6QOUd_ku8C6i3qodrtBrIG684dBBJy6zIipvrPG5QtfU42nrfyTTd7_en-8mpwzoVjPH06-erL3oLO3ViQNudaiLFfxe53ORZkW_ui4_Zavzbo2rCOBdTRoa74xmG5L8r5H2QfLFYpEykQlA0Fe0PrVdPtO1PjkHGUCzCDzcu-NKF1rzvbP3hU35RvMV_sV6t4iBf_pT93w1eKazh_hebgkM50QroVFUm2uSazktW0jkTzMymi3kJJRle27x7ATKcHAo=" .
+
+
+_:24be2cff-814e-4e44-8470-d95ef4753f39 a rule:SPARQLRule ;
+  rdfs:label "sport category shopper" ;
+  rule:content """IF {
+  ?sub a stardog:ecomm:Customer .
+  ?obj_0 stardog:ecomm:purchasedBy ?sub . ?obj_0 a stardog:ecomm:Order .
+  ?obj_0 stardog:ecomm:itemPurchased ?obj_1 . ?obj_1 a stardog:ecomm:Product .
+  ?obj_1 stardog:ecomm:inCategory <urn:stardog:demos:c360:category:10> . <urn:stardog:demos:c360:category:10> a stardog:ecomm:Category .
+}
+THEN {
+  ?sub rdf:type stardog:ecomm:Sports_Category_Shopper .
+}""" ;
+  <tag:stardog:designer:rule:content> """IF {
+  ?sub a stardog:ecomm:Customer .
+  ?obj_0 stardog:ecomm:purchasedBy ?sub . ?obj_0 a stardog:ecomm:Order .
+  ?obj_0 stardog:ecomm:itemPurchased ?obj_1 . ?obj_1 a stardog:ecomm:Product .
+  ?obj_1 stardog:ecomm:inCategory <urn:stardog:demos:c360:category:10> . <urn:stardog:demos:c360:category:10> a stardog:ecomm:Category .
+}
+THEN {
+  ?sub rdf:type stardog:ecomm:Sports_Category_Shopper .
+}""" ;
+  <tag:stardog:designer:rule:data> "eJzllEtP4zAUhf-LZ1tTO0_bOyjViFmkaMoOoeD40Qa1ccaxKRXqfx830CnqIEErMZtRNn5cn-Pz5cq3z-BR2a42DWDxAEjuOGDPQPvF4rvl7RwwZ70agF9e2fV2R5jmwTfC9SfA5CcYAPXUWtVtNTrAbg9LzovLd2p0vXDBtx93vnpQwm3Va1uHI47PWOe4lWbGeFszJcxyyUa-c2apbFCrZagSmCqkcgLzShCYkIhCromAseaVUIlQmeZgMwCmVZY7Yz_Sb70Vc94pebEOFrK2ahehbirjGwn2WjfrVm3jX_wYj27CunuZjyZFERbGl1vfR77w6iPTiZX7RKnICE-EgBLhHCYyDolwFsEs4ijPU02RzsFmM_g0shPUP8-rdmp5vWN2QMx492XIrq2RPmR_jYVzLjVVChISVzDRKgkjhCCOJBEYJ3FMoqOgnaR_BLZmxJ2aGXvYZV_J7I1lHwohXCVpksOUEwqTPI0gJ2G6jSREmlNyZKedZvAetbK8KqY358VoXJZ_o9jt7WFcFW8ogHtvmz_Xk2ppOibiDDHxej-G0T3Y3PVfn-__e_3mzrVsOFytVmer-MzY2RBTSocoGkYRtFLDbt04_gSb7luP-N916bQ11nXlrpfK6dy07T4y1SjKtIpgTDkOPRWeMq6rClIpUM6JxJhUoWl3P_fuN-I0O4o=" .
+
+
+_:17f0c250-bb6c-4972-a2a4-0a71162c1735 a rule:SPARQLRule ;
+  rdfs:label "2022 orders" ;
+  rule:content """IF {
+  ?sub a stardog:ecomm:Order .
+  ?sub stardog:ecomm:purchaseDate ?dat_0 . FILTER(?dat_0 >= \"2022-01-01\"^^xsd:date && ?dat_0 <= \"2022-12-31\"^^xsd:date) .
+}
+THEN {
+  ?sub rdf:type stardog:ecomm:2022_Order .
+}""" ;
+  <tag:stardog:designer:rule:content> """IF {
+  ?sub a stardog:ecomm:Order .
+  ?sub stardog:ecomm:purchaseDate ?dat_0 . FILTER(?dat_0 >= \"2022-01-01\"^^xsd:date && ?dat_0 <= \"2022-12-31\"^^xsd:date) .
+}
+THEN {
+  ?sub rdf:type stardog:ecomm:2022_Order .
+}""" ;
+  <tag:stardog:designer:rule:data> "eJzlUctOwzAQ_BdzjUniBqh9KzRCQtAiiAQIVdX61Qa1cXBsSoXy7zhBvBF8ALIP692d8e7M7RN6ULYpTYXYIEISHCD2hLRfrY4t1EvEnPUqQvde2W1XEaa685VwPQJNL1CE1GNtVdNxNIjdfm0ZTcY_9Ohy5cK_fdx4fqeE69hLWwaIgwVrHFhpFgzqkilh1ms2tVLZQFXK0CK1SLgWHA_3OccZhQGmKdc4SYf7ksgskzRBbYRMrSw4Y_8ir70VS2jUGJxC77BiW6uAGY-KUXFznoeKhWrRpZbO1SyON5vN7mawa-wiJkmSxtdnp5diqdawI1-Y3AvDYV5c5fmkG-kBVr5LkYSQMG-48z5MCR6kqJ31p22jf-fMd0lTSmmckDioY6XGzbZy8IirZqdXNYhSWvW6jfGOG1_J7-5ND0_yo-Ldi6PpZBIS-fiDG78v2Pkz_7QlBU5ptiew1jrBGRxQDATCc4_rIeEpHfID1L6ZOXsGBv4dFA==" .
+
+
+_:2ebfad87-53d7-462e-987f-4d2637346962 a rule:SPARQLRule ;
+  rdfs:label "customers who made purchases in 2022" ;
+  rule:content """IF {
+  ?sub a stardog:ecomm:Customer .
+  ?obj_0 stardog:ecomm:purchasedBy ?sub . ?obj_0 a stardog:ecomm:2022_Order .
+}
+THEN {
+  ?sub rdf:type stardog:ecomm:2022_Orderer .
+}""" ;
+  <tag:stardog:designer:rule:content> """IF {
+  ?sub a stardog:ecomm:Customer .
+  ?obj_0 stardog:ecomm:purchasedBy ?sub . ?obj_0 a stardog:ecomm:2022_Order .
+}
+THEN {
+  ?sub rdf:type stardog:ecomm:2022_Orderer .
+}""" ;
+  <tag:stardog:designer:rule:data> "eJzlkUtLw0AUhf_LuM00M9OkSWanbRFctCDuRGQeN21Km4nz6APJf3dSkaoI7tzIbOa-zuHwPb6iPVjXmBbxcYK08ALxV1SH7fbWim6NuLcBEvQSwJ6GiTLtJrTKny_Q8h4lCI6dBTdoOMQfv69cL2Y_7NTN1kff898FuQHlB_XGNvHEixV3XlhtVlx0DQdldjs-Dc6bHdio1ui4NRE5LUqgeKLFGGc5oThWCgs2KQSjJSVKoj5BpgMrvLG_6XfBqrVwoG9O0UI3Fj4iNK00odXoovVw6mCIf3M3nz7Evn-vp8vFIjbms8F3L7YBfjNlhLHnpdWXWEyXMicEsKqoxllGJBakJrhQZZlPNKFUZqjvn86v75P_CHDtfcfT9HA4jA7jkbGrlFZVlRKWMoatrrE7tV4cceuuzmS-4jTB_wHPT0RhHAOyAitZKJxJmuGK5iVmsqIgSV1FqJ-IPr0BwJoq5Q==" .
+

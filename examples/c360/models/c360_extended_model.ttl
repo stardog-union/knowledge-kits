@@ -1,0 +1,196 @@
+@prefix : <http://api.stardog.com/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix void: <http://rdfs.org/ns/void#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix dcat: <http://www.w3.org/ns/dcat#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix so: <https://schema.org/> .
+@prefix stardog: <tag:stardog:api:> .
+@prefix spa: <tag:stardog:api:analytics:> .
+@prefix catalog: <tag:stardog:api:catalog:> .
+@prefix kg: <tag:stardog:api:context:> .
+@prefix rule: <tag:stardog:api:rule:> .
+@prefix sql: <tag:stardog:api:sql:> .
+@prefix sqs: <tag:stardog:api:sqs:> .
+@prefix sd: <urn:stardog:> .
+@prefix mp: <urn:stardog:marketplace:> .
+@prefix m: <urn:stardog:modules:> .
+
+stardog:ecomm:2022_Order a owl:Class ;
+  rdfs:label "2022 Order" ;
+  rdfs:subClassOf stardog:ecomm:Order .
+stardog:ecomm:2022_Orderer a owl:Class ;
+  rdfs:label "2022 Orderer" ;
+  rdfs:subClassOf stardog:ecomm:Customer .
+stardog:ecomm:Address a owl:Class ;
+  rdfs:label "Address" .
+stardog:ecomm:Big_Spender a owl:Class ;
+  rdfs:label "Big Spender" ;
+  rdfs:subClassOf stardog:ecomm:Customer .
+stardog:ecomm:Category a owl:Class ;
+  rdfs:label "Category" .
+stardog:ecomm:CreditCard a owl:Class ;
+  rdfs:label "Credit Card" .
+stardog:ecomm:Customer a owl:Class ;
+  rdfs:label "Customer" .
+stardog:ecomm:Industry a owl:Class ;
+  rdfs:label "Industry" .
+stardog:ecomm:Large_Order a owl:Class ;
+  rdfs:label "Large Order" ;
+  rdfs:subClassOf stardog:ecomm:Order .
+stardog:ecomm:Order a owl:Class ;
+  rdfs:label "Order" .
+stardog:ecomm:Product a owl:Class ;
+  rdfs:label "Product" .
+stardog:ecomm:RewardsAccount a owl:Class ;
+  rdfs:label "Rewards Account" ;
+  rdfs:comment "A concept representing a Customer's rewards account." .
+stardog:ecomm:Sports_Category_Shopper a owl:Class ;
+  rdfs:label "Sports Category Shopper" ;
+  rdfs:subClassOf stardog:ecomm:Customer .
+stardog:ecomm:UnitPrice a owl:Class ;
+  rdfs:label "Unit Price" .
+stardog:ecomm:Vendor a owl:Class ;
+  rdfs:label "Vendor" .
+
+stardog:ecomm:address a owl:ObjectProperty ;
+  rdfs:label "has address" ;
+  so:domainIncludes stardog:ecomm:Customer ;
+  so:rangeIncludes stardog:ecomm:Address .
+stardog:ecomm:cardHolder a owl:ObjectProperty ;
+  rdfs:label "card holder" ;
+  so:domainIncludes stardog:ecomm:CreditCard ;
+  so:rangeIncludes stardog:ecomm:Customer .
+stardog:ecomm:cardUsed a owl:ObjectProperty ;
+  rdfs:label "purchase card" ;
+  so:domainIncludes stardog:ecomm:Order ;
+  so:rangeIncludes stardog:ecomm:CreditCard .
+stardog:ecomm:hasRewards a owl:ObjectProperty ;
+  rdfs:label "has rewards account" ;
+  so:domainIncludes stardog:ecomm:Customer ;
+  so:rangeIncludes stardog:ecomm:RewardsAccount .
+stardog:ecomm:inCategory a owl:ObjectProperty ;
+  rdfs:label "in category" ;
+  so:domainIncludes stardog:ecomm:Product ;
+  so:rangeIncludes stardog:ecomm:Category .
+stardog:ecomm:industry a owl:ObjectProperty ;
+  rdfs:label "in industry" ;
+  so:domainIncludes stardog:ecomm:Vendor ;
+  so:rangeIncludes stardog:ecomm:Industry .
+stardog:ecomm:itemPurchased a owl:ObjectProperty ;
+  rdfs:label "purchased" ;
+  so:domainIncludes stardog:ecomm:Order ;
+  so:rangeIncludes stardog:ecomm:Product .
+stardog:ecomm:msrp a owl:ObjectProperty ;
+  rdfs:label "MSRP" ;
+  so:domainIncludes stardog:ecomm:Product ;
+  so:rangeIncludes stardog:ecomm:UnitPrice .
+stardog:ecomm:purchasedBy a owl:ObjectProperty ;
+  rdfs:label "purchased by" ;
+  so:domainIncludes stardog:ecomm:Order ;
+  so:rangeIncludes stardog:ecomm:Customer .
+stardog:ecomm:rewardsAccountUsed a owl:ObjectProperty ;
+  rdfs:label "rewards account used" ;
+  so:domainIncludes stardog:ecomm:Order ;
+  so:rangeIncludes stardog:ecomm:RewardsAccount .
+stardog:ecomm:vendor a owl:ObjectProperty ;
+  rdfs:label "has vendor" ;
+  so:domainIncludes stardog:ecomm:Product ;
+  so:rangeIncludes stardog:ecomm:Vendor .
+
+stardog:ecomm:accountId a owl:DatatypeProperty ;
+  rdfs:label "account id" ;
+  so:domainIncludes stardog:ecomm:RewardsAccount ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:cardNumber a owl:DatatypeProperty ;
+  rdfs:label "card number" ;
+  so:domainIncludes stardog:ecomm:CreditCard ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:cardType a owl:DatatypeProperty ;
+  rdfs:label "card type" ;
+  so:domainIncludes stardog:ecomm:CreditCard ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:city a owl:DatatypeProperty ;
+  rdfs:label "city" ;
+  so:domainIncludes stardog:ecomm:Address ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:description a owl:DatatypeProperty ;
+  rdfs:label "description" ;
+  so:domainIncludes stardog:ecomm:Product ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:email a owl:DatatypeProperty ;
+  rdfs:label "email" ;
+  so:domainIncludes stardog:ecomm:Customer ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:firstName a owl:DatatypeProperty ;
+  rdfs:label "first name" ;
+  so:domainIncludes stardog:ecomm:Customer ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:hasCurrency a owl:DatatypeProperty ;
+  rdfs:label "has currency" ;
+  so:domainIncludes stardog:ecomm:UnitPrice ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:hasPrice a owl:DatatypeProperty ;
+  rdfs:label "has price" ;
+  so:domainIncludes stardog:ecomm:UnitPrice ;
+  so:rangeIncludes xsd:float .
+stardog:ecomm:lastName a owl:DatatypeProperty ;
+  rdfs:label "last name" ;
+  so:domainIncludes stardog:ecomm:Customer ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:name a owl:DatatypeProperty ;
+  rdfs:label "name" ;
+  so:domainIncludes stardog:ecomm:Category, stardog:ecomm:Customer, stardog:ecomm:Product, stardog:ecomm:Vendor ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:openDate a owl:DatatypeProperty ;
+  rdfs:label "opened date" ;
+  so:domainIncludes stardog:ecomm:RewardsAccount ;
+  so:rangeIncludes xsd:date .
+stardog:ecomm:phone a owl:DatatypeProperty ;
+  rdfs:label "phone" ;
+  so:domainIncludes stardog:ecomm:Customer ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:purchaseDate a owl:DatatypeProperty ;
+  rdfs:label "date purchased" ;
+  so:domainIncludes stardog:ecomm:Order ;
+  so:rangeIncludes xsd:date .
+stardog:ecomm:purchasePrice a owl:DatatypeProperty ;
+  rdfs:label "price" ;
+  so:domainIncludes stardog:ecomm:Order ;
+  so:rangeIncludes xsd:decimal .
+stardog:ecomm:purchaseTime a owl:DatatypeProperty ;
+  rdfs:label "time purchased" ;
+  so:domainIncludes stardog:ecomm:Order ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:quantity a owl:DatatypeProperty ;
+  rdfs:label "quantity" ;
+  so:domainIncludes stardog:ecomm:Order ;
+  so:rangeIncludes xsd:integer .
+stardog:ecomm:ssn a owl:DatatypeProperty ;
+  rdfs:label "ssn" ;
+  so:domainIncludes stardog:ecomm:Customer ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:state a owl:DatatypeProperty ;
+  rdfs:label "state" ;
+  so:domainIncludes stardog:ecomm:Address ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:streetAddress a owl:DatatypeProperty ;
+  rdfs:label "street address" ;
+  so:domainIncludes stardog:ecomm:Address ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:thumbnail a owl:DatatypeProperty ;
+  rdfs:label "thumbnail" ;
+  so:domainIncludes stardog:ecomm:Customer, stardog:ecomm:Product ;
+  so:rangeIncludes xsd:string .
+stardog:ecomm:zipCode a owl:DatatypeProperty ;
+  rdfs:label "zip code" ;
+  so:domainIncludes stardog:ecomm:Address ;
+  so:rangeIncludes xsd:string .
