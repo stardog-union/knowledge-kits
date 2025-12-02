@@ -2,6 +2,7 @@ import dataclasses
 import datetime
 import os
 import re
+import uuid
 from collections import defaultdict
 from enum import Enum
 from typing import Any
@@ -11,7 +12,6 @@ import rdflib.namespace as NS
 import requests
 import stardog
 import typing_extensions
-import uuid
 from rdflib import RDF, BNode, Graph
 from rdflib import Literal
 from rdflib import Literal as RDFLiteral

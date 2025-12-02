@@ -29,7 +29,7 @@ setuptools.setup(
         "rdflib==7.4.0",
         "python-dotenv >= 1.0.0",
         "PyYAML==6.0.1",
-        "typer==0.9.0",
+        "typer>=0.20.0",
         "prettytable==3.10.0",
         "tqdm==4.67.1"
     ],
