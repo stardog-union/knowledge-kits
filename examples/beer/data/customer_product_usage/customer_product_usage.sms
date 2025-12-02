@@ -1,0 +1,43 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX so: <https://schema.org/>
+PREFIX scm: <urn:demo:supplychain:model:>
+
+#POSCustomerID	CustomerName	POSSellingPointID	SkidID	SourceName	InternalCustomerID	InternalSellingPointID	SellingPointName	SellingPointStartDate	SellingPointEndDate	UnitsSold
+
+MAPPING
+FROM CSV {
+}
+TO {
+  ?Customer_iri a scm:Customer ;
+    rdfs:label ?label_1 ;
+    scm:customer_name ?CustomerName_string_field;
+	scm:phone ?TELEPHONE_string_field;
+	scm:sourced_from ?Data_Source_iri.
+  ?Data_Source_iri a scm:Data_Source.
+
+  ?Selling_Point_iri a scm:Selling_Point ;
+    rdfs:label ?label ;
+    scm:selling_point_name ?SellingPointName_string_field .
+
+  ?Selling_Point_iri scm:located_at ?Customer_iri.
+
+  ?Skid_iri scm:delivered_to ?Selling_Point_iri;
+            scm:SkidDeliveryDateTime ?SkidDeliveryDateTime_DateTime.
+}
+WHERE {
+  BIND(TEMPLATE("urn:demo:supplychain:data:Selling_Point:{POSSellingPointID}") AS ?Selling_Point_iri)
+  BIND(xsd:string(sourceField("SellingPointName")) AS ?label)
+  BIND(StrDt(sourceField("SellingPointName"), xsd:string) AS ?SellingPointName_string_field)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Customer:{POSCustomerID}") AS ?Customer_iri)
+  BIND(xsd:string(sourceField("CustomerName")) AS ?label_1)
+  BIND(StrDt(sourceField("CustomerName"), xsd:string) AS ?CustomerName_string_field)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Skid:{SkidID}") AS ?Skid_iri)
+  BIND(StrDt(sourceField("Phone"), xsd:string) AS ?TELEPHONE_string_field)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Data_Source:{SOURCE}") AS ?Data_Source_iri)
+  BIND(StrDt(sourceField("SkidDeliveryDateTime"), xsd:dateTime) AS ?SkidDeliveryDateTime_DateTime)
+
+
+}

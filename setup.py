@@ -7,7 +7,6 @@ setuptools.setup(
     name="stardog-knowledge-kits",
     version="1.0",
     author="Stardog Union",
-    author_email="support@stardog.com",
     description="Knowledge Graph as code",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -26,11 +25,11 @@ setuptools.setup(
             ]
         },
     install_requires=[
-        "pystardog==0.17",
-        "rdflib==7.1.1",
+        "pystardog==0.19",
+        "rdflib==7.4.0",
         "python-dotenv >= 1.0.0",
         "PyYAML==6.0.1",
-        "typer==0.9.0",
+        "typer>=0.20.0",
         "prettytable==3.10.0",
         "tqdm==4.67.1"
     ],
@@ -46,8 +45,6 @@ setuptools.setup(
             "pytest-mock >= 3.11.1",
             "pytest-cov >= 4.1.0",
             "python-dotenv >= 1.0.0",
-            # "streamlit >= 1.29.0",
-            # "types-cachetools == 5.3.0.7",
             "types-PyYAML == 6.0.12.12",
             "types-requests >= 2.27.16",
             "wheel >= 0.41.3",

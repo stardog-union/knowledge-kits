@@ -1,0 +1,3226 @@
+@prefix system: <http://system.stardog.com/> .
+
+system:QueryQ10521 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10521" ;
+   system:queryString """SELECT DISTINCT ?truck0 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 scm:monitors ?truck0 . 
+  ?truck0 a scm:Truck . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which trucks are monitored by sensors?" , "List the trucks that are monitored by sensors by name" , "List the trucks that have sensors" , "What are the names of the trucks that have sensors?" , "List the trucks that are monitored by sensors" .
+system:QueryQ10523 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10523" ;
+   system:queryString """SELECT DISTINCT ?customer0 
+WHERE {
+  ?distribution0 a scm:Distribution . 
+  ?distribution0 scm:delivery_target ?customer0 . 
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:hasAddress ?address0 . 
+  ?address0 a scm:Address . 
+  ?address0 scm:city ?city0 . 
+  ?city0 stardog:property:textMatch \"CHICAGO\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What is the delivery target for Chicago customers?" , "List the delivery target for Chicago Customers." .
+system:QueryQ10527 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10527" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?sellingPoint0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:providesFeedback ?productFeedback0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?productFeedback0 scm:feedback_for ?product0 . 
+  ?product0 a scm:Product . 
+  ?product0 scm:packed_onto_skid ?skid0 . 
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:delivered_to ?sellingPoint0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 scm:selling_point_name ?dat_0 . 
+  ?dat_0 stardog:property:textMatch \"Redline Beer Garden\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which consumers provided feedback for the finished Product that was delivered to Redline Beer garden on a skid?" , "List the consumers that provided feedback for the finished product delivered to Redline beer garden and was delivered on a skid." .
+system:QueryQ10529 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10529" ;
+   system:queryString """SELECT ?skid 
+WHERE {
+  <urn:demo:supplychain:data:Product:MD001PL01K50L07012020MD001Keg50Liter> scm:packed_onto_skid ?skid . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Show skids for product urn:demo:supplychain:data:Product:MD001PL01K50L07012020MD001Keg50Liter" .
+system:QueryQ10530 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10530" ;
+   system:queryString """SELECT DISTINCT ?consumer0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?consumer0 scm:purchases ?product0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 stardog:label \"SW - Beer Stand 4\" . 
+  ?product0 a scm:Product . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What beer was sold at Beer Stand 4?" , "Which customers made purchases from beer stand 4?" .
+system:QueryQ10533 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10533" ;
+   system:queryString """SELECT DISTINCT ?sellingPoint0 ?customer0 
+WHERE {
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 scm:located_at ?customer0 . 
+  ?customer0 a scm:Customer . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find which customers are located at each selling point." , "Which customer is located at each selling points?" .
+system:QueryQ10532 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10532" ;
+   system:queryString """SELECT ?consumer0 ?sellingPoint0 ?skid0 ?product0 ?productionOutput0 ?kegFiller0 ?sensor0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 scm:monitors ?kegFiller0 . 
+  ?sensor0 scm:sourced_from ?sourced0 . 
+  ?sourced0 stardog:label \"ABB\" . 
+  ?kegFiller0 a scm:KegFiller . 
+  ?kegFiller0 scm:output ?productionOutput0 . 
+  ?productionOutput0 a scm:Production_Output . 
+  ?productionOutput0 scm:has_output ?product0 . 
+  ?product0 a scm:Product . 
+  ?product0 scm:packed_onto_skid ?skid0 . 
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:delivered_to ?sellingPoint0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find all occurrences where a Consumer bought from a selling Point in which Product was deliverd to that was part of the production output of a keg filler monitored y a sensor whos data was sourced from the ABB datasource." .
+system:QueryQ10535 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10535" ;
+   system:queryString """SELECT DISTINCT ?truck0 ?sensor0 ?sensorOutput0 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 scm:hasOutput ?sensorOutput0 . 
+  ?sensor0 scm:monitors ?truck0 . 
+  ?sensorOutput0 a scm:SensorOutput . 
+  ?sensorOutput0 scm:sensorOutputValue ?dat_0 . 
+  ?truck0 a scm:Truck . 
+  FILTER (\"50\"^^xsd:integer <= ?dat_0)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Show me all trucks with sensors that have sensor output values greater than 50" .
+system:QueryQ10542 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10542" ;
+   system:queryString """SELECT DISTINCT ?buys0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?buys0 . 
+  ?consumer0 scm:providesFeedback ?feedback . 
+  ?feedback scm:description ?description0 . 
+  FILTER (CONTAINS(?description0, \"flat\"))
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find all the unique selling points from where the consumer bought the beer and mentioned 'flat' in their feedback." , "What are all the unique selling points from where the consumer bought the beer and mentioned 'flat' in their feedback" .
+system:QueryQ10541 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10541" ;
+   system:queryString """SELECT DISTINCT ?supplier0 ?dataSource0 
+WHERE {
+  ?supplier0 a scm:Supplier . 
+  ?supplier0 scm:sourced_from ?dataSource0 . 
+  ?dataSource0 a scm:Data_Source . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Where can I find data on suppliers?" .
+system:QueryQ10501 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10501" ;
+   system:queryString """SELECT ?customer0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:hasAddress ?address0 . 
+  ?address0 a scm:Address . 
+  ?address0 scm:city ?city0 . 
+  ?city0 stardog:property:textMatch \"SAINT LOUIS\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the customer(s) that have an address in the city of Saint Louis." , "Which customer(s) are located in the city of Saint Louis?" .
+system:QueryQ10503 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10503" ;
+   system:queryString """SELECT (COUNT(?customer0) AS ?customerCount) 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:create_date ?date . 
+  ?customer0 scm:orders ?orders0 . 
+  FILTER (\"5\"^^xsd:integer <= ?orders0)
+  FILTER (\"2017-01-01\"^^xsd:date <= ?date)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Considering customers created in 2017 or later, how many of them have at least 5 orders?" , "How many customers created in 2017 or later have at least 5 orders?" .
+system:QueryQ10506 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10506" ;
+   system:queryString """SELECT DISTINCT ?product ?sellingPointName 
+WHERE {
+  ?product scm:packed_onto_skid ?skid . 
+  ?skid scm:delivered_to ?delivered0 . 
+  ?delivered0 scm:selling_point_name ?sellingPointName . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Where will our products be sold?" .
+system:QueryQ10509 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10509" ;
+   system:queryString """SELECT (SUM(?quantity0) AS ?total) 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:quantity ?quantity0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What is the total number of finished products?" , "Find the sum of all the products" .
+system:QueryQ10511 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10511" ;
+   system:queryString """SELECT DISTINCT ?sellingPoint0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 stardog:label \"Shirley Logan\" . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find who Shirley Logan buys from." , "Which selling point does Shirley Logan buy from?" , "Who does Shirley Logan buy from?" .
+system:QueryQ10514 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10514" ;
+   system:queryString """SELECT DISTINCT ?distribution0 
+WHERE {
+  ?distribution0 a scm:Distribution . 
+  ?distribution0 scm:delivery_target ?customer0 . 
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:hasAddress ?address0 . 
+  ?address0 a scm:Address . 
+  ?address0 scm:city ?city0 . 
+  ?city0 stardog:property:textMatch \"CHICAGO\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Who will deliver to an address in the city of Chicago." , "Which distributer will deliver to an address in Chicago." .
+system:QueryQ10516 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10516" ;
+   system:queryString """SELECT (MIN(?value) AS ?min) (MAX(?value) AS ?max) 
+WHERE {
+  ?sensor scm:hasOutput ?sensorOutput0 . 
+  ?sensor scm:monitors ?cooler0 . 
+  ?cooler0 a scm:Cooler . 
+  ?sensorOutput0 a scm:SensorOutput . 
+  ?sensorOutput0 scm:sensorOutputValue ?value . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What are the minimum and maximum values measured for sensors that monitor coolers?" , "Within which range are sensor values for coolers observed?" .
+system:QueryQ10518 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10518" ;
+   system:queryString """SELECT DISTINCT ?supplier0 ?customer0 
+WHERE {
+  ?supplier0 a scm:Supplier . 
+  ?supplier0 scm:supplies ?customer0 . 
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:customer_name ?name . 
+  ?name stardog:property:textMatch \"LAMBEAU FIELD\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which supplier supplies Lambeau Field?" , "Which supplier's customer is Lambeau Field?" , "Who supplies Lambeau Field?" .
+system:QueryQ10400 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10400" ;
+   system:queryString """SELECT DISTINCT ?truck0 
+WHERE {
+  ?truck0 a scm:Truck . 
+  ?truck0 scm:hasAnomaly ?anomaly0 . 
+  ?anomaly0 a scm:Anomaly . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which truck is showing anomalies?" .
+system:QueryQ10402 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10402" ;
+   system:queryString """SELECT ?productType0 (COUNT(?qualityRelease0) AS ?number_of_quality_release) 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:is_type_of_product ?productType0 . 
+  ?productType0 a scm:Product_Type . 
+
+  OPTIONAL {
+    ?product0 scm:has_quality_release ?qualityRelease0 . 
+    ?qualityRelease0 a scm:Quality_Release . 
+  }
+}
+GROUP BY ?productType0""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the number of Quality Release grouped by Product Type" .
+system:QueryQ10404 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10404" ;
+   system:queryString """SELECT DISTINCT ?Customer ?sellingPointIri ?description0 
+WHERE {
+  ?sellingPointIri scm:located_at ?Customer . 
+  ?sellingPointIri scm:selling_point_provides_feedback ?productFeedback0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?productFeedback0 scm:description ?description0 . 
+  FILTER (CONTAINS(?description0, \"flat\"))
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "product feedback from customers where the beer was flat." , "provide details on customer feedback where the beer was described as flat." , "customer product feedback where the beer was flat" .
+system:QueryQ10407 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10407" ;
+   system:queryString """SELECT DISTINCT ?supplier0 ?ingredient0 ?customer0 
+WHERE {
+  ?supplier0 a scm:Supplier . 
+  ?supplier0 scm:supplierOf ?ingredient0 . 
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:inProductsBoughtBy ?customer0 . 
+  ?customer0 a scm:Customer . 
+  ?customer0 stardog:label \"WRIGLEY FIELD CHICAGO INC\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find me all the suppliers for ingredients used in products bought by Wrigley Field." .
+system:QueryQ10408 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10408" ;
+   system:queryString """SELECT DISTINCT ?sensor0 ?monitors0 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 scm:monitors ?monitors0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the sensors that monitor equipment." , "List the monitor equipment and their sensors" .
+system:QueryQ10410 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10410" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?productFeedback0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:providesFeedback ?productFeedback0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?productFeedback0 scm:create_date ?dat_0 . 
+  FILTER (\"2019-12-31\"^^xsd:date < ?dat_0)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What consumers provided feedback before 2020?" , "List the consumers that provided feedback before 2020?" .
+system:QueryQ10413 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10413" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 ?recipe0 ?productBrand0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 scm:outputs_product ?productBrand0 . 
+  ?productBrand0 a scm:Product_Brand . 
+  ?productBrand0 stardog:label \"Pillsner Dunkel\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List the ingredients associated with Pillsner Dunkel." , "What ingredients were used in the recipe that outputs Pillsner Dunkel products?" .
+system:QueryQ10416 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10416" ;
+   system:queryString """SELECT DISTINCT ?cooler0 ?equipment0 
+WHERE {
+  ?equipment0 a scm:Equipment . 
+  ?equipment0 scm:feeds ?cooler0 . 
+  ?cooler0 a scm:Cooler . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What equipment feeds a cooler?" , "Are there any pieces of equipment that feeds a cooler?" .
+system:QueryQ10415 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10415" ;
+   system:queryString """SELECT ?productBrand0 
+WHERE {
+  ?productBrand0 a scm:Product_Brand . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List the product brands" .
+system:QueryQ10418 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10418" ;
+   system:queryString """SELECT ?production ?product0 ?createDate ?endDate ?productType 
+WHERE {
+  ?production scm:create_date ?createDate . 
+  ?production scm:end_date ?endDate . 
+  ?production scm:has_output ?product0 . 
+  ?product0 a scm:Product . 
+  ?product0 scm:is_type_of_product ?productType . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What is the production, including the start and end date, with the output products and their product types?" .
+system:QueryQ10419 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10419" ;
+   system:queryString """SELECT DISTINCT ?product ?warehouse 
+WHERE {
+  ?product scm:packed_onto_skid ?skid . 
+  ?skid scm:stored_in ?warehouse . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Tell me based on products getting packed on to skids, and skids being stored in warehouses, what products are in what warehouses?" , "What products are stored in what warehouses?" , "Do we have products in the warehouse?" .
+system:QueryQ10422 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10422" ;
+   system:queryString """SELECT DISTINCT ?cooler0 ?fermenter0 
+WHERE {
+  ?cooler0 a scm:Cooler . 
+  ?cooler0 scm:feeds ?fermenter0 . 
+  ?fermenter0 a scm:Fermenter . 
+  ?fermenter0 stardog:label \"Fermenter 3\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What cooler feeds Fermenter 3?" , "What is the cooler that feeds Fermenter 3?" .
+system:QueryQ10425 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10425" ;
+   system:queryString """SELECT DISTINCT ?customer0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:customer_name ?name . 
+  ?name stardog:property:textMatch \"INDIANAPOLIS MOTOR SPEEDWAY\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the customer who has name equals Indianapolis motor speedway." , "Retrieve customer equal to Indianapolis motor speedway." .
+system:QueryQ10424 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10424" ;
+   system:queryString """SELECT ?product0 ?productType0 ?qualityRelease0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:has_quality_release ?qualityRelease0 . 
+  ?product0 scm:is_type_of_product ?productType0 . 
+  ?qualityRelease0 a scm:Quality_Release . 
+  ?productType0 a scm:Product_Type . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the quality release of every product and also provide the product type of the product" .
+system:QueryQ10429 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10429" ;
+   system:queryString """SELECT ?customer ?customerCapacity (COUNT(?pallet0) AS ?palletCount) 
+WHERE {
+  ?skid scm:has_pallet ?pallet0 . 
+  ?skid scm:part_of_distribution ?dist . 
+  ?dist scm:delivery_target ?customer . 
+  ?customer scm:stadium_capacity ?customerCapacity . 
+}
+GROUP BY ?customer ?customerCapacity""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Tell me the customer and their capacity versus pallet count" , "How many pallets of product do we ship to different customers, and what is their potential selling capacity?" .
+system:QueryQ10431 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10431" ;
+   system:queryString """SELECT DISTINCT ?distributor
+WHERE {
+  ?truck scm:hasAnomaly ?anomaly0 .
+  ?truck scm:part_of ?distributor .
+  ?anomaly0 a scm:Anomaly .
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   a system:VoiceboxExampleQuery ;
+   system:voiceboxQuestion "Show me all distributors whose trucks experienced anomalies." .
+system:QueryQ10434 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10434" ;
+   system:queryString """SELECT DISTINCT ?recipe0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?ingredient1 a scm:Ingredient . 
+  ?ingredient1 stardog:label \"Water5HL\" . 
+  ?ingredient1 scm:used_in ?recipe0 . 
+  FILTER (?ingredient1 != ?ingredient0)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the recipes that use the same amount of water." , "Which recipes use the same amount of water?" .
+system:QueryQ10433 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10433" ;
+   system:queryString """SELECT DISTINCT ?truck0 ?distribution0 ?customer0 
+WHERE {
+  ?truck0 a scm:Truck . 
+  ?truck0 scm:delivery_means ?distribution0 . 
+  ?distribution0 a scm:Distribution . 
+  ?distribution0 scm:delivery_target ?customer0 . 
+  ?customer0 a scm:Customer . 
+  ?customer0 stardog:label \"INDIANAPOLIS MOTOR SPEEDWAY\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which trucks deliver to the Indianapolis Motor Speedway?" .
+system:QueryQ10436 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10436" ;
+   system:queryString """SELECT DISTINCT ?anomaly0 ?sensor0 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 scm:hasOutput ?anomaly0 . 
+  ?sensor0 scm:monitors ?truck0 . 
+  ?truck0 a scm:Truck . 
+  ?anomaly0 a scm:Anomaly . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List the anomalies for sensors that monitor trucks." , "What anomalies are from sensors that monitors trucks?" .
+system:QueryQ10438 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10438" ;
+   system:queryString """SELECT DISTINCT ?customer0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 rdfs:label ?label0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List all the customers uniquely by name" , "What are all the customers?" .
+system:QueryQ10440 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10440" ;
+   system:queryString """SELECT DISTINCT ?supplier0 ?ingredient0 
+WHERE {
+  ?supplier0 a scm:Supplier . 
+  ?supplier0 scm:supplierOf ?ingredient0 . 
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 stardog:label \"CarafaType2Malt20HL\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What is the supplier of CarafaType2Malt20HL?" , "What is the supplier related to CarafaType2Malt20HL?" .
+system:QueryQ10444 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10444" ;
+   system:queryString """SELECT (COUNT(?output0) AS ?totalAnomilies) 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 scm:hasOutput ?output0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Count the total number of anomalies reported by the Sensor" , "How many total Anomalies are reported by the Sensor" .
+system:QueryQ10446 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10446" ;
+   system:queryString """SELECT DISTINCT ?sensor0 (COUNT(?anomaly0) AS ?anomalyCount) 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 scm:hasOutput ?anomaly0 . 
+  ?anomaly0 a scm:Anomaly . 
+}
+GROUP BY ?sensor0""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Did any sensors record an anomaly?" , "How many anomalies did the sensors record?" .
+system:QueryQ10448 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10448" ;
+   system:queryString """SELECT ?buys0 (COUNT(?consumer0) AS ?consumerCount) 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?buys0 . 
+}
+GROUP BY ?buys0""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the count of consumers per selling point" , "How many consumers buys from each selling point" .
+system:QueryQ10450 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10450" ;
+   system:queryString """SELECT ?production ?product0 ?productType 
+WHERE {
+  ?production scm:has_output ?product0 . 
+  ?product0 a scm:Product . 
+  ?product0 scm:is_type_of_product ?productType . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Get me the production, their products and product type?" .
+system:QueryQ10451 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10451" ;
+   system:queryString """SELECT ?phone0 ?customer0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:customer_name ?customerName . 
+  ?customer0 scm:phone ?phone0 . 
+  ?customerName stardog:property:textMatch \"FENWAY PARK\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Customer Fenway Park's phone number." , "Phone number for customer Fenway Park." , "Find customer Fenway Park's phone number." , "What is the phone number of customer Fenway Park?" .
+system:QueryQ10455 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10455" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 ?supplier0 
+WHERE {
+  ?supplier0 a scm:Supplier . 
+  ?supplier0 stardog:label \"Great Western Malt Company (USA)\" . 
+  ?supplier0 scm:supplierOf ?ingredient0 . 
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 stardog:label \"Pillsner\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What Pillsner ingredients are supplied by Great Western Malt Company?" , "List all Pillsner ingredients supplied by Great Western Malt Company." .
+system:QueryQ10457 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10457" ;
+   system:queryString """SELECT DISTINCT ?feedback ?qualityRelease0 ?status0 
+WHERE {
+  ?feedback scm:feedback_for ?product0 . 
+  ?product0 a scm:Product . 
+  ?product0 scm:has_brand ?brand0 . 
+  ?product0 scm:has_quality_release ?qualityRelease0 . 
+  ?qualityRelease0 a scm:Quality_Release . 
+  ?qualityRelease0 scm:has_status ?status0 . 
+}
+ORDER BY (?feedback) (?qualityRelease0) (?status0)""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "For all feedback given, show me the quality release and status of the quality release." , "Can I see feedback for a given product alongside the measure and status for the given quality release?" .
+system:QueryQ10459 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10459" ;
+   system:queryString """SELECT DISTINCT ?customer0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:stadium_capacity ?capacity . 
+  FILTER (\"50000\"^^xsd:integer < ?capacity)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find customers with stadium capacity greater than 50000 people" , "Which Customers have stadium capacity greater than 50000 people" .
+system:QueryQ10461 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10461" ;
+   system:queryString """SELECT DISTINCT ?customer0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:hasAddress ?address0 . 
+  ?address0 a scm:Address . 
+  ?address0 scm:state ?state0 . 
+  ?state0 stardog:property:textMatch \"OH\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which customers are in Ohio?" .
+system:QueryQ10463 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10463" ;
+   system:queryString """SELECT DISTINCT ?sensor0 ?truck0 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 scm:monitors ?truck0 . 
+  ?truck0 a scm:Truck . 
+  ?truck0 stardog:label \"Truck 002\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What sensor monitors truck 002?" , "List the sensors monitoring truck 002." .
+system:QueryQ10462 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10462" ;
+   system:queryString """SELECT DISTINCT ?product ?sourced0 
+WHERE {
+  ?product scm:packed_onto_skid ?skid . 
+  ?skid scm:has_pallet ?pallet0 . 
+  ?pallet0 scm:sourced_from ?sourced0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What products are sourced from what pallet data sources for supply chain data?" .
+system:QueryQ10465 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10465" ;
+   system:queryString """SELECT DISTINCT ?customer0 ?address0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:hasAddress ?address0 . 
+  ?address0 a scm:Address . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Where are my customers located?" , "Find the addresses for all my customers." .
+system:QueryQ10467 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10467" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 ?recipe0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 stardog:label \"Pillsner Dunkel\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the ingredients in Pillsner Dunkel." , "What is used in Pillsner Dunkel?" , "What ingredients are in Pillsner Dunkel?" , "What is the recipe for Pillsner Dunkel?" .
+system:QueryQ10474 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10474" ;
+   system:queryString """SELECT ?ingredients ?brand 
+WHERE {
+  ?ingredients scm:used_in ?recipe . 
+  ?recipe scm:outputs_product ?brand . 
+  ?brand stardog:label \"Pillsner Dunkel\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List the ingredients used to make Pillsner Dunkel" .
+system:QueryQ10475 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10475" ;
+   system:queryString """SELECT DISTINCT ?customer0 ?phone0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:phone ?phone0 . 
+}
+ORDER BY (?customer0)""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Return a list of customers and their phone numbers in alphabetical order" , "What are the phone numbers of all the customers in ascending order?" , "Find the phone numbers for all the customers ordered by customer" .
+system:QueryQ10478 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10478" ;
+   system:queryString """SELECT DISTINCT ?customer0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:hasAddress ?address0 . 
+  ?address0 a scm:Address . 
+  ?address0 scm:state ?state0 . 
+  ?state0 stardog:property:textMatch \"IL\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which customers are in Illinois?" .
+system:QueryQ10479 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10479" ;
+   system:queryString """SELECT DISTINCT ?consumer0
+WHERE {
+  ?consumer0 a scm:Consumer .
+  ?consumer0 scm:providesFeedback ?feedback .
+  ?feedback scm:description ?description0 .
+  FILTER (CONTAINS(?description0, \"flat\"))
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   a system:VoiceboxExampleQuery ;
+   system:voiceboxQuestion "Find all the consumers who provided feedback about flat beer." .
+system:QueryQ10481 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10481" ;
+   system:queryString """SELECT DISTINCT ?customer0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:hasAddress ?address0 . 
+  ?address0 a scm:Address . 
+  ?address0 stardog:label \"335 SOUTH HOLLYWOOD STREET\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which customers are located at South Hollywood Street?" , "Which customers have an address on South Hollywood Street?" .
+system:QueryQ10483 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10483" ;
+   system:queryString """SELECT DISTINCT ?distributor ?truck ?customer 
+WHERE {
+  ?truck scm:delivery_means ?dm . 
+  ?truck scm:hasAnomaly ?anomaly0 . 
+  ?truck scm:part_of ?distributor . 
+  ?dm scm:delivery_target ?customer . 
+  ?customer stardog:label \"wrigley field\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "find distributor's trucks wiht anomalies who delivered products to wrigley field." , "which distributors have trucks that delivered products to wrigley field that have anomalies?" .
+system:QueryQ10485 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10485" ;
+   system:queryString """SELECT DISTINCT ?customer0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:hasAddress ?address0 . 
+  ?address0 a scm:Address . 
+  ?address0 stardog:label \"SOUTH MAIN STREET\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Tell me who is the customer whose address is on South Main Street." , "What customer is located on South Main Street?" .
+system:QueryQ10487 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10487" ;
+   system:queryString """SELECT DISTINCT (COUNT(?skid0) AS ?skidCount) 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:stored_in ?warehouse0 . 
+  ?warehouse0 a scm:Warehouse . 
+  ?warehouse0 stardog:label \"Charleston Warehouse 02\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How many skids are stored in Charleston Warehouse 02?" , "Count the number of skids in Charleston Warehouse 02." .
+system:QueryQ10489 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10489" ;
+   system:queryString """SELECT DISTINCT ?customer0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:complaints ?complaints0 . 
+  FILTER (\"1\"^^xsd:integer < ?complaints0)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which customers have made multiple complaints?" , "List customer complaints" , "Which customers have filed multiple complaints?" , "Which customers have made a complaint" , "Which customers have filed more than one complaint?" .
+system:QueryQ10495 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10495" ;
+   system:queryString """SELECT DISTINCT ?customer0 ?distribution0 
+WHERE {
+  ?distribution0 a scm:Distribution . 
+  ?distribution0 scm:delivery_target ?customer0 . 
+  ?customer0 a scm:Customer . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which customers are the target of which distribution route?" , "Find which customers are serviced by which distributions route." .
+system:QueryQ10497 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10497" ;
+   system:queryString """SELECT (COUNT(?recipe0) AS ?recipe_count) 
+WHERE {
+  ?recipe0 a scm:Recipe . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What is the count of beer recipes available?" , "How many beer recipes are available?" .
+system:QueryQ10499 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10499" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:has_brand ?productBrand0 . 
+  ?productBrand0 a scm:Product_Brand . 
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 scm:outputs_product ?productBrand0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List the ingredients of a brands finished products." , "Which ingredients are used in each of the finished products" .
+system:QueryQ10300 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10300" ;
+   system:queryString """SELECT DISTINCT ?plant0 
+WHERE {
+  ?warehouse0 a scm:Warehouse . 
+  ?warehouse0 scm:part_of ?plant0 . 
+  ?plant0 a scm:Plant . 
+  ?plant0 rdfs:label ?label0 . 
+  FILTER NOT EXISTS {   ?prodcution_line a scm:ProductionLine . 
+  ?prodcution_line scm:part_of ?plant0 .  }
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "In which plants only have a warehouse?" , "Which plants where a warehouse is located do not have a production line as well?" .
+system:QueryQ10302 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10302" ;
+   system:queryString """SELECT DISTINCT ?skid0 ?truck0 ?sourced0 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:packed_onto_truck ?truck0 . 
+  ?truck0 a scm:Truck . 
+  ?truck0 scm:sourced_from ?sourced0 . 
+  FILTER ((?truck0 != ?sourced0 && ?sourced0 != ?skid0))
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Where are the trucks that deliver the skids sourced from?" , "Find where the trucks that skids are packed onto are sourced from." .
+system:QueryQ10304 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10304" ;
+   system:queryString """SELECT DISTINCT ?equipment2 ?productionLine0 
+WHERE {
+  ?productionLine0 a scm:ProductionLine . 
+  ?productionLine0 stardog:label \"production line 1\" . 
+  ?productionLine0 scm:line_has_output ?output0 . 
+  ?equipment2 rdfs:label ?label1 . 
+  ?equipment2 (scm:feeds)* ?equipment . 
+  ?equipment scm:output ?output0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "equipment used in product line 1" , "what equipment is part of production line 1?" , "find all pieces of equipment that are in product line 1." .
+system:QueryQ10308 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10308" ;
+   system:queryString """SELECT DISTINCT ?sellingPoint0 ?customer0 
+WHERE {
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 scm:located_at ?customer0 . 
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:customer_name ?dat_0 . 
+  ?dat_0 stardog:property:textMatch \"INDIANAPOLIS MOTOR SPEEDWAY\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How many beer stands at the Indianapolis Motor Speedway?" , "What are the selling points at the Indianapolis Motor Speedway for the Indianapolis 500?" .
+system:QueryQ10310 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10310" ;
+   system:queryString """SELECT DISTINCT ?sellingPoint0 ?consumer0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?consumer0 scm:consumerName ?dat_0 . 
+  ?dat_0 stardog:property:textMatch \"Chris Nelson\" . 
+  ?sellingPoint0 a scm:Selling_Point . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What all selling points Chris Nelson buys from ?" , "Which selling points sell to Chris Nelson?" .
+system:QueryQ10317 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10317" ;
+   system:queryString """SELECT DISTINCT ?ingredientTypeIri 
+WHERE {
+  ?type0 scm:is_type_of_ingredient ?ingredientTypeIri . 
+  ?type0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 rdfs:label ?label1 . 
+  ?recipe0 scm:outputs_product ?brandIri . 
+  ?brandIri stardog:label \"Munich Dunkel\" . 
+  ?ingredientTypeIri rdfs:label ?label0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "what ingredients are used to make the beer Munich Dunkel?" , "what ingredients are used to make Munich Dunkel?" , "ingredients used to make Munich Dunkel beer." .
+system:QueryQ10316 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10316" ;
+   system:queryString """SELECT ?feedback 
+WHERE {
+  ?feedback scm:feedback_for ?product . 
+  ?product stardog:label \"Munich Dunkel\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Let's look at the feedback for product Munich Dunkel." .
+system:QueryQ10322 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10322" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?productFeedback0 ?sellingPoint0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?consumer0 scm:providesFeedback ?productFeedback0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?productFeedback0 stardog:label \"Munich Dunkel\" . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 stardog:label \"SW - Beer Stand 4\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List all consumers that bought from SW - Beer Stand 4 and provided feedback for Munich Dunkel." , "What SW Beer Stand 4 consumers provided feedback for Munich Dunkel?" .
+system:QueryQ10324 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10324" ;
+   system:queryString """SELECT DISTINCT ?customer ?sellingPoint0 
+WHERE {
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 scm:located_at ?customer . 
+  ?sellingPoint0 scm:selling_point_name ?name . 
+  ?name stardog:property:textMatch \"Pitstop Beer Tent\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the name of the Customer where Selling Point \"Pitstop Beer Tent\" is located" , "\"Pitstop Beer Tent\" Selling Point is located at which customer" .
+system:QueryQ10326 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10326" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?sellingPoint0 ?product0 ?productBrand0 ?recipe0 ?ingredient0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?product0 a scm:Product . 
+  ?product0 scm:has_brand ?productBrand0 . 
+  ?product0 scm:packed_onto_skid ?skid0 . 
+  ?productBrand0 a scm:Product_Brand . 
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:delivered_to ?sellingPoint0 . 
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 scm:outputs_product ?productBrand0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find all occurences where a consumer buys from a selling point where product of a product brand was packed onto. Include the reciepe of the product brand and the specific ingredients used in the receipe." .
+system:QueryQ10327 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10327" ;
+   system:queryString """SELECT DISTINCT ?output0 ?ingredient 
+WHERE {
+  ?ingredient scm:inProductsBoughtBy ?customer . 
+  ?ingredient scm:used_in ?recipe . 
+  ?recipe scm:recipe_used_in ?out . 
+  ?out scm:has_output ?output0 . 
+  ?customer stardog:label \"wrigley field\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "list of products and associated ingredients bought by wrigley field" , "products bought by wrigley field and their ingredients" , "what products and ingredients were purchased by wrigley field?" , "what products and ingredients were bought by wrigley field?" .
+system:QueryQ10331 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10331" ;
+   system:queryString """SELECT DISTINCT ?distribution0 
+WHERE {
+  ?sellingPointObj scm:located_at ?consumer . 
+  ?sellingPointObj scm:selling_point_provides_feedback ?productFeedback0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?distribution0 a scm:Distribution . 
+  ?distribution0 scm:delivery_target ?consumer . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which distributions have received feedback?" , "Show me which distributions have received feedback" .
+system:QueryQ10333 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10333" ;
+   system:queryString """SELECT (COUNT(?productionLine0) AS ?count) 
+WHERE {
+  ?productionLine0 a scm:ProductionLine . 
+  ?productionLine0 (scm:part_of)+ ?_anon_1 . 
+  ?_anon_1 stardog:label \"Good Beer Company\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "On how many lines does the Good Beer Company produce?" , "How many production lines does the Good Beer Company own?" .
+system:QueryQ10335 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10335" ;
+   system:queryString """SELECT DISTINCT ?sellingPoint0 ?consumer0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which consumers bought from which selling points?" , "Find which consumers bought from which selling point." .
+system:QueryQ10337 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10337" ;
+   system:queryString """SELECT (COUNT(?truck) AS ?numberOfTrucks) 
+WHERE {
+  ?skid scm:packed_onto_truck ?truck . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Tell me how many trucks are currently in use" , "How many trucks do we have with products on them?" .
+system:QueryQ10339 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10339" ;
+   system:queryString """SELECT DISTINCT ?warehouse0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 stardog:label \"Munich Dunkel Keg 50 Liter (MD001PL01K50L07012020)\" . 
+  ?product0 scm:packed_onto_skid ?skid0 . 
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:stored_in ?warehouse0 . 
+  ?warehouse0 a scm:Warehouse . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Munich Dunkel kegs are in which warehouses?" , "Find the warehouses that have Munich Dunkel kegs" .
+system:QueryQ10341 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10341" ;
+   system:queryString """SELECT DISTINCT ?skid0 ?pallet0 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:has_pallet ?pallet0 . 
+  ?pallet0 a scm:Pallet . 
+  ?pallet0 stardog:label \"Pallet 004\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Pallet 004 is on which skid?" , "Which skid has Pallet 004?" .
+system:QueryQ10343 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10343" ;
+   system:queryString """SELECT DISTINCT ?truck0 
+WHERE {
+  ?truck0 a scm:Truck . 
+  FILTER NOT EXISTS {   ?truck0 scm:hasAnomaly ?anomaly .  }
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List all the distinct trucks with no Anomalies" , "Find trucks with no Anomalies" , "Filter the trucks with anomalies" .
+system:QueryQ10346 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10346" ;
+   system:queryString """SELECT ?warehouse (COUNT(?pallet0) AS ?palletCount) 
+WHERE {
+  ?skid scm:has_pallet ?pallet0 . 
+  ?skid scm:stored_in ?warehouse . 
+}
+GROUP BY ?warehouse""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How full are our warehouses?" , "Give me a breakdown of pallets in warehouses" , "How many pallets in each of our warehouses?" , "Tell me how many pallets each warehouse has" .
+system:QueryQ10350 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10350" ;
+   system:queryString """SELECT DISTINCT ?sensor0 ?masher0 ?boiler0 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 scm:monitors ?masher0 . 
+  ?masher0 a scm:Masher . 
+  ?masher0 scm:feeds ?boiler0 . 
+  ?boiler0 a scm:Boiler . 
+  ?boiler0 stardog:label \"Boiler 1\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List the sensors that monitor the masher responsible for feeding Boiler 1." , "What sensors monitor Boiler 1's masher?" .
+system:QueryQ10352 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10352" ;
+   system:queryString """SELECT DISTINCT ?warehouse ?product0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 stardog:label \"Munich Dunkel Keg 50 Liter\" . 
+  ?product0 scm:stored_in_1 ?warehouse . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the warehouse where the product whose name has the text \"Munich Dunkel Keg 50 Liter\" is stored." , "What all warehouse store the product whose name has the text \"Munich Dunkel Keg 50 Liter.\"" .
+system:QueryQ10354 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10354" ;
+   system:queryString """SELECT DISTINCT ?waterTank0 ?dataSource0 
+WHERE {
+  ?waterTank0 a scm:WaterTank . 
+  ?waterTank0 scm:sourced_from ?dataSource0 . 
+  ?dataSource0 a scm:Data_Source . 
+  ?dataSource0 stardog:label \"Manhattan\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What many water tanks are sourced from Manhattan?" , "Show the water tanks sourced from Manhattan." .
+system:QueryQ10356 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10356" ;
+   system:queryString """SELECT DISTINCT ?rawMaterialIngredient0 ?productionOutput0 
+WHERE {
+  ?rawMaterialIngredient0 a scm:Raw_Material_Ingredient . 
+  ?rawMaterialIngredient0 scm:ingredient_used_in ?productionOutput0 . 
+  ?productionOutput0 a scm:Production_Output . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the raw material ingredients that are used in product outputs." , "What raw material ingredients are used in product outputs?" .
+system:QueryQ10359 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10359" ;
+   system:queryString """SELECT DISTINCT ?supplier0 ?ingredientType0 
+WHERE {
+  ?supplier0 a scm:Supplier . 
+  ?supplier0 scm:supplierOf ?ingredient0 . 
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:is_type_of_ingredient ?ingredientType0 . 
+  ?ingredientType0 a scm:Ingredient_Type . 
+  ?ingredientType0 stardog:label \"Water\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which supplier supplies water?" , "Which supplier supplies the ingredient which is of type water?" .
+system:QueryQ10358 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10358" ;
+   system:queryString """SELECT DISTINCT ?productionOutput0 
+WHERE {
+  ?kegFiller0 a scm:KegFiller . 
+  ?kegFiller0 scm:output ?productionOutput0 . 
+  ?productionOutput0 a scm:Production_Output . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which production outputs come from a KegFiller?" .
+system:QueryQ10362 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10362" ;
+   system:queryString """SELECT DISTINCT ?label1 ?ingredientNameCount ?ingredients ?ingredientCount 
+WHERE {
+  ?recipe scm:outputs_product ?brand . 
+  ?brand stardog:label \"Munich Dunkel\" . 
+
+  {
+
+    {
+      SELECT ?ingredients (COUNT(?ingredients) AS ?ingredientCount) 
+      WHERE {
+        ?ingredients scm:used_in ?recipe . 
+      }
+      GROUP BY ?ingredients
+    }
+  }
+  UNION {
+
+    {
+      SELECT ?label1 (COUNT(?label1) AS ?ingredientNameCount) 
+      WHERE {
+        ?ingredients rdfs:label ?label1 . 
+        ?ingredients scm:used_in ?recipe . 
+      }
+      GROUP BY ?label1
+    }
+  }
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Give the number of ingredients and the number of ingredient names for Munich Dunkel" .
+system:QueryQ10364 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10364" ;
+   system:queryString """SELECT ?ingredients (COUNT(*) AS ?n) 
+WHERE {
+  ?ingredients rdfs:label ?label0 . 
+  ?ingredients scm:used_in ?recipe . 
+  ?recipe scm:outputs_product ?brand . 
+  ?brand stardog:label \"Munich Dunkel\" . 
+}
+GROUP BY ?ingredients""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Count repeated use of the same ingredient name for Munich Dunkel" .
+system:QueryQ10366 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10366" ;
+   system:queryString """SELECT DISTINCT ?skid ?truck ?product0 
+WHERE {
+  ?product0 stardog:label \"Munich Dunkel\" . 
+  ?product0 scm:packed_onto_skid ?skid . 
+  ?skid scm:packed_onto_truck ?truck . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Show skids and trucks for product Munich Dunkel" .
+system:QueryQ10365 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10365" ;
+   system:queryString """SELECT DISTINCT ?product0 ?truck0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:deliveredBy ?truck0 . 
+  ?truck0 a scm:Truck . 
+  ?truck0 stardog:label \"Truck 4\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What products were delivered on Truck 4?" .
+system:QueryQ10367 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10367" ;
+   system:queryString """SELECT DISTINCT ?productBrand0 ?recipe0 ?ingredient0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 stardog:label \"Yeast\" . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 scm:outputs_product ?productBrand0 . 
+  ?productBrand0 a scm:Product_Brand . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which product bands are the output of a recipe in which yeast is used as an ingredient?" , "Which brands recipes use yeast as an ingredient?" .
+system:QueryQ10369 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10369" ;
+   system:queryString """SELECT DISTINCT ?truck0 ?sensor0 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 scm:monitors ?truck0 . 
+  ?truck0 a scm:Truck . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find which trucks have sensors to monitor." , "Which trucks have sensors to monitor?" .
+system:QueryQ10371 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10371" ;
+   system:queryString """SELECT DISTINCT ?skid0 ?customer0 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:delivered_to ?delivered0 . 
+  ?delivered0 scm:located_at ?customer0 . 
+  ?customer0 a scm:Customer . 
+  ?customer0 stardog:label \"WRIGLEY FIELD CHICAGO INC\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List the skids whicha are delievered to selling points located at WRIGLEY FIELD CHICAGO INC customer" , "Find the skids whicha are delievered to selling points located at WRIGLEY FIELD CHICAGO INC customer" , "List the skids whicha are delievered to WRIGLEY FIELD CHICAGO INC customer" .
+system:QueryQ10375 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10375" ;
+   system:queryString """SELECT DISTINCT ?dataSource0 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 stardog:label \"Munich Dunkel Keg 50 Liter - P004\" . 
+  ?skid0 scm:has_pallet ?pallet0 . 
+  ?pallet0 a scm:Pallet . 
+  ?pallet0 scm:sourced_from ?dataSource0 . 
+  ?dataSource0 a scm:Data_Source . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What is the data source of Munich Dunkel Keg 50 Liter - P004's pallet?" , "Find the data source which the pallet of Munich Dunkel Keg 50 Liter - P004 is sourced from." .
+system:QueryQ10374 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10374" ;
+   system:queryString """SELECT DISTINCT ?product0 ?warehouse0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:stored_in_1 ?warehouse0 . 
+  ?warehouse0 a scm:Warehouse . 
+  ?warehouse0 stardog:label \"Charleston Warehouse\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What finished products are stored in the Charlotte Warehouse" .
+system:QueryQ10377 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10377" ;
+   system:queryString """SELECT DISTINCT ?recipe0 ?ingredient0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 stardog:label \"Water5HL\" . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What recipes used Water5HL?" , "In what recipes was Water5HL used?" .
+system:QueryQ10381 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10381" ;
+   system:queryString """SELECT DISTINCT ?pallet0 
+WHERE {
+  ?pallet0 a scm:Pallet . 
+  ?pallet0 stardog:label \"Pallet 007\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find pallet 007?" , "List Pallet 007" .
+system:QueryQ10383 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10383" ;
+   system:queryString """SELECT DISTINCT ?customer0 ?truck0 
+WHERE {
+  ?truck0 a scm:Truck . 
+  ?truck0 stardog:label \"Truck 002\" . 
+  ?truck0 scm:delivery_means ?distribution0 . 
+  ?distribution0 a scm:Distribution . 
+  ?distribution0 scm:delivery_target ?customer0 . 
+  ?customer0 a scm:Customer . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Where is truck 002 going?" , "Which sites will truck 2 deliver to?" , "What are the sites that truck 002 is delivering to?" .
+system:QueryQ10386 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10386" ;
+   system:queryString """SELECT DISTINCT ?skid0 ?pallet0 ?dataSource0 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:has_pallet ?pallet0 . 
+  ?pallet0 a scm:Pallet . 
+  ?pallet0 scm:sourced_from ?dataSource0 . 
+  ?dataSource0 a scm:Data_Source . 
+  ?dataSource0 rdfs:label ?label0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find what data sources the pallets containing skids are sourced from." , "What are the data sources for all the skids having pallets?" .
+system:QueryQ10388 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10388" ;
+   system:queryString """SELECT (COUNT(DISTINCT ?skid0) AS ?skidCount) ?skidCount 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 stardog:label \"Munich\" . 
+  ?skid0 scm:create_date ?dat_0 . 
+  FILTER (\"2021-01-01\"^^xsd:date > ?dat_0)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How many Munich skids were created in 2020 or earlier?" , "How many Munich skids were created until 2020?" .
+system:QueryQ10390 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10390" ;
+   system:queryString """SELECT DISTINCT ?sellingPoint0 ?consumer0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 stardog:label \"Juan Santiago\" . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What is Juan Santiago's selling point?" , "What selling point does Juan Santiago buy from?" .
+system:QueryQ10392 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10392" ;
+   system:queryString """SELECT DISTINCT ?truck0 ?product0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:deliveredBy ?truck0 . 
+  ?product0 scm:quantity ?quantity0 . 
+  ?truck0 a scm:Truck . 
+  FILTER (\"10\"^^xsd:integer < ?quantity0)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List the finished products delivered by a truck with a quantity greater than 10." , "Get all finished products delivered by a truck with a quantity greater than 10." .
+system:QueryQ10394 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10394" ;
+   system:queryString """SELECT ?customer0 ?complaints0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:complaints ?complaints0 . 
+  FILTER (?complaints0 != \"0\"^^xsd:integer)
+}
+GROUP BY ?customer0 ?complaints0
+ORDER BY DESC(?complaints0)
+LIMIT 1""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find a customer with maximun umber of complaints along with the count" , "Which customer has maximun complaints and what is the complaint count" .
+system:QueryQ10398 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10398" ;
+   system:queryString """SELECT (COUNT(DISTINCT ?sellingPoint0) AS ?sellingPointCount) 
+WHERE {
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 scm:located_at ?customer . 
+  ?customer scm:customer_name ?customer_name . 
+  ?customer_name stardog:property:textMatch \"WRIGLEY FIELD CHICAGO INC\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How many selling points are located at Customer \"WRIGLEY FIELD CHICAGO INC\"" , "Count the selling points those are located at Customer \"WRIGLEY FIELD CHICAGO INC" .
+system:QueryQ10200 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10200" ;
+   system:queryString """SELECT DISTINCT ?sensor0 ?plant0 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 scm:monitors ?plant0 . 
+  ?plant0 a scm:Plant . 
+  ?plant0 stardog:label \"Charleston Plant\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which sensors monitors the Charleston Plant" , "List the sensors which monitors Charleston Plant" , "List sensors which monitor charleston plant" .
+system:QueryQ10203 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10203" ;
+   system:queryString """SELECT DISTINCT ?customer0 ?supplier0 
+WHERE {
+  ?supplier0 a scm:Supplier . 
+  ?supplier0 scm:supplies ?customer0 . 
+  ?customer0 a scm:Customer . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which supplier supplies each customer?" , "Find which supplier supplies each customer." .
+system:QueryQ10205 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10205" ;
+   system:queryString """SELECT DISTINCT ?sellingPoint0 ?truck0 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:delivered_to ?sellingPoint0 . 
+  ?skid0 scm:packed_onto_truck ?truck0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?truck0 a scm:Truck . 
+  ?truck0 stardog:label \"Truck 002\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What selling points did Truck 002 made deliveries to?" , "Which selling points did Truck 002 deliver beer to?" .
+system:QueryQ10206 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10206" ;
+   system:queryString """SELECT DISTINCT ?fermenter0 ?cooler0 
+WHERE {
+  ?cooler0 a scm:Cooler . 
+  ?cooler0 stardog:label \"Cooler 3\" . 
+  ?cooler0 scm:feeds ?fermenter0 . 
+  ?fermenter0 a scm:Fermenter . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What fermenters are fed by Cooler 3?" , "What fermenters does cooler 3 feed?" .
+system:QueryQ10208 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10208" ;
+   system:queryString """SELECT ?customer0 ?complaints0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 rdfs:label ?label0 . 
+  ?customer0 scm:complaints ?complaints0 . 
+}
+GROUP BY ?customer0 ?complaints0
+ORDER BY DESC(?complaints0)
+LIMIT 3""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List the names of the three customers that have the top most number of complaints" , "What are the top three customers with the most complaints?" .
+system:QueryQ10210 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10210" ;
+   system:queryString """SELECT DISTINCT ?product0 ?productBrand0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:has_brand ?productBrand0 . 
+  ?productBrand0 a scm:Product_Brand . 
+  ?productBrand0 stardog:label \"Munich Dunkel\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which finished products are part of the Munich Dunkel brand." , "Munich Dunkel has what finished products" .
+system:QueryQ10212 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10212" ;
+   system:queryString """SELECT DISTINCT ?truck0 ?sellingPoint0 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:delivered_to ?sellingPoint0 . 
+  ?skid0 scm:packed_onto_truck ?truck0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 stardog:label \"Pitstop Beer Tent\" . 
+  ?truck0 a scm:Truck . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which truck delivered skids to selling point named Pitstop Beer Tent?" .
+system:QueryQ10214 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10214" ;
+   system:queryString """SELECT DISTINCT ?truck0 ?sellingPoint0 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:delivered_to ?sellingPoint0 . 
+  ?skid0 scm:packed_onto_truck ?truck0 . 
+  ?truck0 a scm:Truck . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  {
+    ?sellingPoint0 stardog:label \"SW - Beer Stand 4\" . 
+  }
+  UNION {
+    ?sellingPoint0 stardog:label \"Pitstop Beer Tent\" . 
+  }
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which trucks delivered beer to SW Beer Stand 4 or Pitstop Beer Tent?" , "Which trucks delivered beer to either SW Beer Stand 4 and Pitstop Beer Tent selling points?" .
+system:QueryQ10213 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10213" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:inProductsBoughtBy ?customer0 . 
+  ?customer0 a scm:Customer . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What ingredients are in products purchased by a customer?" , "List the ingredients in products purchased by a customer." .
+system:QueryQ10216 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10216" ;
+   system:queryString """SELECT DISTINCT ?skid0 ?pallet0 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:has_pallet ?pallet0 . 
+  ?pallet0 a scm:Pallet . 
+  ?pallet0 stardog:label \"Pallet 006\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What skid had pallet 006?" , "List the skid with pallet 006." .
+system:QueryQ10215 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10215" ;
+   system:queryString """SELECT DISTINCT ?truck0 ?sellingPoint0 ?sellingPoint1
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:delivered_to ?sellingPoint0 . 
+  ?skid0 scm:packed_onto_truck ?truck0 . 
+  ?sellingPoint0 stardog:label \"SW - Beer Stand 4\" . 
+  ?skid1 a scm:Skid . 
+  ?skid1 scm:delivered_to ?sellingPoint1 . 
+  ?skid1 scm:packed_onto_truck ?truck0 . 
+  ?truck0 a scm:Truck . 
+  ?sellingPoint1 a scm:Selling_Point . 
+  ?sellingPoint1 stardog:label \"Pitstop Beer Tent\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which trucks delivered beer to SW Beer Stand 4 and Pitstop Beer Tent?" , "Which trucks delivered beer to both selling points SW Beer Stand 4 and Pitstop Beer Tent?" .
+system:QueryQ10218 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10218" ;
+   system:queryString """SELECT DISTINCT ?customer0 ?supplier0 
+WHERE {
+  ?supplier0 a scm:Supplier . 
+  ?supplier0 stardog:label \"Michigan Hop Alliance (USA)\" . 
+  ?supplier0 scm:supplierOf ?ingredient0 . 
+  ?supplier0 scm:supplies ?customer0 . 
+  ?ingredient0 a scm:Ingredient . 
+  ?customer0 a scm:Customer . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find me all the customers who are supplied by Michigan Hop Alliance." .
+system:QueryQ10219 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10219" ;
+   system:queryString """SELECT DISTINCT ?customer0 ?sellingPoint0 
+WHERE {
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 scm:located_at ?customer0 . 
+  ?customer0 a scm:Customer . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find which customers are located at each selling point." , "Which customers are located at each selling point?" .
+system:QueryQ10221 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10221" ;
+   system:queryString """SELECT ?sensorOutput0 ?value 
+WHERE {
+  ?sensorOutput0 a scm:SensorOutput . 
+  ?sensorOutput0 rdfs:label ?label0 . 
+  ?sensorOutput0 scm:sensorOutputValue ?value . 
+  BIND(STRBEFORE(?label0, \" \") AS ?sensor)
+  FILTER (?sensor = \"TS001\")
+}
+ORDER BY DESC(?value)
+LIMIT 1""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Give the highest temperature recorded by sensor TS001." , "What is the highest temperature recorded by sensor TS001?" .
+system:QueryQ10224 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10224" ;
+   system:queryString """SELECT DISTINCT ?product0 ?skid0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:packed_onto_skid ?skid0 . 
+  ?skid0 a scm:Skid . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the skids that contain finished product." , "Which finished product is packed on which skid?" .
+system:QueryQ10226 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10226" ;
+   system:queryString """SELECT DISTINCT ?productType0 ?product0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:is_type_of_product ?productType0 . 
+  ?productType0 a scm:Product_Type . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find which product type is defined for each finished product." , "Which product type is each finished product?" .
+system:QueryQ10230 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10230" ;
+   system:queryString """SELECT ?truck0 (COUNT(?anomaly0) AS ?anomalyCount) 
+WHERE {
+  ?truck0 a scm:Truck . 
+  ?truck0 scm:hasAnomaly ?anomaly0 . 
+}
+GROUP BY ?truck0""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Count the Truck wise anomalies" , "How many anomalies are there per truck" , "Find count of anomalies per truck" .
+system:QueryQ10233 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10233" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 ?recipe0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List the ingredients used in a recipe." , "What ingredients were used in a recipe?" .
+system:QueryQ10235 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10235" ;
+   system:queryString """SELECT DISTINCT ?supplier ?supplies0 
+WHERE {
+  ?supplier scm:supplies ?supplies0 . 
+  ?supplies0 stardog:label \"indianapolis~\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "all suppliers who supplied indianapolis motor speedway." , "indianapolis motor speedway suppliers." , "who supplies indianapolis?" .
+system:QueryQ10238 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10238" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 ?product0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 scm:outputs_product ?productBrand0 . 
+  ?productBrand0 a scm:Product_Brand . 
+  ?product0 a scm:Product . 
+  ?product0 scm:has_brand ?productBrand0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What are the ingredients in the finished product?" , "List the ingredients in the finished product." .
+system:QueryQ10241 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10241" ;
+   system:queryString """SELECT DISTINCT ?truck0 ?distribution0 
+WHERE {
+  ?truck0 a scm:Truck . 
+  ?truck0 scm:delivery_means ?distribution0 . 
+  ?distribution0 a scm:Distribution . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which trucks are part of which distributions routes?" , "Find which distribution routes are serviced by which trucks." .
+system:QueryQ10240 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10240" ;
+   system:queryString """SELECT DISTINCT ?customer0 ?supplier0
+WHERE {
+  ?supplier0 a scm:Supplier .
+  ?supplier0 stardog:label \"Michigan Hop Alliance (USA)\" .
+  ?supplier0 scm:supplies ?customer0 .
+  ?customer0 a scm:Customer .
+  ?customer0 scm:complaints ?complaints0 .
+  FILTER (\"2\"^^xsd:integer < ?complaints0)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   a system:VoiceboxExampleQuery ;
+   system:voiceboxQuestion "Find me all the customers who are supplied by Michigan Hop Alliance who have submitted more than 2 complaints." .
+system:QueryQ10243 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10243" ;
+   system:queryString """SELECT DISTINCT ?ingredient ?recipe0 
+WHERE {
+  ?ingredient scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 stardog:label \"Munich Dunkel Recipe\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What are the ingredients for Munich Dunkel Recipe?" , "List Munich Dunkel Recipe ingredients." .
+system:QueryQ10245 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10245" ;
+   system:queryString """SELECT DISTINCT ?equipment0 ?product0 
+WHERE {
+  ?equipment0 a scm:Equipment . 
+  ?equipment0 scm:output ?productionOutput0 . 
+  ?productionOutput0 a scm:Production_Output . 
+  ?productionOutput0 scm:has_output ?product0 . 
+  ?product0 a scm:Product . 
+  ?product0 scm:create_date ?dat_0 . 
+  FILTER (\"2023-08-01\"^^xsd:date > ?dat_0)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What equipment was used on products delivered before Aug 1?" .
+system:QueryQ10246 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10246" ;
+   system:queryString """SELECT DISTINCT ?productionLine0 ?dataSource0 
+WHERE {
+  ?productionLine0 a scm:ProductionLine . 
+  ?productionLine0 scm:sourced_from ?dataSource0 . 
+  ?dataSource0 a scm:Data_Source . 
+  ?dataSource0 stardog:label \"SAP\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List all production lines sourced from SAP." , "What production lines are sourced from SAP?" .
+system:QueryQ10248 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10248" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 ?productionOutput0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 scm:recipe_used_in ?productionOutput0 . 
+  ?productionOutput0 a scm:Production_Output . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the ingredients used in the recipes that are in turn used in production outputs" , "What are all the ingredients used for production outputs?" .
+system:QueryQ10250 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10250" ;
+   system:queryString """SELECT DISTINCT ?skid0 ?warehouse ?plant0 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:stored_in ?warehouse . 
+  ?warehouse scm:part_of ?plant0 . 
+  ?plant0 a scm:Plant . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "what warehouse and plant were skids stored in?" , "provide details of which warehouse and associated plant skids were stored in." , "where were skids stored?" .
+system:QueryQ10254 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10254" ;
+   system:queryString """SELECT ?feedback 
+WHERE {
+  ?feedback scm:create_date ?dt . 
+  ?feedback scm:feedback_for ?product . 
+  ?product scm:has_brand ?brand0 . 
+  ?brand0 stardog:label \"Munich Dunkel\" . 
+}
+ORDER BY DESC(?dt)
+LIMIT 1""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How was the latest feedback description for our Munich Dunkel brand?" , "What's the latest feedback description received for the Munich Dunkel brand?" .
+system:QueryQ10256 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10256" ;
+   system:queryString """SELECT DISTINCT ?truck0 ?sensor0 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 stardog:label \"Temperature\" . 
+  ?sensor0 scm:monitors ?truck0 . 
+  ?truck0 a scm:Truck . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What trucks are monitored by temperature sensors?" , "Do temperature sensors monitor any trucks?" .
+system:QueryQ10258 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10258" ;
+   system:queryString """SELECT DISTINCT ?product ?truck 
+WHERE {
+  ?product scm:packed_onto_skid ?skid . 
+  ?skid scm:packed_onto_truck ?truck . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What products are on what trucks?" , "Tell me, what products are on what trucks right now?" .
+system:QueryQ10260 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10260" ;
+   system:queryString """SELECT DISTINCT ?finishedProduct ?feedback 
+WHERE {
+  ?feedback scm:feedback_for ?finishedProduct . 
+  ?finishedProduct scm:deliveredBy ?truck . 
+  ?truck scm:hasAnomaly ?anomaly0 . 
+  ?anomaly0 a scm:Anomaly . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Was there any feedback on beers whose trucks experienced anomalies during distribution?" , "Show me feedback for beers which were distributed on trucks whose sensors detected an anomaly" .
+system:QueryQ10263 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10263" ;
+   system:queryString """SELECT DISTINCT ?brand0 
+WHERE {
+  ?product scm:has_brand ?brand0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which brands have actual product data in this database?" .
+system:QueryQ10262 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10262" ;
+   system:queryString """SELECT ?product ?skid ?pallet0 
+WHERE {
+  ?product scm:packed_onto_skid ?skid . 
+  ?skid scm:has_pallet ?pallet0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What products wind up on what skids, and what skids on what pallets?" .
+system:QueryQ10264 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10264" ;
+   system:queryString """SELECT DISTINCT ?type0 
+WHERE {
+  ?whirlpool0 a scm:Whirlpool . 
+  ?whirlpool0 (scm:feeds)+ ?y . 
+  ?y a ?type0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What is the chain of equipments in the production line starting with a whirlpool?" , "Starting with a Whirlpool, into which following equipment types does it feed into?" .
+system:QueryQ10267 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10267" ;
+   system:queryString """SELECT DISTINCT ?feedback ?create_date ?product 
+WHERE {
+  ?feedback scm:create_date ?create_date . 
+  ?feedback scm:feedback_for ?product . 
+  ?product stardog:label \"Munich Dunkel Keg 50 Liter (MD001)\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "give me feedback for product Munich Dunkel Keg 50 Liter (MD001) with details" .
+system:QueryQ10266 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10266" ;
+   system:queryString """SELECT DISTINCT ?warehouse0 ?truck0 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:packed_onto_truck ?truck0 . 
+  ?skid0 scm:stored_in ?warehouse0 . 
+  ?truck0 a scm:Truck . 
+  ?truck0 stardog:label \"Truck 002\" . 
+  ?warehouse0 a scm:Warehouse . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which warehouse stores skids that were packed in truck 002?" .
+system:QueryQ10268 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10268" ;
+   system:queryString """SELECT DISTINCT ?productFeedback0 ?consumer0 ?sellingPoint0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?consumer0 scm:providesFeedback ?productFeedback0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 stardog:label \"SW - Beer Stand 4\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find which Consumer Provided Product Feedback at SW Beer Stand 4." , "Which Consumer Provided Product Feedback at SW Beer Stand 4?" .
+system:QueryQ10270 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10270" ;
+   system:queryString """SELECT DISTINCT ?customer0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:complaints ?complaints0 . 
+  FILTER (\"1\"^^xsd:integer < xsd:integer(?complaints0))
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What customers have more than one complaint?" .
+system:QueryQ10272 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10272" ;
+   system:queryString """SELECT DISTINCT ?customer0 ?orders0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 rdfs:label ?label0 . 
+  ?customer0 scm:orders ?orders0 . 
+  FILTER (?orders0 != \"0\"^^xsd:integer)
+}
+GROUP BY ?customer0 ?orders0
+ORDER BY DESC(?orders0)
+LIMIT 100""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What are the names of the customers with the most orders, show top 100" , "List the 100 customers that have the most order by name" , "Which 100 customers have the most orders?" .
+system:QueryQ10278 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10278" ;
+   system:queryString """SELECT DISTINCT ?company0 
+WHERE {
+  ?company0 a scm:Company . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What are the names of all the companies" , "List all the companies by name" .
+system:QueryQ10277 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10277" ;
+   system:queryString """SELECT ?product0 (COUNT(*) AS ?selling_point_count) 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:packed_onto_skid ?skid0 . 
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:delivered_to ?sellingPoint0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+}
+GROUP BY ?product0""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How many selling points sell each finished product ? Show only the finished product label and the count" .
+system:QueryQ10280 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10280" ;
+   system:queryString """SELECT DISTINCT ?product0 ?qualityRelease0 ?status0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:deliveredBy ?truck . 
+  ?product0 scm:has_quality_release ?qualityRelease0 . 
+  ?truck scm:hasAnomaly ?anomaly0 . 
+  ?anomaly0 a scm:Anomaly . 
+  ?qualityRelease0 a scm:Quality_Release . 
+  ?qualityRelease0 scm:has_status ?status0 . 
+}
+ORDER BY (?label0) (?label1)""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What was the status of the quality releases for all products where an anomaly was detected during distribution?" , "Show me products alongside their quality release information for all products where an anomaly was detected during distribution." .
+system:QueryQ10282 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10282" ;
+   system:queryString """SELECT (COUNT(DISTINCT ?skid0) AS ?skid_count) ?skid_count 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:packed_onto_truck ?truck0 . 
+  ?truck0 a scm:Truck . 
+  ?truck0 stardog:label \"Truck 4\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find how many skids were packed on truck 4." , "How many skids were packed on truck 4?" .
+system:QueryQ10286 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10286" ;
+   system:queryString """SELECT ?release0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:has_quality_release ?release0 . 
+  ?product0 scm:is_type_of_product ?product_type . 
+  ?release0 scm:has_status \"Passed\" . 
+  ?product_type stardog:label \"Keg50Liter\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which quality releases have been passed by Keg 50 Liter products?" , "List the quality releases that have status Passed for all products which are of type \"Keg50Liter\"?" .
+system:QueryQ10288 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10288" ;
+   system:queryString """SELECT (COUNT(DISTINCT ?truck0) AS ?count) 
+WHERE {
+  ?truck0 a scm:Truck . 
+  ?truck0 scm:delivery_means ?_anon_2 . 
+  ?_anon_2 scm:delivery_target ?customer0 . 
+  ?customer0 a scm:Customer . 
+  ?customer0 stardog:label \"WRIGLEY FIELD CHICAGO INC\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How many distinct trucks have delivery target \"WRIGLEY FIELD CHICAGO INC\" customer" , "How many distinct trucks have a delivery target \"WRIGLEY FIELD CHICAGO INC.\"" , "How many unique trucks deliver to the customer name \"WRIGLEY FIELD CHICAGO INC.\"" , "How many unique trucks have delivery means  to the distributions which deliver to the customer with the name \"WRIGLEY FIELD CHICAGO INC\"" .
+system:QueryQ10292 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10292" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?productFeedback0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:providesFeedback ?productFeedback0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?productFeedback0 scm:create_date ?dat_0 . 
+  FILTER ((\"2020-01-01\"^^xsd:date <= ?dat_0 && \"2020-12-31\"^^xsd:date >= ?dat_0))
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List the consumers that provided feedback in 2020?" , "What consumers provided feedback in 2020?" .
+system:QueryQ10294 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10294" ;
+   system:queryString """SELECT DISTINCT ?product0 ?warehouse0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:stored_in_1 ?warehouse0 . 
+  ?warehouse0 a scm:Warehouse . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find which finished product is stored in what warehouse location." , "Which finished product is stored in which warehouse?" .
+system:QueryQ10102 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10102" ;
+   system:queryString """SELECT DISTINCT ?productFeedback0 ?product0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:providesFeedback ?productFeedback0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?productFeedback0 scm:description ?description0 . 
+  ?productFeedback0 scm:feedback_for ?product0 . 
+  ?product0 a scm:Product . 
+  ?description0 stardog:property:textMatch \"flat\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Show me consumer feedback for all finished products where the product feedback description contains the word \"flat\"" .
+system:QueryQ10101 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10101" ;
+   system:queryString """SELECT ?feedback ?date ?product 
+WHERE {
+  ?feedback scm:create_date ?date . 
+  ?feedback scm:feedback_for ?product . 
+  ?product stardog:label \"Munich Dunkel Keg 50 Liter\" . 
+}
+ORDER BY (?date)""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "give me feedback for product Munich Dunkel Keg 50 Liter with relevant details" .
+system:QueryQ10103 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10103" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?productFeedback0 ?product0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:providesFeedback ?productFeedback0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?productFeedback0 scm:feedback_for ?product0 . 
+  ?product0 a scm:Product . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which consumers provided feedback for the finished Product?" , "List the consumers that provided feedback for the finished product." , "Which finished products got feedback from customers?" , "Which consumers gave feedback for a finished product?" .
+system:QueryQ10105 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10105" ;
+   system:queryString """SELECT ?customer (COUNT(?sellingPoint0) AS ?sellingPointCount) 
+WHERE {
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 scm:located_at ?customer . 
+}
+GROUP BY ?customer""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How many selling points belong to each customer" , "Find number of selling points per customer" , "Count the selling points of each customer" .
+system:QueryQ10108 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10108" ;
+   system:queryString """SELECT ?supplier (COUNT(?ingredient) AS ?ingredient_count) 
+WHERE {
+  ?supplier scm:supplierOf ?ingredient . 
+}
+GROUP BY ?supplier
+HAVING(\"1\"^^xsd:integer < ?ingredient_count)""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which suppliers supply more than one ingredient?" .
+system:QueryQ10109 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10109" ;
+   system:queryString """SELECT DISTINCT ?product0 ?productType0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:is_type_of_product ?productType0 . 
+  ?productType0 a scm:Product_Type . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What are all the products and their types" , "What products do we make?" , "What are the names of our products?" , "What beer do we manufacture?" , "List all the products and their types" .
+system:QueryQ10111 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10111" ;
+   system:queryString """SELECT DISTINCT ?recipe0 ?ingredient0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 stardog:label \"pillsnermalt5hl\" . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What beers have PillsnerMalt5HL in the recipe?" , "Show all recipes that have PillsnerMalt5HL?" , "Which recipes contain PillsnerMalt5HL?" .
+system:QueryQ10114 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10114" ;
+   system:queryString """SELECT ?truck (COUNT(DISTINCT ?pallet0) AS ?count) 
+WHERE {
+  ?skid scm:has_pallet ?pallet0 . 
+  ?skid scm:packed_onto_truck ?truck . 
+  ?pallet0 a scm:Pallet . 
+}
+GROUP BY ?truck""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Per truck, how many pallets are packed on it?" , "How many pallets are packed onto each truck?" .
+system:QueryQ10116 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10116" ;
+   system:queryString """SELECT DISTINCT ?deliveryTarget 
+WHERE {
+  ?distribution0 a scm:Distribution . 
+  ?distribution0 scm:delivery_target ?deliveryTarget . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Where do all the distributions deliver?" , "List the names of the delivery targets of the distributions" .
+system:QueryQ10118 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10118" ;
+   system:queryString """SELECT ?product0 ?brand0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:has_brand ?brand0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the product and corresponding product brands" , "What are all the products and brands of those products?" .
+system:QueryQ10120 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10120" ;
+   system:queryString """SELECT DISTINCT ?supplier0 
+WHERE {
+  ?supplier0 a scm:Supplier . 
+  ?supplier0 scm:supplies ?customer0 . 
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:stadium_capacity ?dat_0 . 
+  FILTER (\"30000\"^^xsd:integer < ?dat_0)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which suppliers deliver to stadium's with over 30,000 people capacity?" .
+system:QueryQ10121 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10121" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 ?supplier0 
+WHERE {
+  ?supplier0 a scm:Supplier . 
+  ?supplier0 stardog:label \"Weyerman Malt Company\" . 
+  ?supplier0 scm:supplierOf ?ingredient0 . 
+  ?ingredient0 a scm:Ingredient . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What ingredients does Weyerman Malt Company supply?" , "What ingredients are supplied by Weyerman Malt Company?" .
+system:QueryQ10123 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10123" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 ?outputProduct 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 rdfs:label ?label0 . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 scm:outputs_product ?outputProduct . 
+  ?outputProduct stardog:label \"Export Dunkel\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List all the ingredient used to make \"Export Dunkel\"" , "What are all the ingredients that are used to make Export Dunkel beer" .
+system:QueryQ10125 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10125" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?product 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 rdfs:label ?label0 . 
+  ?consumer0 scm:providesFeedback ?productFeedback0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?productFeedback0 scm:feedback_for ?product . 
+}
+ORDER BY (?label0)""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Show me customers who have provided feedback and the beer they provided feedback for. Order by customer name." , "Which customers have provided feedback for which beers? Order by customer name." .
+system:QueryQ10127 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10127" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 ?recipe0 ?supplier0 
+WHERE {
+  ?supplier0 a scm:Supplier . 
+  ?supplier0 scm:supplierOf ?ingredient0 . 
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Can you show me for each of our recipes, who the suppliers are for each ingredient?" , "Who are the suppliers of each ingredient for our recipes?" , "Find the supplier of each ingredient for all of the recipes" .
+system:QueryQ10131 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10131" ;
+   system:queryString """SELECT ?warehouse0 (AVG(?value) AS ?avgVaue) 
+WHERE {
+  ?sensors scm:entity_type \"Temperature Sensor\" . 
+  ?sensors scm:hasOutput ?output0 . 
+  ?sensors scm:monitors ?warehouse0 . 
+  ?warehouse0 a scm:Warehouse . 
+  ?output0 scm:sensorOutputValue ?value . 
+}
+GROUP BY ?warehouse0""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What was the average sensor value of temperature sensors which monitor a warehouse?" , "What was the average temperature in the warehouses?" .
+system:QueryQ10130 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10130" ;
+   system:queryString """SELECT (COUNT(*) AS ?numberOfRecipes) 
+WHERE {
+  ?recipe scm:outputs_product ?brand . 
+  ?brand stardog:label \"Pillsner Dunkel\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How many recipes exist for Pillsner Dunkel" .
+system:QueryQ10133 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10133" ;
+   system:queryString """SELECT (COUNT(?truck) AS ?truckCount) ?customer 
+WHERE {
+  ?skid scm:packed_onto_truck ?truck . 
+  ?skid scm:part_of_distribution ?dist . 
+  ?dist scm:delivery_target ?customer . 
+}
+GROUP BY ?customer""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How many trucks are being used per customer?" .
+system:QueryQ10134 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10134" ;
+   system:queryString """SELECT DISTINCT ?productFeedback0 ?product 
+WHERE {
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?productFeedback0 scm:feedback_for ?product . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which beer has received feedback, and what was the feedback?" , "Show me a list of beer with the feedback it has received." .
+system:QueryQ10136 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10136" ;
+   system:queryString """SELECT DISTINCT ?product0 ?qualityRelease0 ?qualityDocument0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:has_quality_release ?qualityRelease0 . 
+  ?qualityRelease0 a scm:Quality_Release . 
+  ?qualityRelease0 scm:has_quality_document ?qualityDocument0 . 
+  ?qualityDocument0 a scm:Quality_Document . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which finished products have a quality release which has a quality document?" , "What are the quality documents for all finished products release?" , "Which finished products releases have a quality document." , "Find all the quality document scores for all finished products release that are not equal to zero" , "Are there any quality documents associated with a finished product release." , "Which finished products release have quality documents?" .
+system:QueryQ10141 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10141" ;
+   system:queryString """SELECT DISTINCT ?product0 ?date 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:create_date ?date . 
+}
+GROUP BY ?product0 ?date""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What are the create dates for all the finished products?" , "List the create dates for the products" .
+system:QueryQ10144 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10144" ;
+   system:queryString """SELECT DISTINCT ?plant0 ?sourced0 
+WHERE {
+  ?plant0 a scm:Plant . 
+  ?plant0 scm:sourced_from ?sourced0 . 
+}
+GROUP BY ?plant0 ?sourced0""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What are  the names of all the plants and their sources?" , "Find the names of all the plants and where they are sourced from" .
+system:QueryQ10143 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10143" ;
+   system:queryString """SELECT DISTINCT ?customer0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:orders ?orders0 . 
+  FILTER (\"5\"^^xsd:integer < ?orders0)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which customers have made more than 5 orders?" .
+system:QueryQ10146 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10146" ;
+   system:queryString """SELECT DISTINCT ?customer0 ?address0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:hasAddress ?address0 . 
+  ?customer0 scm:stadium_capacity ?dat_0 . 
+  ?address0 a scm:Address . 
+  ?address0 scm:state ?state0 . 
+  ?state0 stardog:property:textMatch \"CO\" . 
+  FILTER (\"50000\"^^xsd:integer < ?dat_0)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which Customers have capacity greater than 50000 people in CO" , "Find customers with capacity greater than 50000 people in CO" .
+system:QueryQ10148 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10148" ;
+   system:queryString """SELECT ?convertedDate (AVG(?sensorOutputValue) AS ?averageOutput) 
+WHERE {
+
+  {
+    ?sensorIri scm:entity_type \"Temperature Sensor\" . 
+    ?sensorIri scm:hasOutput ?anomaly0 . 
+    ?anomaly0 a scm:Anomaly . 
+    ?anomaly0 scm:sensorOutputValue ?sensorOutputValue . 
+    ?anomaly0 scm:sensorReadingTimestamp ?sensorReadingTimestamp . 
+    ?truckIri rdfs:label ?label0 . 
+    ?truckIri scm:hasAnomaly ?anomaly0 . 
+  BIND(SUBSTR(Str(?sensorReadingTimestamp), \"1\"^^xsd:integer, \"10\"^^xsd:integer) AS ?convertedDate)
+  }
+  ?label0 stardog:property:textMatch \"Truck 002\" . 
+  FILTER (?convertedDate = \"2020-07-28\")
+}
+GROUP BY ?convertedDate""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "what was the average of the temperature anomalies detected by truck 2 on July 28, 2020?" , "find the average temperature of truck 2 anomalies from July 28, 2020." , "average of temperature anomalies for truck 2 on July 28, 2020." .
+system:QueryQ10151 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10151" ;
+   system:queryString """SELECT DISTINCT ?consumer0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 stardog:label \"George\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which consumer has a Christian name of George?" , "Do we have a consumer called George?" , "Which consumer has a first name of George?" .
+system:QueryQ10154 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10154" ;
+   system:queryString """SELECT DISTINCT ?recipe (COUNT(DISTINCT ?ingredient) AS ?numIngredients) 
+WHERE {
+  ?ingredient scm:used_in ?recipe . 
+}
+GROUP BY ?recipe
+ORDER BY DESC(?numIngredients)""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How many ingredients are used in each recipe? List them in the order of descending number of ingredients." , "Show me a list of recipes with how many ingredients they use ordered by descending number of ingredients." , "Show me each recipe and how many ingredients are used in that recipe ordered by descending number of ingredients." .
+system:QueryQ10157 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10157" ;
+   system:queryString """SELECT ?ingredientType ?supplier 
+WHERE {
+  ?supplier scm:supplierOf ?type0 . 
+  ?type0 scm:is_type_of_ingredient ?ingredientType . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List all ingredient types and thier suppliers" , "What are all the ingredient types and thier supliers" .
+system:QueryQ10159 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10159" ;
+   system:queryString """SELECT DISTINCT ?product0 ?productFeedback0 
+WHERE {
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?productFeedback0 scm:feedback_for ?product0 . 
+  ?product0 a scm:Product . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which Finished Products Have Product Feedback?" , "Find which finished products have product feedback." .
+system:QueryQ10161 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10161" ;
+   system:queryString """SELECT DISTINCT ?consumer0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Who are all the consumers?" , "List all the consumers by name" .
+system:QueryQ10163 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10163" ;
+   system:queryString """SELECT DISTINCT ?productionOutput0 ?product0 
+WHERE {
+  ?productionOutput0 a scm:Production_Output . 
+  ?productionOutput0 scm:has_output ?product0 . 
+  ?product0 a scm:Product . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which production output relates to what finished product?" , "Find which production output results in what finished product." .
+system:QueryQ10165 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10165" ;
+   system:queryString """SELECT DISTINCT ?sellingPoint0 ?consumer0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?consumer0 scm:consumerName ?dat_0 . 
+  ?dat_0 stardog:property:textMatch \"Isabel Jones\" . 
+  ?sellingPoint0 a scm:Selling_Point . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Tell me where Isabel Jones buys from." , "What selling point does Isabel Jones buy from?" .
+system:QueryQ10167 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10167" ;
+   system:queryString """SELECT DISTINCT ?product0 ?productType 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:is_type_of_product ?productType . 
+}
+LIMIT 10""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What ten products are the products and associated product types made in the factory. " , "Show me 10 products and their associated product types" .
+system:QueryQ10169 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10169" ;
+   system:queryString """SELECT DISTINCT ?product0 ?qualityRelease0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:has_quality_release ?qualityRelease0 . 
+  ?qualityRelease0 a scm:Quality_Release . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which finished products have received quality release?" , "Find which finished products have their quality release?" .
+system:QueryQ10172 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10172" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?productFeedback0 ?product0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:providesFeedback ?productFeedback0 . 
+  ?consumer0 scm:purchases ?product0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?productFeedback0 scm:create_date ?dat_0 . 
+  ?product0 a scm:Product . 
+  FILTER ((\"2020-01-01\"^^xsd:date <= ?dat_0 && \"2020-12-31\"^^xsd:date >= ?dat_0))
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List the consumers that provided feedback in 2020 and purchased a finished product." , "What consumers provided feedback in 2020 and purchased a finished product?" .
+system:QueryQ10174 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10174" ;
+   system:queryString """SELECT DISTINCT ?sellingPoint0 ?productFeedback0 
+WHERE {
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 scm:selling_point_provides_feedback ?productFeedback0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which selling points have provided feedback?" , "Which Selling Point provided Product Feedback?" , "Find which Selling Points have had Product Feedback" .
+system:QueryQ10176 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10176" ;
+   system:queryString """SELECT DISTINCT ?customer0 ?distribution0 
+WHERE {
+  ?distribution0 a scm:Distribution . 
+  ?distribution0 scm:create_date ?dat_0 . 
+  ?distribution0 scm:delivery_target ?customer0 . 
+  ?customer0 a scm:Customer . 
+  FILTER (?dat_0 = \"2020-07-15\"^^xsd:date)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What customers are the delivery targets of the distributions created on 2020-07-15?" , "What customers are the delivery targets of the distributions created on 07/15/2020?" .
+system:QueryQ10178 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10178" ;
+   system:queryString """SELECT DISTINCT ?anomaly0 ?sensor0 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 scm:hasOutput ?anomaly0 . 
+  ?anomaly0 a scm:Anomaly . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What anomalies were output by the sensor?" , "List the anomalies output by the sensor." .
+system:QueryQ10180 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10180" ;
+   system:queryString """SELECT DISTINCT ?sellingPoint0 ?consumer0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?consumer0 scm:consumerName ?dat_0 . 
+  ?dat_0 stardog:property:textMatch \"Shirley Logan\" . 
+  ?sellingPoint0 a scm:Selling_Point . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Shirley Logan buys from what selling point?" , "Where does Shirley Logan buy from?" .
+system:QueryQ10182 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10182" ;
+   system:queryString """SELECT DISTINCT ?sellingPoint0 ?kegFiller0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:has_brand ?productBrand0 . 
+  ?product0 scm:packed_onto_skid ?skid0 . 
+  ?productBrand0 a scm:Product_Brand . 
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:delivered_to ?sellingPoint0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 scm:outputs_product ?productBrand0 . 
+  ?recipe0 scm:recipe_used_in ?productionOutput0 . 
+  ?productionOutput0 a scm:Production_Output . 
+  ?kegFiller0 a scm:KegFiller . 
+  ?kegFiller0 stardog:label \"Keg Filler 1\" . 
+  ?kegFiller0 scm:output ?productionOutput0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What are the specific Selling Points that source Product from Keg Filler 1?" .
+system:QueryQ10183 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10183" ;
+   system:queryString """SELECT DISTINCT ?skid0 ?truck0 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:packed_onto_truck ?truck0 . 
+  ?truck0 a scm:Truck . 
+  ?truck0 stardog:label \"Truck 002\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What is truck 002 carrying?" , "What products did truck 002 carry?" , "What is loaded on truck 002?" .
+system:QueryQ10186 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10186" ;
+   system:queryString """SELECT DISTINCT ?recipe0 
+WHERE {
+  ?recipe0 a scm:Recipe . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What beer recipes are available?" , "What are the names of all the recipes?" , "Find the names of all the recipies" , "List the beer recipes available." .
+system:QueryQ10188 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10188" ;
+   system:queryString """SELECT DISTINCT ?truck0 ?skid0 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:packed_onto_truck ?truck0 . 
+  ?truck0 a scm:Truck . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find which trucks have which skids." , "Which skids are packed on which trucks?" .
+system:QueryQ10191 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10191" ;
+   system:queryString """SELECT DISTINCT ?ingredients ?brand 
+WHERE {
+  ?ingredients scm:used_in ?recipe . 
+  ?recipe scm:outputs_product ?brand . 
+  ?brand stardog:label \"Munich Dunkel\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List the ingredients used to make Munich Dunkel" .
+system:QueryQ10190 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10190" ;
+   system:queryString """SELECT ?product0 
+WHERE {
+  ?product0 a scm:Product . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How me all products" .
+system:QueryQ10192 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10192" ;
+   system:queryString """SELECT DISTINCT ?productFeedback0 ?consumer0 ?sellingPoint0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?consumer0 scm:providesFeedback ?productFeedback0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?sellingPoint0 a scm:Selling_Point . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which Consumer Provided Product Feedback at which Selling Point?" , "Find which Selling Points have had Product Feedback and which Consumers provided that feedback." .
+system:QueryQ10194 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10194" ;
+   system:queryString """SELECT DISTINCT ?customer0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:complaints ?complaints0 . 
+  FILTER (\"5\"^^xsd:integer <= ?complaints0)
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List all customers with at least 5 complaints filed." , "How many customers have made at least 5 complaints?" .
+system:QueryQ10196 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10196" ;
+   system:queryString """SELECT DISTINCT ?productFeedback0 ?consumer0 ?sellingPoint0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?consumer0 scm:providesFeedback ?productFeedback0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?label0 stardog:property:textMatch \"Pitstop Beer Tent\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which Consumer Provided Product Feedback at Pitstop Beer Tent?" , "Find which Consumer Provided Product Feedback at Pitstop Beer Tent." .
+system:QueryQ10198 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10198" ;
+   system:queryString """SELECT DISTINCT ?productFeedback0 ?sellingPoint0 
+WHERE {
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 scm:selling_point_name ?dat_0 . 
+  ?sellingPoint0 scm:selling_point_provides_feedback ?productFeedback0 . 
+  ?dat_0 stardog:property:textMatch \"SW - Beer Stand 4\" . 
+  ?productFeedback0 a scm:Product_Feedback . 
+  ?productFeedback0 scm:create_date ?dat_1 . 
+  FILTER ((\"2020-01-01\"^^xsd:date <= ?dat_1 && \"2020-12-31\"^^xsd:date >= ?dat_1))
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How many pieces of feedback did SW Beer Stand 4 receive in 2020?" , "Count the pieces of feedback received by SW - Beer Stand 4 in 2020." .
+system:QueryQ10088 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10088" ;
+   system:queryString """SELECT DISTINCT ?sourced0 
+WHERE {
+  ?data a ?type0 . 
+  ?data scm:sourced_from ?sourced0 . 
+  ?type0 rdfs:subClassOf ?class0 . 
+  ?class0 stardog:label \"equipment\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which data sources provide information for our equipment?" , "List the names of data sources which provide data for anything that is an equipment." .
+system:QueryQ10092 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10092" ;
+   system:queryString """SELECT DISTINCT ?product0 ?truck0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:deliveredBy ?truck0 . 
+  ?truck0 a scm:Truck . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What finished products are delivered by truck?" , "Find the list of trucks that delivered finished product for Good Beer Company." , "What products are delivered by which trucks?" , "Find all products and the trucks that deliver those products" , "Which Trucks Delivered the Finished Product?" .
+system:QueryQ10093 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10093" ;
+   system:queryString """SELECT DISTINCT ?pallet0 ?product0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:packed_onto_skid ?skid0 . 
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:has_pallet ?pallet0 . 
+  ?pallet0 a scm:Pallet . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What finished products have been packed onto a pallet." , "List the finished products on a pallet." .
+system:QueryQ10095 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10095" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?sellingPoint0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 scm:selling_point_name ?dat_0 . 
+  ?dat_0 stardog:property:textMatch \"Redline Beer Garden\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What consumers buy from Redline Beer Garden?" , "Find all the consumers that buy from the selling point named Redline Beer Garden." .
+system:QueryQ10097 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10097" ;
+   system:queryString """SELECT DISTINCT ?customer0 ?complaints0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:complaints ?complaints0 . 
+  FILTER (\"1\"^^xsd:integer < ?complaints0)
+}
+ORDER BY DESC(?complaints0)""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List all customers with more than one complaint, show highest number first." , "What customers have the hightest number of complaints, ordered by most ?" .
+system:QueryQ10099 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10099" ;
+   system:queryString """SELECT DISTINCT ?truck0 ?anomaly0 
+WHERE {
+  ?truck0 a scm:Truck . 
+  ?truck0 scm:hasAnomaly ?anomaly0 . 
+  ?anomaly0 a scm:Anomaly . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which trucks have had anomalies?" , "What truck anomalies are being reported?" , "Find which trucks experienced anomalies." .
+system:QueryQ10000 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10000" ;
+   system:queryString """SELECT DISTINCT ?productBrand0 
+WHERE {
+  ?productBrand0 a scm:Product_Brand . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "FInd all the product brands" , "List all Product Brands" .
+system:QueryQ10002 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10002" ;
+   system:queryString """SELECT DISTINCT ?ingredientType0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:is_type_of_ingredient ?ingredientType0 . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?ingredientType0 a scm:Ingredient_Type . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Do we know what type of ingredients we use in our recipes?" , "What type of ingredients do our recipes use?" , "What are the categories of ingredients used in our recipes?" .
+system:QueryQ10005 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10005" ;
+   system:queryString """SELECT DISTINCT ?product ?truck 
+WHERE {
+  ?product scm:deliveredBy ?truck . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Show truck deliveries for all products" .
+system:QueryQ10007 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10007" ;
+   system:queryString """SELECT DISTINCT ?dataSource0 
+WHERE {
+  ?dataSource0 a scm:Data_Source . 
+  ?dataSource0 rdfs:label ?label0 . 
+}
+ORDER BY (?label0)""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List all the names of the data sources in ascending order" , "What are the names of all the data sources in alphabetical order?" .
+system:QueryQ10009 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10009" ;
+   system:queryString """SELECT ?product0 ?brand0 ?label0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:has_brand ?brand0 . 
+  ?brand0 rdfs:label ?label0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Show me all products with their brands. Include the brand name." .
+system:QueryQ10010 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10010" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?sellingPoint0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 stardog:label \"Beer Stand 4\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Who are the customers of Beer Stand 4?" , "Who buys from Beer Stand 4?" , "Find the consumers of Beer Stand 4?" .
+system:QueryQ10013 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10013" ;
+   system:queryString """SELECT ?product0 
+WHERE {
+  ?product0 a scm:Product . 
+}
+LIMIT 7""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Show me seven products" , "Do we have any products in the database? Show me seven examples." , "What products are in the database. Show me 7 examples." .
+system:QueryQ10016 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10016" ;
+   system:queryString """SELECT DISTINCT ?truck0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:deliveredBy ?truck0 . 
+  ?product0 scm:is_type_of_product ?productType0 . 
+  ?truck0 a scm:Truck . 
+  ?productType0 a scm:Product_Type . 
+  ?productType0 stardog:label \"Keg50Liter\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which trucks deliver Keg50Liter?" , "Which trucks deliver the finished product which is of product type Keg50Liter?" .
+system:QueryQ10018 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10018" ;
+   system:queryString """SELECT ?productBrand0 ?label1 (COUNT(*) AS ?consumer_count) 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:purchases ?product0 . 
+  ?product0 a scm:Product . 
+  ?product0 rdfs:label ?label0 . 
+  ?product0 scm:has_brand ?productBrand0 . 
+  ?productBrand0 a scm:Product_Brand . 
+  ?productBrand0 rdfs:label ?label1 . 
+}
+GROUP BY ?productBrand0 ?label1""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Show the number of consumers that purchase each product brand. Show product brand IRI, label and count." , "How many consumers purchase each product brand ? Show product brand IRI, label and count." .
+system:QueryQ10020 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10020" ;
+   system:queryString """SELECT DISTINCT ?customer0 ?ingredient0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:inProductsBoughtBy ?customer0 . 
+  ?customer0 a scm:Customer . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find which customers bought products with which ingredients." , "Which customers bought products with a particular ingredient?" .
+system:QueryQ10023 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10023" ;
+   system:queryString """SELECT DISTINCT ?dataSource0 ?productionLine0 
+WHERE {
+  ?productionLine0 a scm:ProductionLine . 
+  ?productionLine0 stardog:label \"Production Line 1 (CHS)\" . 
+  ?productionLine0 scm:sourced_from ?dataSource0 . 
+  ?dataSource0 a scm:Data_Source . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What Data Source is Production Line 1 CHS sourced from?" , "What data source was the source of Production Line 1 - CHS?" .
+system:QueryQ10022 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10022" ;
+   system:queryString """SELECT DISTINCT ?supplier0 ?productBrand0 
+WHERE {
+  ?supplier0 a scm:Supplier . 
+  ?supplier0 scm:supplierOf ?ingredient0 . 
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 scm:outputs_product ?productBrand0 . 
+  ?productBrand0 a scm:Product_Brand . 
+  ?productBrand0 stardog:label \"Munich Dunkel\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Show me suppliers of all ingredients used by recipes to output product brand \"munich dunkel\"" .
+system:QueryQ10025 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10025" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What ingredients are used in recipes?" , "Find all the different ingredients that are used in all recipes." , "List the ingredients used in recipes." , "What are all the ingredients used in recipes?" , "List the names of all the ingredients that are used by recipies." .
+system:QueryQ10029 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10029" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 ?recipe0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 stardog:label \"Munich Dunkel\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find the ingredients in Munich Dunkel." , "What is Munich Dunkel made of?" , "What ingredients are in Munich Dunkel?" .
+system:QueryQ10028 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10028" ;
+   system:queryString """SELECT DISTINCT ?document0 (GROUP_CONCAT(?output0) AS ?sensor_outputs) (COUNT(?output0) AS ?sensor_output_count) 
+WHERE {
+  ?Sensor scm:hasOutput ?output0 . 
+  ?Sensor scm:monitors ?monitors0 . 
+  ?monitors0 scm:output ?output1 . 
+  ?equipment (scm:feeds)+ ?monitors0 . 
+  ?output1 scm:has_output ?output2 . 
+  ?output2 scm:has_quality_release ?release0 . 
+  ?release0 scm:has_quality_document ?document0 . 
+}
+GROUP BY ?document0""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "For the every Quality Release Document of the Finished Product what is the total number of sensor output readings and what are the sensor reading themselves." .
+system:QueryQ10032 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10032" ;
+   system:queryString """SELECT (COUNT(DISTINCT ?truck) AS ?count) 
+WHERE {
+  ?beer scm:packed_onto_skid ?skid . 
+  ?skid scm:delivered_to ?delivered0 . 
+  ?skid scm:packed_onto_truck ?truck . 
+  ?delivered0 scm:located_at ?customer . 
+  ?customer stardog:label \"WRIGLEY FIELD CHICAGO INC\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How many different trucks delivered beer to selling points located in WRIGLEY FIELD CHICAGO INC?" , "From how many different trucks did the selling points in WRIGLEY FIELD CHICAGO INC receive beer?" .
+system:QueryQ10034 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10034" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?sellingPoint0 ?product0 ?productBrand0 ?recipe0 ?ingredient0 ?supplier0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?product0 a scm:Product . 
+  ?product0 scm:has_brand ?productBrand0 . 
+  ?product0 scm:packed_onto_skid ?skid0 . 
+  ?productBrand0 a scm:Product_Brand . 
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:delivered_to ?sellingPoint0 . 
+  ?supplier0 a scm:Supplier . 
+  ?supplier0 scm:supplierOf ?ingredient0 . 
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 scm:outputs_product ?productBrand0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find all occurences where a consumer buys from a selling point where product of a product brand was packed onto. Include the reciepe of the product brand, the specific ingredients used in the receipe, and the Supplier of the Ingredients." .
+system:QueryQ10035 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10035" ;
+   system:queryString """SELECT DISTINCT ?customer0 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:complaints ?complaints0 . 
+}
+ORDER BY DESC(?complaints0)
+LIMIT 1""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Customer with the most complaints." , "What customer has the most complaints against them?" , "Who has the most complaints against them?" .
+system:QueryQ10038 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10038" ;
+   system:queryString """SELECT DISTINCT ?ingredient ?production ?product0 ?productType 
+WHERE {
+  ?ingredient scm:ingredient_used_in ?production . 
+  ?production scm:has_output ?product0 . 
+  ?product0 a scm:Product . 
+  ?product0 scm:is_type_of_product ?productType . 
+  ?productType a ?type0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What are the ingredients that go into a production, with the associated products and product types from that production?" .
+system:QueryQ10039 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10039" ;
+   system:queryString """SELECT DISTINCT ?product ?customer 
+WHERE {
+  ?product rdfs:label ?label0 . 
+  ?product scm:packed_onto_skid ?skid . 
+  ?skid scm:part_of_distribution ?dist . 
+  ?skid scm:stored_in ?warehouse . 
+  ?dist scm:delivery_target ?customer . 
+  ?customer scm:customer_name ?customerName . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Tell me what customers we ship our products to" , "What customers buy our products?" , "Show me what customers are receiving are products for point of sale" .
+system:QueryQ10043 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10043" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?productFeedback0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:providesFeedback ?productFeedback0 . 
+  ?productFeedback0 a scm:Product_Feedback . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which consumers provided feedback?" , "What Product feedback did a consumer provide?" , "List the product feedback provided by a consumer." , "List the consumers that provide feedback." .
+system:QueryQ10042 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10042" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?sellingPoint0 ?product0 ?productBrand0 ?recipe0 ?ingredient0 ?ingredientType0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?product0 a scm:Product . 
+  ?product0 scm:has_brand ?productBrand0 . 
+  ?product0 scm:packed_onto_skid ?skid0 . 
+  ?productBrand0 a scm:Product_Brand . 
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:delivered_to ?sellingPoint0 . 
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:is_type_of_ingredient ?ingredientType0 . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 scm:outputs_product ?productBrand0 . 
+  ?ingredientType0 a scm:Ingredient_Type . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "# Find all occurences where a consumer buys from a selling point where product of a product brand was packed onto. Include the reciepe of the product brand, the specific ingredients used in the receipe, and the ingredients type." .
+system:QueryQ10045 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10045" ;
+   system:queryString """SELECT DISTINCT ?monitors0 ?sensor0 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 stardog:label \"Temperature Sensor 11\" . 
+  ?sensor0 scm:monitors ?monitors0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What does Temperature Sensor 11 monitor?" , "What is monitored by Temperature Sensor 11?" .
+system:QueryQ10047 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10047" ;
+   system:queryString """SELECT DISTINCT ?customer0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 stardog:label \"NuggetHops20HL\" . 
+  ?ingredient0 scm:inProductsBoughtBy ?customer0 . 
+  ?customer0 a scm:Customer . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which customers purchased a product with the ingredient NuggetHops20HL?" , "Which customers should I notify if NuggetHops20HL is recalled?" .
+system:QueryQ10049 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10049" ;
+   system:queryString """SELECT (AVG(?orders0) AS ?averageOrderNum) 
+WHERE {
+  ?customer0 a scm:Customer . 
+  ?customer0 scm:orders ?orders0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What is the average number of orders placed by a customer?" , "Find the average number of orders" .
+system:QueryQ10052 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10052" ;
+   system:queryString """SELECT DISTINCT ?truck0 ?customer0 
+WHERE {
+  ?truck0 a scm:Truck . 
+  ?truck0 scm:delivery_means ?distribution0 . 
+  ?distribution0 a scm:Distribution . 
+  ?distribution0 scm:delivery_target ?customer0 . 
+  ?customer0 a scm:Customer . 
+  ?customer0 stardog:label \"FENWAY PARK\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which truck delivered to Fenway Park?" .
+system:QueryQ10051 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10051" ;
+   system:queryString """SELECT DISTINCT ?warehouse0 ?dataSource0 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 scm:monitors ?warehouse0 . 
+  ?sensor0 scm:sourced_from ?dataSource0 . 
+  ?dataSource0 a scm:Data_Source . 
+  ?dataSource0 stardog:label \"Siemens\" . 
+  ?warehouse0 a scm:Warehouse . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which warehouses are monitored by sensors sourced by Siemens?" .
+system:QueryQ10054 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10054" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 ?ingredientType0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:is_type_of_ingredient ?ingredientType0 . 
+  ?ingredientType0 a scm:Ingredient_Type . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List all the ingredients and their type" , "what are the types of each ingredient" .
+system:QueryQ10053 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10053" ;
+   system:queryString """SELECT DISTINCT ?productBrand0 ?product0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:has_brand ?productBrand0 . 
+  ?productBrand0 a scm:Product_Brand . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What products do we sell under what brands?" , "Find which finished product is part of what product brand." , "Which Finished Product is associated with what Product Brand?" .
+system:QueryQ10056 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10056" ;
+   system:queryString """SELECT DISTINCT ?sensor0 ?waterTank0 
+WHERE {
+  ?sensor0 a scm:Sensor . 
+  ?sensor0 scm:monitors ?waterTank0 . 
+  ?waterTank0 a scm:WaterTank . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which sensors monitor WaterTanks?" , "Which sensors monitor Water Tanks?" .
+system:QueryQ10058 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10058" ;
+   system:queryString """SELECT DISTINCT ?ingredient0 ?recipe0 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 stardog:label \"Export Dunkel\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What ingredients are in Export Dunkel?" , "Find the ingredients in Export Dunkel." , "What is in Export Dunkel?" .
+system:QueryQ10061 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10061" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?sellingPoint0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:buysFrom ?sellingPoint0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+  ?sellingPoint0 stardog:label \"SW - Beer Stand 4\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Who are the consumers that buy from SW Beer Stand 4?" , "List all consumers that buy from SW - Beer Stand 4." .
+system:QueryQ10063 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10063" ;
+   system:queryString """SELECT DISTINCT ?qualityRelease0 ?truck0 
+WHERE {
+  ?product0 a scm:Product . 
+  ?product0 scm:deliveredBy ?truck0 . 
+  ?product0 scm:has_quality_release ?qualityRelease0 . 
+  ?qualityRelease0 a scm:Quality_Release . 
+  ?truck0 a scm:Truck . 
+  ?truck0 stardog:label \"Truck 002\" . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What quality checks were completed on truck 002's load?" .
+system:QueryQ10064 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10064" ;
+   system:queryString """SELECT ?customer (COUNT(?skid0) AS ?skidCount) 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:delivered_to ?delivered0 . 
+  ?delivered0 scm:located_at ?customer . 
+}
+GROUP BY ?customer""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What is the count of skids delivered to each customer" , "Find the count of skids delivered to each customer" .
+system:QueryQ10066 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10066" ;
+   system:queryString """SELECT DISTINCT ?label0 (COUNT(DISTINCT ?supplies0) AS ?numCustomers) 
+WHERE {
+  ?organization0 a scm:Organization . 
+  ?organization0 rdfs:label ?label0 . 
+  ?organization0 scm:supplies ?supplies0 . 
+}
+GROUP BY ?label0
+ORDER BY DESC(?numCustomers)""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "How many customers does each organization supply, list them in descending order based on the number of customers" , "Show me how many customers each organization supplies, in descending order based on the number of customers" , "Show me organizations along with the number of customers they supply to in descending order of number of customers" .
+system:QueryQ10069 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10069" ;
+   system:queryString """SELECT DISTINCT ?consumer0 ?product0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 scm:purchases ?product0 . 
+  ?product0 a scm:Product . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which consumers purchased which finished product?" , "List the finished products purchased by a consumer." , "What Finished Products did a consumer purchase?" , "Find which consumers have purchased which finished product." .
+system:QueryQ10071 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10071" ;
+   system:queryString """SELECT DISTINCT ?sellingPoint0 ?skid0 
+WHERE {
+  ?skid0 a scm:Skid . 
+  ?skid0 scm:delivered_to ?sellingPoint0 . 
+  ?sellingPoint0 a scm:Selling_Point . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which skids were delivered to which selling points?" , "Find which skids were delivered to which selling points." .
+system:QueryQ10073 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10073" ;
+   system:queryString """SELECT DISTINCT ?productBrand0 ?recipe0 
+WHERE {
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 scm:outputs_product ?productBrand0 . 
+  ?productBrand0 a scm:Product_Brand . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which recipe produces what product brand?" , "What recipe is used for a product brand?" , "Find what product brand usings what recipe." , "List the recipes used for a product brand." .
+system:QueryQ10075 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10075" ;
+   system:queryString """SELECT DISTINCT ?product0 ?consumer0 
+WHERE {
+  ?consumer0 a scm:Consumer . 
+  ?consumer0 stardog:label \"George Roberts\" . 
+  ?consumer0 scm:purchases ?product0 . 
+  ?product0 a scm:Product . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What did George Roberts buy?" , "What beer did George Roberts purchase?" .
+system:QueryQ10077 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10077" ;
+   system:queryString """SELECT DISTINCT ?sourced0 
+WHERE {
+  ?supplier0 a scm:Supplier . 
+  ?supplier0 scm:sourced_from ?sourced0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "source of supplier data." , "where is supplier data sourced from?" , "find the source system of supplier data." .
+system:QueryQ10080 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10080" ;
+   system:queryString """SELECT DISTINCT ?plant0 ?company0
+WHERE {
+  ?plant0 a scm:Plant .
+  ?plant0 scm:part_of ?company0 .
+  ?company0 a scm:Company .
+  ?company0 stardog:label \"Good Beer Company\" .
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   a system:VoiceboxExampleQuery ;
+   system:voiceboxQuestion "What are the manufacturing plants owned by the Good Beer Company?" .
+system:QueryQ10082 a system:StoredQuery , system:SharedQuery , system:ReasoningQuery ;
+   system:queryName "Q10082" ;
+   system:queryString """SELECT DISTINCT ?anomaly0 ?truck0 
+WHERE {
+  ?truck0 a scm:Truck . 
+  ?truck0 stardog:label \"Truck 002\" . 
+  ?truck0 scm:hasAnomaly ?anomaly0 . 
+  ?anomaly0 a scm:Anomaly . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "What are the anomalies associated with Truck 002?" , "What anomalies does Truck 002 have?" , "Did Truck 002 have any anomalies?" .
+system:QueryQ10084 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10084" ;
+   system:queryString """SELECT DISTINCT ?distributor 
+WHERE {
+  ?truck0 a scm:Truck . 
+  ?truck0 scm:part_of ?distributor . 
+  ?distributor rdfs:label ?label0 . 
+}
+ORDER BY (?label0)""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which distributors use trucks for their distributions?.Show them in alphabetical order." , "Show me a list of distributors which use trucks, sorted in alphabetical order by distributor name." .
+system:QueryQ10086 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10086" ;
+   system:queryString """SELECT ?ingredientType ?productBrand 
+WHERE {
+  ?ingredient0 a scm:Ingredient . 
+  ?ingredient0 scm:is_type_of_ingredient ?ingredientType . 
+  ?ingredient0 scm:used_in ?recipe0 . 
+  ?recipe0 a scm:Recipe . 
+  ?recipe0 scm:outputs_product ?productBrand . 
+  ?productBrand stardog:label \"Pillsner Dunkel\" . 
+  ?ingredientType rdfs:label ?label0 . 
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "List all the ingredient types used to make \"Pillsner Dunkel\"" , "What all types of ingredients are used to make Pillsner Dunkel beer" .
+system:QueryQ10087 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10087" ;
+   system:queryString """SELECT DISTINCT ?customer ?address {
+      ?plant a scm:Plant ; stardog:label \"Chicago Plant\" ; scm:hasAddress ?plant_address .
+      ?address geof:nearby (?plant_address 100 unit:MileUSStatute) .
+      ?customer a scm:Customer ; scm:hasAddress ?address .
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which customers are in 100 miles radius of Chicago Plant? Return their addresses too." , "Find customers and their addresses that are at most 100 miles away from the Chicago Plant." , "List customers who are 100 miles away the Chicago Plant." ;
+   <tag:stardog:explorer:storedQuery:queryTag> "Voicebox Query Prompt" .
+system:QueryQ10088 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10088" ;
+   system:queryString """SELECT DISTINCT ?customer ?address {
+      ?plant a scm:Plant ; stardog:label \"Charleston Plant\" ; scm:hasAddress ?plant_address .
+      ?address geof:nearby (?plant_address 200 unit:Kilometer) .
+      ?customer a scm:Customer ; scm:hasAddress ?address .
+}""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Which customers are in 200km radius of Charleston Plant?" , "Find customers and their addresses that are at most 100 kilometers away from the Charleston Plant." , "List customers who are 100 kilometers away the Charleston Plant." ;
+   <tag:stardog:explorer:storedQuery:queryTag> "Voicebox Query Prompt" .
+system:QueryQ10089 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10089" ;
+   system:queryString """SELECT DISTINCT ?customer ?distance {
+      ?plant a scm:Plant ; stardog:label "Austin Plant" ; scm:hasAddress ?plant_address .
+      ?customer a scm:Customer ; scm:hasAddress ?customer_address .
+      BIND (geof:distance(?plant_address, ?customer_address, unit:MileUSStatute) AS ?distance)
+}
+ORDER BY ?distance
+LIMIT 3""" ;
+   system:queryCreator "unknown" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find top 3 closest customers to Austin Plant." , "Which three customers are closest to the Austin Plant?" , "Show in miles the distance of customers to the Austin Plant. show the closest three only." ;
+   <tag:stardog:explorer:storedQuery:queryTag> "Voicebox Query Prompt" .
+system:QueryQ10090 a system:StoredQuery , system:SharedQuery ;
+   system:queryName "Q10090" ;
+   system:queryString """SELECT DISTINCT ?customer {
+      ?customer a scm:Customer .
+      ?customer scm:hasAddress ?address .
+      ?address scm:state "IN" .
+}""" ;
+   system:queryCreator "admin" ;
+   system:queryDatabase "kit-beer" ;
+   system:voiceboxQuestion "Find all customers in Indiana." , "Show me the customers located in Indiana" , "Which customers do we have in the state if Indiana." ;
+   <tag:stardog:explorer:storedQuery:queryTag> "Voicebox Query Prompt" .

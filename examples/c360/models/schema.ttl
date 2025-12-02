@@ -1,0 +1,220 @@
+prefix stardog: <tag:stardog:api:>
+prefix catalog: <tag:stardog:api:catalog:>
+prefix m: <urn:stardog:modules:>
+prefix kg: <tag:stardog:api:context:>
+prefix sqs: <tag:stardog:api:sqs:>
+prefix rule: <tag:stardog:api:rule:>
+
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix dcat: <http://www.w3.org/ns/dcat#>
+prefix dct: <http://purl.org/dc/terms/>
+prefix qudt: <http://qudt.org/schema/qudt/>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix void: <http://rdfs.org/ns/void#>
+prefix so: <https://schema.org/>
+prefix prov: <http://www.w3.org/ns/prov#>
+
+prefix : <tag:stardog:api:ecomm:>
+
+:Industry a owl:Class ;
+    rdfs:label "Industry" .
+
+:Vendor a owl:Class ;
+    rdfs:label "Vendor" .
+
+:Customer a owl:Class ;
+    rdfs:label "Customer" .
+
+:Address a owl:Class ;
+    rdfs:label "Address" .
+
+:Order a owl:Class ;
+    rdfs:label "Order" .
+
+:Product a owl:Class ;
+    rdfs:label "Product" .
+
+:Category a owl:Class ;
+    rdfs:label "Category" .
+
+:CreditCard a owl:Class ;
+    rdfs:label "Credit Card" .
+
+:UnitPrice a owl:Class ;
+    rdfs:label "Unit Price" .
+
+:RewardsAccount a owl:Class ;
+	rdfs:comment "A concept representing a Customer's rewards account." ;
+	rdfs:label "Rewards Account" .
+
+:rewardsAccountUsed a owl:ObjectProperty ;
+    owl:inverseOf :hasRewards ;
+	so:domainIncludes :Order ;
+	so:rangeIncludes :RewardsAccount ;
+	rdfs:label "rewards account used" .
+
+:hasRewards a owl:ObjectProperty ;
+    owl:inverseOf :rewardsAccount ;
+	so:domainIncludes :Customer ;
+	so:rangeIncludes :RewardsAccount ;
+	rdfs:label "has rewards account" . 
+
+:accountId a owl:DatatypeProperty ;
+	so:domainIncludes :RewardsAccount ;
+	so:rangeIncludes xsd:string ;
+	rdfs:label "account id" .
+
+:openDate a owl:DatatypeProperty ;
+	so:domainIncludes :RewardsAccount ;
+	so:rangeIncludes xsd:date ;
+	rdfs:label "opened date" .
+
+:cardHolder a owl:ObjectProperty ;
+	so:domainIncludes :CreditCard ;
+	so:rangeIncludes :Customer ;
+	rdfs:label "card holder" .    
+
+:cardType a owl:DatatypeProperty ;
+	so:domainIncludes :CreditCard ;
+	so:rangeIncludes xsd:string ;
+	rdfs:label "card type" .
+
+:cardNumber a owl:DatatypeProperty, m:SensitiveProperty ;
+	so:domainIncludes :CreditCard ;
+	so:rangeIncludes xsd:string ;
+	rdfs:label "card number".
+
+:hasCurrency a owl:DatatypeProperty ; 
+    rdfs:label "has currency" ;    
+    so:domainIncludes :UnitPrice ;
+    so:rangeIncludes xsd:string .
+
+:hasPrice a owl:DatatypeProperty ; 
+    rdfs:label "has price" ;    
+    so:domainIncludes :UnitPrice ;
+    so:rangeIncludes xsd:float .
+
+:msrp a owl:ObjectProperty ; 
+    rdfs:label "MSRP" ;    
+    so:domainIncludes :Product ;
+    so:rangeIncludes :UnitPrice .    
+
+:description a owl:DatatypeProperty ; 
+    rdfs:label "description" ;    
+    so:domainIncludes :Product ;
+    so:rangeIncludes xsd:string .
+
+:inCategory a owl:ObjectProperty ; 
+    rdfs:label "in category" ;    
+    so:domainIncludes :Product ;
+    so:rangeIncludes :Category .
+
+:vendor a owl:ObjectProperty ; 
+    rdfs:label "has vendor" ;
+    so:domainIncludes :Product ;
+    so:rangeIncludes :Vendor .
+
+:purchasePrice a owl:DatatypeProperty ; 
+    rdfs:label "price" ;    
+    so:domainIncludes :Order ;
+    so:rangeIncludes xsd:decimal .
+
+:quantity a owl:DatatypeProperty ; 
+    rdfs:label "quantity" ;    
+    so:domainIncludes :Order ;
+    so:rangeIncludes xsd:integer .
+
+:purchaseDate a owl:DatatypeProperty ; 
+    rdfs:label "date purchased" ;    
+    so:domainIncludes :Order ;
+    so:rangeIncludes xsd:date .
+
+:purchaseTime a owl:DatatypeProperty ; 
+    rdfs:label "time purchased" ;    
+    so:domainIncludes :Order ;
+    so:rangeIncludes xsd:string .
+
+:purchasedBy a owl:ObjectProperty ; 
+    rdfs:label "purchased by" ;
+    so:domainIncludes :Order ;
+    so:rangeIncludes :Customer .
+
+:itemPurchased a owl:ObjectProperty ; 
+    rdfs:label "purchased" ;
+    so:domainIncludes :Order ;
+    so:rangeIncludes :Product .
+	
+:cardUsed a owl:ObjectProperty ; 
+    rdfs:label "purchase card" ;
+    so:domainIncludes :Order ;
+    so:rangeIncludes :CreditCard .
+
+:firstName a owl:DatatypeProperty ; 
+    rdfs:label "first name" ;    
+    so:domainIncludes :Customer ;
+    so:rangeIncludes xsd:string .
+
+:lastName a owl:DatatypeProperty ; 
+    rdfs:label "last name" ;    
+    so:domainIncludes :Customer ;
+    so:rangeIncludes xsd:string .
+
+:ssn a owl:DatatypeProperty, m:SensitiveProperty ; 
+    rdfs:label "ssn" ;
+    so:domainIncludes :Customer ;    
+    so:rangeIncludes xsd:string.
+
+:email a owl:DatatypeProperty ; 
+    rdfs:label "email" ;    
+    so:domainIncludes :Customer ;
+    so:rangeIncludes xsd:string .
+
+:thumbnail a owl:DatatypeProperty ; 
+    rdfs:label "thumbnail" ;    
+    so:domainIncludes :Customer, :Product ;
+    so:rangeIncludes xsd:string .
+
+:phone a owl:DatatypeProperty ; 
+    rdfs:label "phone" ;
+    so:domainIncludes :Customer ;
+    so:rangeIncludes xsd:string .
+
+:address a owl:ObjectProperty ;
+    rdfs:label "has address" ;
+    so:domainIncludes :Customer ;
+    so:rangeIncludes :Address .
+
+:industry a owl:ObjectProperty ;
+    rdfs:label "in industry" ;
+    so:domainIncludes :Vendor ;
+    so:rangeIncludes :Industry .
+
+:streetAddress a owl:DatatypeProperty ;
+    rdfs:label "street address" ;
+    so:domainIncludes :Address ;
+    so:rangeIncludes xsd:string .
+
+:city a owl:DatatypeProperty ;
+    rdfs:label "city" ;
+    so:domainIncludes :Address ;
+    so:rangeIncludes xsd:string .
+
+:state a owl:DatatypeProperty ;
+    rdfs:label "state" ;
+    so:domainIncludes :Address ;
+    so:rangeIncludes xsd:string .
+
+:zipCode a owl:DatatypeProperty ;
+    rdfs:label "zip code" ;
+    so:domainIncludes :Address ;
+    so:rangeIncludes xsd:string .
+
+:name a owl:DatatypeProperty ;
+    rdfs:label "name" ;
+    so:domainIncludes :Category, :Customer, :Product, :Vendor ;
+    so:rangeIncludes xsd:string .

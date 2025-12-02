@@ -2,6 +2,7 @@ import dataclasses
 import datetime
 import os
 import re
+import uuid
 from collections import defaultdict
 from enum import Enum
 from typing import Any
@@ -11,7 +12,6 @@ import rdflib.namespace as NS
 import requests
 import stardog
 import typing_extensions
-import uuid
 from rdflib import RDF, BNode, Graph
 from rdflib import Literal
 from rdflib import Literal as RDFLiteral
@@ -62,7 +62,9 @@ class DatabaseOptions(str, Enum):
     SECURITY_MASKING_FUNCTION = "security.masking.function"
 
     VOICEBOX_ENABLED = "voicebox.enabled"
+    VOICEBOX_PREPROCESSORS = "voicebox.preprocessors"
 
+    DATABASE_NAME = "database.name"
     DATABASE_TIME_MODIFICATION = "database.time.modification"
 
 
@@ -564,7 +566,9 @@ def sniff_features(
     return features
 
 
-def store_queries_in_db(cf: ConnectionFactory, generated_queries: str):
+def store_queries_in_db(
+    cf_or_conn: ConnectionFactory | stardog.Admin, generated_queries: str
+):
     """Stores the stored queries in the database. Overwrites the queries if already present
 
     The `generated_queries` should be a Turtle-serialized representation of the stored queries.
@@ -574,12 +578,19 @@ def store_queries_in_db(cf: ConnectionFactory, generated_queries: str):
     StoredQuerySerializer : Utility for creating the RDF graph of stored queries to be used for serialization
     """
 
-    admin = cf.admin()
-    admin.client.put(
-        "/admin/queries/stored",
-        data=generated_queries,
-        headers={"Accept": "application/json", "Content-Type": "text/turtle"},
-    )
+    if isinstance(cf_or_conn, ConnectionFactory):
+        with cf_or_conn.admin() as admin:
+            admin.client.put(
+                "/admin/queries/stored",
+                data=generated_queries,
+                headers={"Accept": "application/json", "Content-Type": "text/turtle"},
+            )
+    else:
+        cf_or_conn.client.put(
+            "/admin/queries/stored",
+            data=generated_queries,
+            headers={"Accept": "application/json", "Content-Type": "text/turtle"},
+        )
 
 
 class StoredQuerySerializer:

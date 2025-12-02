@@ -16,9 +16,9 @@ data:
    graph: "tag:stardog:api:context:schema"
  - file: "data.ttl"
    graph: "urn:stardog:test:data"
- - file: data/characters.csv
+ - file: data.csv
    graph: "urn:stardog:test:other_data"
-   mappings: mappings/characters.sms
+   mappings: mappings.sms
 
 schemas:
   - name: default
@@ -43,4 +43,5 @@ metadata:
   license:
     name: "Apache 2 License"
     link: "https://www.apache.org/licenses/LICENSE-2.0"
+    
 queries: "test_stored_queries.ttl"

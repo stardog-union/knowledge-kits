@@ -1,0 +1,44 @@
+group: stardog
+name: similarity-search-tutorial
+version: 1.0
+label: "Similarity Search Tutorial"
+description: "Learn to use Similarity Search on a movies themed dataset."
+
+options:
+  database.name: kit-movies
+  search.enabled: true
+  graph.aliases: true
+  voicebox.enabled: true
+
+alias: similarity_search_data
+
+data:
+  - file: data.ttl
+    graph: "urn:stardog:tutorials:similarity-search:1.0:similarity-search-tutorial-data"
+  - file: schema.ttl
+    graph: "urn:stardog:tutorials:similarity-search:1.0:similarity-search-tutorial-model"
+
+schemas:
+  - name: "similarity-search-tutorial"
+    graphs:
+      - "urn:stardog:tutorials:similarity-search:1.0:similarity-search-tutorial-model"
+
+metadata:
+  license:
+    name: "Apache 2 License"
+    link: "https://www.apache.org/licenses/LICENSE-2.0"
+  marketplace:
+    publisher: sd:Stardog
+    contributor:
+        - sd:users:mike
+    status: Published
+    icon: "learning"
+    tags:
+        - SPARQL
+        - MachineLearning
+        - Studio
+    subject:
+        - General
+    type:
+        - Tutorial
+    initialSearch: "`http://www.imdb.com/name/nm0000102`"

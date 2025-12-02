@@ -237,7 +237,7 @@ class Kit:
         """Return the IRI for the alias of this kit.
 
         The alias IRI is a named graph alias that contains all of the kit's data"""
-        return f"tag:stardog:kit:alias:{self.alias}"
+        return f"tag:stardog:kit:alias:{(self.alias if self.alias else self.id).replace('.', '_')}"
 
     @property
     def id(self) -> str:
@@ -289,7 +289,23 @@ class Kit:
         )
         namespaces = kit_data.get("namespaces", default_namespaces())
         meta = kit_data.get("metadata", {})
-        queries = kit_data.get("queries", [])
+
+        # Parse queries - can be either a string (file path) or list of StoredQuery dicts
+        queries_raw = kit_data.get("queries", [])
+        if isinstance(queries_raw, list):
+            queries = [
+                StoredQuery(
+                    name=q["name"],
+                    query=q.get("query", None),
+                    file=q.get("file", None),
+                    options=q.get("options", None),
+                )
+                for q in queries_raw
+            ]
+        else:
+            # String (file path) or other type - pass through as-is
+            queries = queries_raw
+
         alias = kit_data.get("alias", None)
 
         options = kit_data.get("options", {})
@@ -418,11 +434,13 @@ class StardogKitRepository(KitRepository):
 
             results = stardog_utils.SelectQueryResult(conn.select(queries.LIST_KITS))
             for binding in results:
+                label = binding.get("ml", None)
+                description = binding.get("description", None)
                 t.append(
                     (
-                        binding.id,
-                        binding.get("ml", None),
-                        binding.get("description", None),
+                        str(binding.id),
+                        str(label) if label else None,
+                        str(description) if description else None,
                     )
                 )
         return t

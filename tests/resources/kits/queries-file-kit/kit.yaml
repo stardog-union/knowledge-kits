@@ -1,0 +1,4 @@
+id: queries-file-kit
+name: Queries File Kit Test
+version: 1.0.0
+queries: queries.ttl 

@@ -1,0 +1,57 @@
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX so: <https://schema.org/>
+PREFIX scm: <urn:demo:supplychain:model:>
+
+MAPPING
+FROM CSV {
+}
+TO {
+  ?Distribution_iri a scm:Distribution ;
+    rdfs:label ?DistributionName;
+    scm:delivery_date ?DeliveryDate_date_field ;
+    scm:create_date ?PickupDate_date_field .
+
+  ?Pallet_iri a scm:Pallet.
+
+  ?Skid_iri a scm:Skid ;
+    rdfs:label ?SkidName;
+    scm:create_date ?PackagedOn_date_field .
+
+  ?Truck_iri a scm:Truck ;
+    rdfs:label ?label_1 .
+
+  ?Warehouse_iri a scm:Warehouse.
+
+  ?Distribution_iri scm:delivery_target ?Customer_iri.
+
+  ?Product_iri scm:packed_onto_skid ?Skid_iri.
+
+  ?Skid_iri scm:has_pallet ?Pallet_iri.
+
+  ?Skid_iri scm:packed_onto_truck ?Truck_iri.
+
+  ?Skid_iri scm:part_of_distribution ?Distribution_iri.
+
+  ?Skid_iri scm:stored_in ?Warehouse_iri.
+
+  ?Truck_iri scm:delivery_means ?Distribution_iri .
+}
+WHERE {
+  BIND(TEMPLATE("urn:demo:supplychain:data:Distribution:{DistributionID}") AS ?Distribution_iri)
+  BIND(StrDt(sourceField("DeliveryDate"), xsd:date) AS ?DeliveryDate_date_field)
+  BIND(StrDt(sourceField("PickupDate"), xsd:date) AS ?PickupDate_date_field)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Skid:{SkidID}") AS ?Skid_iri)
+  BIND(xsd:string(sourceField("SkidName")) AS ?label)
+  BIND(StrDt(sourceField("PackagedOn"), xsd:date) AS ?PackagedOn_date_field)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Truck:{Truck}") AS ?Truck_iri)
+  BIND(xsd:string(sourceField("Truck_Label")) AS ?label_1)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Pallet:{Pallet}") AS ?Pallet_iri)
+  BIND(xsd:string(sourceField("Pallet")) AS ?label_2)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Warehouse:{Warehouse}") AS ?Warehouse_iri)
+  BIND(xsd:string(sourceField("Warehouse")) AS ?label_3)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Customer:{Customer}") AS ?Customer_iri)
+  BIND(TEMPLATE("urn:demo:supplychain:data:Product:{ProductID}") AS ?Product_iri)
+}

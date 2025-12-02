@@ -1,0 +1,10 @@
+QualityID,Name,ProductID,CreateDate,SourceName,Status,QualityDocument
+MD001PL01K50L07012020MD001Keg50Liter_Q1,CO2 Quality Check - Munich Dunkel Keg 50 Liter (MD001PL01K50L07012020),MD001PL01K50L07012020MD001Keg50Liter,2020-07-07,SAP,Passed,http://www.fgb.inc/Quality/ghwerxdf231.html
+MD001PL01K50L07012020MD001Keg50Liter_Q2,Alcohol Quality Check - Munich Dunkel Keg 50 Liter (MD001PL01K50L07012020),MD001PL01K50L07012020MD001Keg50Liter,2020-07-07,SAP,Passed,http://www.fgb.inc/Quality/hfgsffdoe0912.html
+MD001PL01K50L07012020_Q1,Alcohol Quality Check - Munich Dunkel 20HL,MD001PL01K50L07012020,2020-07-02,SAP,Failed,http://www.fgb.inc/Quality/uietrcv8672.html
+MD001PL01K50L07012020_Q2,Alcohol Quality Check - Munich Dunkel 20HL,MD001PL01K50L07012020,2020-07-04,SAP,Passed,http://www.fgb.inc/Quality/99fgghfo.html
+MD001PL01K50L07012020_Q3,Alcohol Quality Check - Munich Dunkel 20HL,MD001PL01K50L07012020,2020-07-06,SAP,Passed,http://www.fgb.inc/Quality/gq0m33j.html
+,,,,,,
+,,,,,,
+,,,,,,
+,,,,,,

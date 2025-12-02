@@ -1,0 +1,41 @@
+prefix stardog: <tag:stardog:api:>
+prefix catalog: <tag:stardog:api:catalog:>
+prefix m: <urn:stardog:modules:>
+prefix kg: <tag:stardog:api:context:>
+prefix sqs: <tag:stardog:api:sqs:>
+prefix rule: <tag:stardog:api:rule:>
+
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix dcat: <http://www.w3.org/ns/dcat#>
+prefix dct: <http://purl.org/dc/terms/>
+prefix qudt: <http://qudt.org/schema/qudt/>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix void: <http://rdfs.org/ns/void#>
+prefix so: <https://schema.org/>
+prefix prov: <http://www.w3.org/ns/prov#>
+
+prefix : <tag:stardog:api:ecomm:>
+
+MAPPING
+FROM CSV {
+# id,street_number,street_name,street_suffix,state,zip,city
+}
+TO {
+	?iri a :Address ;
+		:city ?city ;
+		:streetAddress ?street_addr ;
+		:zipCode ?zip;
+		:state ?state ;
+		rdfs:label ?label .
+}
+WHERE {
+	BIND(TEMPLATE("urn:stardog:demos:c360:location:{id}") AS ?iri)
+
+	BIND(CONCAT(?street_number, " ", ?street_name, " ", ?street_suffix) AS ?street_addr)
+	BIND(CONCAT(?street_number, " ", ?street_name, ", ", ?state) AS ?label)
+}

@@ -1,0 +1,91 @@
+group: stardog
+name: training-c360
+version: 2.0
+label: "KG Training: C360"
+description: "A simple customer c360 example dataset used for training purposes."
+options:
+  database.name: kit-c360
+  search.enabled: true
+  graph.aliases: true
+  voicebox.enabled: true
+  reasoning.stride: false
+
+alias: c360
+
+namespaces:
+  ecomm: "tag:stardog:api:ecomm:"
+
+data:
+ - file: "models/schema.ttl"
+   graph: "urn:stardog:training-c360:1.0:model"
+ - file: "models/rules.ttl"
+   graph: "urn:stardog:training-c360:1.0:model"
+
+ - file: "models/c360_extended_model.ttl"
+   graph: "urn:stardog:c360_extended_rules:1.0:model" 
+ - file: "models/c360_extended_rules.ttl"
+   graph: "urn:stardog:c360_extended_rules:1.0:model"
+
+ - file: "data/US_Locations.csv"
+   graph: "urn:stardog:training-c360:1.0:data"
+   mappings: "mappings/locations.sms"
+
+ - file: "data/Vendors.csv"
+   graph: "urn:stardog:training-c360:1.0:data"
+   mappings: "mappings/vendors.sms"
+
+ - file: "data/US_Customers.csv"
+   graph: "urn:stardog:training-c360:1.0:data"
+   mappings: "mappings/customers.sms"
+
+ - file: "data/purchases.csv"
+   graph: "urn:stardog:training-c360:1.0:data"
+   mappings: "mappings/purchases.sms"
+
+ - file: "data/product_catalog.csv"
+   graph: "urn:stardog:training-c360:1.0:data"
+   mappings: "mappings/products.sms"
+
+ - file: "data/category.csv"
+   graph: "urn:stardog:training-c360:1.0:data"
+   mappings: "mappings/category.sms"
+
+ - file: "data/CreditCards.csv"
+   graph: "urn:stardog:training-c360:1.0:data"
+   mappings: "mappings/cards.sms"
+
+ - file: "data/rewards.csv"
+   graph: "urn:stardog:training-c360:1.0:data"
+   mappings: "mappings/rewards.sms"
+
+schemas:
+  - name: "c360_schema"
+    graphs: 
+      - "urn:stardog:training-c360:1.0:model"
+  - name: "c360_extended_rules"
+    graphs: 
+      - "urn:stardog:c360_extended_rules:1.0:model"
+
+queries: "kit-queries.ttl"
+
+metadata:
+  license:
+    name: "Apache 2 License"
+    link: "https://www.apache.org/licenses/LICENSE-2.0"
+  marketplace:
+    publisher: sd:Stardog
+    contributor:
+        - sd:users:mike
+        - sd:users:tim.sedlak
+        - sd:users:evren
+    status: Published
+    icon: "learning"
+    tags:
+        - SPARQL
+        - Studio
+    subject:
+        - General
+    type:
+        - Tutorial
+    primaryConcept: "tag:stardog:api:ecomm:Customer"
+    initialSearch: "`urn:stardog:demos:c360:customer:230`"

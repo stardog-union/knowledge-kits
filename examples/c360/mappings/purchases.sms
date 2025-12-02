@@ -1,0 +1,52 @@
+prefix stardog: <tag:stardog:api:>
+prefix catalog: <tag:stardog:api:catalog:>
+prefix m: <urn:stardog:modules:>
+prefix kg: <tag:stardog:api:context:>
+prefix sqs: <tag:stardog:api:sqs:>
+prefix rule: <tag:stardog:api:rule:>
+
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix dcat: <http://www.w3.org/ns/dcat#>
+prefix dct: <http://purl.org/dc/terms/>
+prefix qudt: <http://qudt.org/schema/qudt/>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix void: <http://rdfs.org/ns/void#>
+prefix so: <https://schema.org/>
+prefix prov: <http://www.w3.org/ns/prov#>
+
+prefix : <tag:stardog:api:ecomm:>
+
+MAPPING
+FROM CSV {
+  # id,pid,date,time,quantity,price,card,cid
+}
+TO {
+  ?iri a :Order ;
+    rdfs:label ?label;
+    :purchasePrice ?p ;
+    :quantity ?q ;
+    :purchaseTime ?time ;
+    :purchaseDate ?dt ;
+    :purchasedBy ?cust_iri ;
+    :itemPurchased ?product ;
+    :cardUsed ?cc;
+	:rewardsAccountUsed ?rewardsIri.
+} 
+WHERE {
+  BIND(TEMPLATE("urn:stardog:demos:c360:purchase:us:pos{id}") AS ?iri)
+
+  BIND(TEMPLATE("urn:stardog:demos:c360:customer:{cid}") AS ?cust_iri)
+  BIND(TEMPLATE("urn:stardog:demos:c360:product:{pid}") AS ?product)
+  BIND(TEMPLATE("urn:stardog:demos:c360:cards:{card}") AS ?cc)
+  BIND(TEMPLATE("urn:stardog:demos:c360:rewards:{reward_account}") AS ?rewardsIri)
+  BIND(xsd:date(?date) AS ?dt)
+  BIND(xsd:integer(?quantity) as ?q)
+  BIND(xsd:float(?price) as ?p)
+  BIND(CONCAT(?date," ",?time," - $",?price) as ?label)
+
+}

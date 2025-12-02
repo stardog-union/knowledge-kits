@@ -1,0 +1,50 @@
+prefix stardog: <tag:stardog:api:>
+prefix catalog: <tag:stardog:api:catalog:>
+prefix m: <urn:stardog:modules:>
+prefix kg: <tag:stardog:api:context:>
+prefix sqs: <tag:stardog:api:sqs:>
+prefix rule: <tag:stardog:api:rule:>
+
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix dcat: <http://www.w3.org/ns/dcat#>
+prefix dct: <http://purl.org/dc/terms/>
+prefix qudt: <http://qudt.org/schema/qudt/>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix void: <http://rdfs.org/ns/void#>
+prefix so: <https://schema.org/>
+prefix prov: <http://www.w3.org/ns/prov#>
+
+prefix : <tag:stardog:api:ecomm:>
+
+MAPPING
+FROM CSV {
+# id,name,brand,price,dept,description
+}
+TO {
+	?iri a :Product ;
+		:inCategory ?cat_iri ;
+		:description ?description ;
+		:msrp ?unitprice_iri ;
+		:vendor ?vendor_iri ;
+		:name ?name ;
+		rdfs:label ?name .
+
+    ?unitprice_iri a :UnitPrice ;
+    	rdfs:label ?price_label ;
+        :hasCurrency "USD" ;
+        :hasPrice ?price_float .
+}
+WHERE {
+	BIND(TEMPLATE("urn:stardog:demos:c360:product:{id}") AS ?iri)
+	BIND(TEMPLATE("urn:stardog:demos:c360:category:{dept}") AS ?cat_iri)
+	BIND(TEMPLATE("urn:stardog:demos:c360:vendor:{brand}") AS ?vendor_iri)
+	BIND(TEMPLATE("urn:stardog:demos:c360:unitprice:{id}") AS ?unitprice_iri)
+
+	BIND(xsd:float(?price) AS ?price_float)
+	BIND(CONCAT("$", ?price) AS ?price_label)
+}
