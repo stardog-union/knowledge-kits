@@ -1,0 +1,14 @@
+# How many fighter aircraft are there? (domain-only control)
+# Installed as a stored query by the bfo-cco-fleet kit; run with reasoning on (see ../readme.md).
+# expected without BFO/CCO: 10
+# expected with bfo_cco:      10 (identical: BFO/CCO does not change domain answers)
+# why: Domain class counts with reasoning on are identical with and without BFO/CCO.
+PREFIX : <https://example.org/fleet#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+PREFIX cco: <https://www.commoncoreontologies.org/>
+PREFIX bfo_cco: <urn:stardog:bfo_cco#>
+
+SELECT (COUNT(DISTINCT ?a) AS ?fighterAircraft)
+FROM <urn:fleet:kg>
+WHERE { ?a a :FighterAircraft . }
