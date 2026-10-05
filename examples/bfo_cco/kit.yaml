@@ -1,0 +1,92 @@
+group: ontologies
+name: bfo-cco
+version: 1.0
+label: "BFO 2020 + Common Core Ontologies v2.2"
+description: "Basic Formal Ontology 2020 and the Common Core Ontologies v2.2, loaded from their GitHub releases and set up so that Stardog's SL reasoner and Voicebox use them. Adds Stardog-specific inference supplements (part-of and located-in at any depth, classification into CCO defined classes such as Sensor) and SHACL shapes for BFO/CCO disjointness. Install it on its own or into an existing database, then align your ontology to CCO."
+
+options:
+  database.name: kit-bfo-cco
+  search.enabled: true
+  search.semantic.enabled: true
+  graph.aliases: true
+  voicebox.enabled: true
+  query.timeout: 60s
+  # Default reasoning (and so Voicebox) reads only reasoning.schema.graphs. The kit's named
+  # schema below is used only by queries that pass schema=bfo_cco.
+  reasoning.schema.graphs: "tag:stardog:api:context:schema urn:stardog:bfo_cco:bfo urn:stardog:bfo_cco:cco urn:stardog:bfo_cco:supplements"
+  search.semantic.index.contexts.filter: "tag:stardog:api:context:schema urn:stardog:bfo_cco:bfo urn:stardog:bfo_cco:cco urn:stardog:bfo_cco:supplements"
+
+namespaces:
+  rdf: "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  rdfs: "http://www.w3.org/2000/01/rdf-schema#"
+  owl: "http://www.w3.org/2002/07/owl#"
+  xsd: "http://www.w3.org/2001/XMLSchema#"
+  skos: "http://www.w3.org/2004/02/skos/core#"
+  obo: "http://purl.obolibrary.org/obo/"
+  cco: "https://www.commoncoreontologies.org/"
+  bfo_cco: "urn:stardog:bfo_cco#"
+
+alias: bfo_cco
+
+data:
+  # BFO 2020 core, from the BFO-2020 repository.
+  - file: "https://raw.githubusercontent.com/BFO-ontology/BFO-2020/release-2024-01-29/src/owl/bfo-core.ttl"
+    graph: "urn:stardog:bfo_cco:bfo"
+
+  # CCO v2.2, from the CommonCoreOntologies repository: the 11 modules, which import BFO.
+  - file: "https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/v2.2/src/cco-modules/AgentOntology.ttl"
+    graph: "urn:stardog:bfo_cco:cco"
+  - file: "https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/v2.2/src/cco-modules/ArtifactOntology.ttl"
+    graph: "urn:stardog:bfo_cco:cco"
+  - file: "https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/v2.2/src/cco-modules/CurrencyUnitOntology.ttl"
+    graph: "urn:stardog:bfo_cco:cco"
+  - file: "https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/v2.2/src/cco-modules/EventOntology.ttl"
+    graph: "urn:stardog:bfo_cco:cco"
+  - file: "https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/v2.2/src/cco-modules/ExtendedRelationOntology.ttl"
+    graph: "urn:stardog:bfo_cco:cco"
+  - file: "https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/v2.2/src/cco-modules/FacilityOntology.ttl"
+    graph: "urn:stardog:bfo_cco:cco"
+  - file: "https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/v2.2/src/cco-modules/GeospatialOntology.ttl"
+    graph: "urn:stardog:bfo_cco:cco"
+  - file: "https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/v2.2/src/cco-modules/InformationEntityOntology.ttl"
+    graph: "urn:stardog:bfo_cco:cco"
+  - file: "https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/v2.2/src/cco-modules/QualityOntology.ttl"
+    graph: "urn:stardog:bfo_cco:cco"
+  - file: "https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/v2.2/src/cco-modules/TimeOntology.ttl"
+    graph: "urn:stardog:bfo_cco:cco"
+  - file: "https://raw.githubusercontent.com/CommonCoreOntology/CommonCoreOntologies/v2.2/src/cco-modules/UnitsOfMeasureOntology.ttl"
+    graph: "urn:stardog:bfo_cco:cco"
+
+  # Stardog inference supplements and SHACL shapes, original to this kit.
+  - file: "schema/bfo_cco-stardog-inferences.ttl"
+    graph: "urn:stardog:bfo_cco:supplements"
+  - file: "constraints/bfo_cco-disjointness-shacl.ttl"
+    graph: "urn:stardog:bfo_cco:constraints"
+
+schemas:
+  - name: "bfo_cco"
+    graphs:
+      - "urn:stardog:bfo_cco:bfo"
+      - "urn:stardog:bfo_cco:cco"
+      - "urn:stardog:bfo_cco:supplements"
+
+metadata:
+  license:
+    name: "BFO: CC BY 4.0; CCO: BSD 3-Clause; kit files: Apache 2.0"
+    link: "https://github.com/CommonCoreOntology/CommonCoreOntologies/blob/v2.2/LICENSE"
+  marketplace:
+    publisher: sd:Stardog
+    status: Draft
+    icon: "learning"
+    tags:
+      - BFO
+      - CCO
+      - Ontology
+      - Reasoning
+      - Voicebox
+    subject:
+      - General
+    type:
+      - Ontology
+    primaryConcept: "http://purl.obolibrary.org/obo/BFO_0000001"
+    kitDb: "kit-bfo-cco"
