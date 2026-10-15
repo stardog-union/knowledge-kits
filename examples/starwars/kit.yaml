@@ -7,7 +7,7 @@ options:
   database.name: kit-starwars
   search.enabled: true
   graph.aliases: true
-  # voicebox.enabled: true
+  voicebox.enabled: true
 
 schemas:
   - name: "star-wars-demo"
